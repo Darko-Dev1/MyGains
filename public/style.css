@@ -59,7 +59,7 @@ header button {
     position: absolute;
     margin: -1%;
     width: 0.1%;
-    height: 100%;
+    height: 70%;
     transform: translate(-100%, -32%);
     transition: .3s;
 
