@@ -1,4 +1,4 @@
-fetch("vezbi.json")
+fetch("/vezbi.json")
 .then(response => response.json())
 .then(data => {
 
