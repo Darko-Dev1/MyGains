@@ -3,13 +3,11 @@ const app = express();
 const path = require('path');
 
 // Set EJS as the view engine
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// Tell Express where to find the views (EJS templates)
-
-app.use(express.static('public'))
-
-// Serve static files from the 'public' directory
+// Serve static files (CSS, JS, images)
+app.use(express.static(path.join(__dirname, "public")));
 
 
 // Render the EJS template
@@ -22,4 +20,5 @@ app.listen(3000, ()=> {
   console.log("hello")
 
 })
+
 module.exports = app;
