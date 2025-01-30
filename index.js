@@ -6,10 +6,11 @@ const path = require('path');
 app.set('view engine', 'ejs');
 
 // Tell Express where to find the views (EJS templates)
-app.set('views', path.join(__dirname, '../views'));
+
+app.use(express.static('public'))
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, '../public')));
+
 
 // Render the EJS template
 app.get('/', (req, res) => {
@@ -17,4 +18,8 @@ app.get('/', (req, res) => {
 });
 
 // Export the app for Vercel to handle requests
+app.listen(3000, ()=> {
+  console.log("hello")
+
+})
 module.exports = app;
