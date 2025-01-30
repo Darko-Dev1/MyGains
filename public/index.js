@@ -51,7 +51,9 @@ fetch("/vezbi.json")
 
                     }
                 }
-                take_search_results.appendChild(create_text_field)
+                let create_new_text_field = document.createElement("h3")
+                create_new_text_field.innerText = take_name
+                take_search_results.appendChild(create_new_text_field)
                 console.log(num)
                 let create_div = document.createElement("div")
                 create_div.innerHTML = "similar exercises..."
