@@ -154,7 +154,7 @@ creat_nav_dom.addEventListener("click", (e) => {
 
         take_search_results.style.height = "0%"
         take_search_results.style.padding = "0%"
-
+        take_search_results.innerHTML = ""
         create_search_bar.style.width = "0%"
         create_search_bar.style.height = "0%"
         create_search_bar.style.backgroundColor = "transparent"
