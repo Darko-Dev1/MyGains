@@ -22,6 +22,7 @@ fetch("/vezbi.json")
         takee.appendChild(create_banner)
         let take_search_input = document.getElementById("search_input")
         let take_excercises = document.querySelector("#exercises")
+        let take_body = document.querySelector("body")
         take_search_input.addEventListener("input", (e) => {
             let take_search_results = document.getElementById("search_results")
 
@@ -69,6 +70,7 @@ fetch("/vezbi.json")
                     
 
                 }
+                take_body.style.overflow = "hidden"
                 
 
 
@@ -77,14 +79,17 @@ fetch("/vezbi.json")
 
                 take_search_results.style.height = "100%"
                 take_search_results.style.padding = "5%"
+                take_body.style.overflow = "hidden"
 
             } else {
                 take_search_results.style.height = "0%"
                 take_search_results.style.padding = "0%"
                 take_search_results.innerHTML = ""
+                take_body.style.overflow = "auto";
 
 
             }
+
         
         })
     }
@@ -94,6 +99,7 @@ fetch("/vezbi.json")
 
 let creat_nav_dom = document.getElementById("nav_bar") 
 let take_search = document.getElementById("two")
+let take_body = document.querySelector("body")
 let takes = 0
 
 let create_search_bar = document.createElement("input")
@@ -131,6 +137,7 @@ creat_nav_dom.addEventListener("click", (e) => {
         deleting.remove
         changeX.setAttribute("d", "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z")
         deleting.remove
+        take_body.style.overflow = "auto";
 
 
     }
