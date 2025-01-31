@@ -53,6 +53,9 @@ fetch("/vezbi.json")
 
                     }
                 }
+                let h3h = take_name.toString()
+                let create_h3h = document.createElement("h3")
+                create_h3h.innerText = h3h
                 let create_div_ex = document.createElement("div")
 
                 let create_gif = document.createElement("img")
@@ -68,7 +71,7 @@ fetch("/vezbi.json")
                 
                 create_div_ex.setAttribute("id", "first_result")
                 create_div_ex.appendChild(create_gif)
-                create_div_text.appendChild(create_text_field)
+                create_div_text.appendChild(create_h3h)
 
                 take_search_results.appendChild(create_div_ex)
                 create_div_ex.appendChild(create_div_text)
