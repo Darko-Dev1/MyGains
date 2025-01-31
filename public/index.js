@@ -25,6 +25,7 @@ fetch("/vezbi.json")
         let take_body = document.querySelector("body")
         take_search_input.addEventListener("input", (e) => {
             let take_search_results = document.getElementById("search_results")
+            let create_div = document.createElement("div");
 
             if (take_search_input.value === take_name || take_search_input.value.toLowerCase() === take_name.toLowerCase() || take_search_input.value.toUpperCase() === take_name.toUpperCase()) 
             {
@@ -52,11 +53,28 @@ fetch("/vezbi.json")
 
                     }
                 }
-                let create_new_text_field = document.createElement("h3")
-                create_new_text_field.innerText = take_name
-                take_search_results.appendChild(create_new_text_field)
+                let create_div_ex = document.createElement("div")
+
+                let create_gif = document.createElement("img")
+                let create_h6 = document.createElement("h6")
+                let create_div_text = document.createElement("div") 
+
+                create_div_text.setAttribute("id", "text_description")
+                create_h6.innerText = each["muskul"]
+
+                create_div_text.appendChild(create_h6)
+                create_gif.setAttribute("src", take_gifs)
+                
+                
+                create_div_ex.setAttribute("id", "first_result")
+                create_div_ex.appendChild(create_gif)
+                create_div_text.appendChild(create_text_field)
+
+                take_search_results.appendChild(create_div_ex)
+                create_div_ex.appendChild(create_div_text)
+                create_div_text.appendChild(create_h6)
                 console.log(num)
-                let create_div = document.createElement("div")
+
                 create_div.innerHTML = "similar exercises..."
                 create_div.style.paddingTop = "5%"
                 take_search_results.appendChild(create_div)
@@ -65,7 +83,6 @@ fetch("/vezbi.json")
 
                     let create_text_field = document.createElement("h3")
                     create_text_field.innerText = data["vezbi"][n]["vezbam"]
-                    
                     take_search_results.appendChild(create_text_field)
                     
 
@@ -75,17 +92,22 @@ fetch("/vezbi.json")
 
 
 
-            }else  if (take_search_input.value !== ""){
+            }else  if (take_search_input.value !== "" ){
 
                 take_search_results.style.height = "100%"
                 take_search_results.style.padding = "5%"
                 take_body.style.overflow = "hidden"
+
+
 
             } else {
                 take_search_results.style.height = "0%"
                 take_search_results.style.padding = "0%"
                 take_search_results.innerHTML = ""
                 take_body.style.overflow = "auto";
+
+
+
 
 
             }
@@ -117,7 +139,7 @@ creat_nav_dom.addEventListener("click", (e) => {
 
     if (take_id.getAttribute("id") === "search" || take_id.getAttribute("id") === "one" || take_id.getAttribute("id") === "two" || take_id.getAttribute("id") === "search_input") {
 
-        take_search_input.value = ""
+
         create_search_bar.style.width = "65%"
         create_search_bar.style.height = "70%"
         create_search_bar.style.backgroundColor = "white"

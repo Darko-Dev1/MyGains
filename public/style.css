@@ -152,10 +152,37 @@ li {
 
     background-color: white;
     width: 100%;
-    height: 0%;
+    height: 00%;
     position: fixed;
     padding: 0%;
     transition: 0.5s;
+
+}
+
+#first_result {
+
+    background-color: rgb(221, 221, 221);
+    border: rgb(153, 153, 153) solid 1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 2%;
+
+
+}
+#text_description {
+    padding-left: 3%;
+
+}
+#first_result h6 {
+    font-size: 10px;
+}
+
+#first_result img {
+
+
+    height: 100px;
 
 }
 
