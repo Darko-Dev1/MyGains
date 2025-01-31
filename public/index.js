@@ -142,7 +142,7 @@ creat_nav_dom.addEventListener("click", (e) => {
 
     if (take_id.getAttribute("id") === "search" || take_id.getAttribute("id") === "one" || take_id.getAttribute("id") === "two" || take_id.getAttribute("id") === "search_input") {
 
-        take_search_results.innerHTML = ""
+
 
         create_search_bar.style.width = "65%"
         create_search_bar.style.height = "70%"
