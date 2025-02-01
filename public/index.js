@@ -174,6 +174,7 @@ creat_nav_dom.addEventListener("click", (e) => {
 
 let take_filter_section = document.getElementById("dropDownFilter")
 let filter_active = 0
+let filter_woerk = document.querySelectorAll(".filtermuscle")
 function filterWorkOut() {
 
     if (filter_active === 0) {
@@ -183,11 +184,35 @@ function filterWorkOut() {
     } else {
 
         take_filter_section.style.height = "0px"
-        filter_active--
+        filter_active = 0
+      
 
     }
+    console.log(filter_active)
 
 
 }
+
+take_filter_section.addEventListener("click", (e) => {
+
+    let take_filter = e.target
+    console.log(take_filter_section)
+
+    if (take_filter.getAttribute("value") === "inactive") {
+        console.log(take_filter)
+        take_filter.setAttribute("value", "active")
+        take_filter.innerHTML += `<svg id="close" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 422c-44.3 0-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90s86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422m0-362C141.1 60 48 153.1 48 268s93.1 208 208 208 208-93.1 208-208S370.9 60 256 60z"></path><path d="M360 181.1L330.9 152 256 226.9 181.1 152 152 181.1l74.9 74.9-74.9 74.9 29.1 29.1 74.9-74.9 74.9 74.9 29.1-29.1-74.9-74.9z"></path></svg>`
+        take_filter.style.backgroundColor = "rgb(165, 165, 165)"
+    } else if(take_filter.getAttribute("value") === "active") {
+        let ime_na_muskul = take_filter.getAttribute("class")
+        take_filter.style.backgroundColor = "white"
+        take_filter.innerHTML = ime_na_muskul
+        filter_active--
+
+        take_filter.setAttribute("value", "inactive")
+        console.log(take_filter)
+    }
+
+})
 
 
