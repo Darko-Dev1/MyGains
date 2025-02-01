@@ -216,12 +216,24 @@ take_filter_section.addEventListener("click", (e) => {
         for (ess of takee.children) {
 
             if (muskulii.includes(ess.getAttribute("value"))) {
+                console.log(muskulii.includes(ess.getAttribute("value")))
                 ess.style.display = "block"
 
             } else {
-                ess.style.display = "none"
+                for (a of ess.getAttribute("value").split(",")) {
+                    if (muskulii.includes(a)) {
+                        ess.style.display = "block"
+                        break
+                    } else {
+                        ess.style.display = "none"
+                    }
+                }
+
             }
+            console.log(ess.getAttribute("value").split(",") + " muskli lista e tuka: " + muskulii)
+
         }
+
     } else if(take_filter.getAttribute("value") === "active") {
         
         const index = muskulii.indexOf(ime_na_muskul);
