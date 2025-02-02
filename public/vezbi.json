@@ -262,6 +262,106 @@
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/10/Navy-Seal-Burpee.gif"
 
         }
+        , 
+        {
+            "vezbam": "Sprint",
+            "muskul": ["Cardio"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/06/sprint.gif"
+
+        }
+        , 
+        {
+            "vezbam": "Diagonal Neck Stretch",
+            "muskul": ["Neck"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/07/Diagonal-Neck-Stretch-360x360.png"
+
+        }
+        , 
+        {
+            "vezbam": "Standing Calf Raise",
+            "muskul": ["Calf"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/06/Standing-Calf-Raise.gif"
+
+        }
+        , 
+        {
+            "vezbam": "Front and Back Neck Stretch",
+            "muskul": ["Neck"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/06/Front-and-Back-Neck-Stretch.gif"
+
+        }
+        , 
+        {
+            "vezbam": "Full Lotus Pose",
+            "muskul": ["Yoga"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/05/Full-Lotus-Pose-360x360.png"
+
+        }
+        , 
+        {
+            "vezbam": "Heel Touch",
+            "muskul": ["Abs"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Heel-Touch.gif"
+
+        }
+        , 
+        {
+            "vezbam": "Pistol Squat",
+            "muskul": ["leg"],
+            "repeticii": 15,
+            "nivo_tesko": "tesko",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Pistol-Squat.gif"
+
+        }
+        , 
+        {
+            "vezbam": "Water Bottle Hammer Curl",
+            "muskul": ["Biceps", "Forearm"],
+            "repeticii": 15,
+            "nivo_tesko": "tesko",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/06/Water-Bottle-Hammer-Curl.gif"
+
+        }
+        , 
+        {
+            "vezbam": "Standing One Arm Chest Stretch",
+            "muskul": ["Biceps", "Chest", "Forearm"],
+            "repeticii": 15,
+            "nivo_tesko": "lesno",
+            "so_teg": "ne",
+            "slika": "",
+            "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/08/Standing-one-arm-chest-stretch.gif"
+
+        }
+     
      
      
     ]
