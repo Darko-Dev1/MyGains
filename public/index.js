@@ -1,7 +1,9 @@
 let muskulii = []
+
 fetch("/vezbi.json")
 .then(response => response.json())
 .then(data => {
+
 
     let takee = document.getElementById("exercises")
     for (each of data["vezbi"]) {
@@ -65,7 +67,7 @@ fetch("/vezbi.json")
                 let create_div_text = document.createElement("div") 
 
                 create_div_text.setAttribute("id", "text_description")
-                create_h6.innerText = each["muskul"]
+                create_h6.innerText = take_muskul
 
                 create_div_text.appendChild(create_h6)
                 create_gif.setAttribute("src", take_gifs)
@@ -94,9 +96,6 @@ fetch("/vezbi.json")
                 }
                 take_body.style.overflow = "hidden"
                 
-
-
-
             }else  if (take_search_input.value !== "" ){
 
                 take_search_results.style.height = "100%"
@@ -111,13 +110,7 @@ fetch("/vezbi.json")
                 take_search_results.innerHTML = ""
                 take_body.style.overflow = "auto";
 
-
-
-
-
             }
-
-        
         })
     }
 
@@ -195,8 +188,6 @@ function filterWorkOut() {
 
 }
 
-
-
 let takee = document.getElementById("exercises")
 take_filter_section.addEventListener("click", (e) => {
 
@@ -216,9 +207,7 @@ take_filter_section.addEventListener("click", (e) => {
         for (ess of takee.children) {
 
             if (muskulii.includes(ess.getAttribute("value"))) {
-                console.log(muskulii.includes(ess.getAttribute("value")))
                 ess.style.display = "block"
-
             } else {
                 for (a of ess.getAttribute("value").split(",")) {
                     if (muskulii.includes(a)) {
@@ -227,10 +216,9 @@ take_filter_section.addEventListener("click", (e) => {
                     } else {
                         ess.style.display = "none"
                     }
+                    console.log(a)
                 }
-
             }
-            console.log(ess.getAttribute("value").split(",") + " muskli lista e tuka: " + muskulii)
 
         }
 
@@ -256,16 +244,25 @@ take_filter_section.addEventListener("click", (e) => {
 
                 ess.style.display = "block"
             }
+
         } else {
             for (ess of takee.children) {
 
-
                 if (muskulii.includes(ess.getAttribute("value"))) {
                     ess.style.display = "block"
-    
                 } else {
-                    ess.style.display = "none"
+                    for (a of ess.getAttribute("value").split(",")) {
+                        if (muskulii.includes(a)) {
+                            ess.style.display = "block"
+                            break
+                        } else {
+                            ess.style.display = "none"
+                        }
+                        console.log(a)
+
+                    }
                 }
+
             }
         }
         console.log(muskulii)

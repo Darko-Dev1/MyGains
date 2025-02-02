@@ -30,10 +30,12 @@ header button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    z-index: 10000;
 }
 #exercises img {
 
     width: 90%;
+
 
 }
 #exercises div {
@@ -41,6 +43,9 @@ header button {
     width: 40%;
     margin: 1%;
     border-bottom: black solid 1px;
+    animation-name: load_lookalike;
+    animation-duration: 5s; 
+
 }
 #exercises h3 {
 
@@ -163,6 +168,7 @@ li {
     border-radius: 5px;
     transition: 0.5s;
 
+
 }
 
 #search_results {
@@ -173,6 +179,7 @@ li {
     position: fixed;
     padding: 0%;
     transition: 0.5s;
+
 
 }
 
@@ -201,5 +208,17 @@ li {
 
     height: 100px;
 
+}
+
+#loading_scene{
+
+    
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    transform: translate(0%, -250%);
+    z-index: 100000;
+    transition: 2s;
 }
 
