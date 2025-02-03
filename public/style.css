@@ -10,6 +10,7 @@ header {
     -webkit-box-shadow: 0px 8px 10px 1px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 8px 10px 1px rgba(0,0,0,0.75);
 box-shadow: 0px -18px 70px -20px rgba(0,0,0,0.75);
+z-index: 1000;
 
     
 }
@@ -43,8 +44,9 @@ header button {
     width: 40%;
     margin: 1%;
     border-bottom: black solid 1px;
-    animation-name: load_lookalike;
-    animation-duration: 5s; 
+    animation-name: fade_in;
+    animation-duration: 0.5s; 
+
 
 }
 #exercises h3 {
@@ -210,15 +212,12 @@ li {
 
 }
 
-#loading_scene{
-
-    
-    position: absolute;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    transform: translate(0%, -250%);
-    z-index: 100000;
-    transition: 2s;
+@keyframes fade_in {
+    from {
+        scale: 0.5;
+    }
+    to {
+        scale: 1;
+    }
 }
 

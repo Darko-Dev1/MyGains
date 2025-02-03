@@ -272,6 +272,5 @@ take_filter_section.addEventListener("click", (e) => {
     }
 })
 
-    
 
 
