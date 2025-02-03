@@ -173,7 +173,7 @@ let filter_woerk = document.querySelectorAll(".filtermuscle")
 function filterWorkOut() {
 
     if (filter_active === 0) {
-        take_filter_section.style.height = "100px"
+        take_filter_section.style.height = "200px"
         filter_active++
 
     } else {
