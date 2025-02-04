@@ -33,8 +33,6 @@ fetch("/vezbi.json")
 
             if (take_search_input.value === take_name || take_search_input.value.toLowerCase() === take_name.toLowerCase() || take_search_input.value.toUpperCase() === take_name.toUpperCase()) 
             {
-
-
                 console.log(take_name)
                 console.log(take_muskul)
                 let num = []
@@ -47,60 +45,42 @@ fetch("/vezbi.json")
                         for (a of e["muskul"]) {
                             if (a === take_muskul[0]) {
                                 num.push(ex)
-
                             } else {
-                                console.log("not pushing")
-
+                                console.log("")
                             }
-
                     }
-
-
                     }
                 }
                 let h3h = take_name.toString()
                 let create_h3h = document.createElement("h3")
                 create_h3h.innerText = h3h
                 let create_div_ex = document.createElement("div")
-
                 let create_gif = document.createElement("img")
                 let create_h6 = document.createElement("h6")
                 let create_div_text = document.createElement("div") 
-
                 create_div_text.setAttribute("id", "text_description")
                 create_h6.innerText = take_muskul
-
                 create_div_text.appendChild(create_h6)
                 create_gif.setAttribute("src", take_gifs)
-                
                 create_div_ex.setAttribute("id", "first_resultttttt")
                 create_div_ex.appendChild(create_gif)
                 create_div_text.appendChild(create_h3h)
-
                 take_search_results.appendChild(create_div_ex)
                 create_div_ex.appendChild(create_div_text)
                 create_div_text.appendChild(create_h6)
-
                 document.querySelectorAll("#first_result").forEach((e) => {
                     e.remove()
                 })
-
                 create_div.innerHTML = "similar exercises..."
                 create_div.style.paddingTop = "5%"
                 take_search_results.appendChild(create_div)
                 for (n of num) {
-                    console.log(data["vezbi"][n]["vezbam"])
-
                     let create_text_field = document.createElement("h3")
                     create_text_field.innerText = data["vezbi"][n]["vezbam"]
                     take_search_results.appendChild(create_text_field)
-                    
-
                 }
                 take_body.style.overflow = "hidden"
-                
             }else if (take_search_input.value !== "" && take_search_input.value.toLowerCase() !== take_name.toLowerCase()){
-
                 let list_of_input = []
                 let list_of_exercises = []
                 let letters_of_input = take_search_input.value.split("")
@@ -109,14 +89,12 @@ fetch("/vezbi.json")
                 list_of_input.push(letters_of_input)
                 for (each of list_of_input) {
                     let a = list_of_input[0].length
-
                     for (exser of list_of_exercises) {
-
+                        let index_letter = []
                         for (let i = 0; i < a; i++) {
-
-
-                            if (exser[i] === each[i]) {
-                                console.log(each[i] + " " + letters_of_name)
+                            index_letter.push(list_of_exercises[0][i])
+                            if (index_letter.join("").toLowerCase() === take_search_input.value.toLowerCase()) {
+                                take_search_results.innerHTML = ""
                                 let h3h = take_name.toString()
                                 let create_h3h = document.createElement("h3")
                                 create_h3h.innerText = h3h
@@ -132,7 +110,7 @@ fetch("/vezbi.json")
                                 create_div_text.appendChild(create_h6)
                                 create_gif.setAttribute("src", take_gifs)
                                 
-                                
+
                                 create_div_ex.setAttribute("id", "first_result")
                                 create_div_ex.appendChild(create_gif)
                                 create_div_text.appendChild(create_h3h)
@@ -146,13 +124,9 @@ fetch("/vezbi.json")
                                 console.log("no")
                             }
                         }
-
                     }
 
-                    console.log(take_search_input.value)
-
                 }
- 
 
                 take_search_results.style.height = "100%"
                 take_search_results.style.padding = "5%"
@@ -193,9 +167,6 @@ creat_nav_dom.addEventListener("click", (e) => {
     console.log(take_id.getAttribute("id"))
 
     if (take_id.getAttribute("id") === "search" || take_id.getAttribute("id") === "one" || take_id.getAttribute("id") === "two" || take_id.getAttribute("id") === "search_input") {
-
-
-
         create_search_bar.style.width = "65%"
         create_search_bar.style.height = "70%"
         create_search_bar.style.backgroundColor = "white"
@@ -217,11 +188,7 @@ creat_nav_dom.addEventListener("click", (e) => {
         changeX.setAttribute("d", "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z")
         deleting.remove
         take_body.style.overflow = "auto";
-
-
     }
-
-
 })
 
 let take_filter_section = document.getElementById("dropDownFilter")
@@ -240,7 +207,7 @@ function filterWorkOut() {
       
 
     }
-    console.log(filter_active)
+
 
 
 }
