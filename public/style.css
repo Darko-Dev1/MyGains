@@ -134,11 +134,31 @@ header button {
     justify-content: center;
     height: 0px;
 
+}
 
+#first_resultttttt {
 
-
+    background-color: rgb(221, 221, 221);
+    border: rgb(153, 153, 153) solid 1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 2%;
 
 }
+
+#first_resultttttt img {
+
+    
+    height: 100px;
+
+}
+
+#first_resultttttt h6 {
+    font-size: 10px;
+}
+
 
 ul {
 

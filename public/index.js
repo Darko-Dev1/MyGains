@@ -33,6 +33,8 @@ fetch("/vezbi.json")
 
             if (take_search_input.value === take_name || take_search_input.value.toLowerCase() === take_name.toLowerCase() || take_search_input.value.toUpperCase() === take_name.toUpperCase()) 
             {
+
+
                 console.log(take_name)
                 console.log(take_muskul)
                 let num = []
@@ -52,8 +54,7 @@ fetch("/vezbi.json")
                             }
 
                     }
-                    console.log(ex)
-                    console.log(e)
+
 
                     }
                 }
@@ -72,15 +73,17 @@ fetch("/vezbi.json")
                 create_div_text.appendChild(create_h6)
                 create_gif.setAttribute("src", take_gifs)
                 
-                
-                create_div_ex.setAttribute("id", "first_result")
+                create_div_ex.setAttribute("id", "first_resultttttt")
                 create_div_ex.appendChild(create_gif)
                 create_div_text.appendChild(create_h3h)
 
                 take_search_results.appendChild(create_div_ex)
                 create_div_ex.appendChild(create_div_text)
                 create_div_text.appendChild(create_h6)
-                console.log(num)
+
+                document.querySelectorAll("#first_result").forEach((e) => {
+                    e.remove()
+                })
 
                 create_div.innerHTML = "similar exercises..."
                 create_div.style.paddingTop = "5%"
@@ -96,7 +99,60 @@ fetch("/vezbi.json")
                 }
                 take_body.style.overflow = "hidden"
                 
-            }else  if (take_search_input.value !== "" ){
+            }else if (take_search_input.value !== "" && take_search_input.value.toLowerCase() !== take_name.toLowerCase()){
+
+                let list_of_input = []
+                let list_of_exercises = []
+                let letters_of_input = take_search_input.value.split("")
+                let letters_of_name = take_name.split("")
+                list_of_exercises.push(letters_of_name)
+                list_of_input.push(letters_of_input)
+                for (each of list_of_input) {
+                    let a = list_of_input[0].length
+
+                    for (exser of list_of_exercises) {
+
+                        for (let i = 0; i < a; i++) {
+
+
+                            if (exser[i] === each[i]) {
+                                console.log(each[i] + " " + letters_of_name)
+                                let h3h = take_name.toString()
+                                let create_h3h = document.createElement("h3")
+                                create_h3h.innerText = h3h
+                                let create_div_ex = document.createElement("div")
+                
+                                let create_gif = document.createElement("img")
+                                let create_h6 = document.createElement("h6")
+                                let create_div_text = document.createElement("div") 
+                
+                                create_div_text.setAttribute("id", "text_description")
+                                create_h6.innerText = take_muskul
+                
+                                create_div_text.appendChild(create_h6)
+                                create_gif.setAttribute("src", take_gifs)
+                                
+                                
+                                create_div_ex.setAttribute("id", "first_result")
+                                create_div_ex.appendChild(create_gif)
+                                create_div_text.appendChild(create_h3h)
+                
+                                take_search_results.appendChild(create_div_ex)
+                                create_div_ex.appendChild(create_div_text)
+                                create_div_text.appendChild(create_h6)
+
+
+                            } else {
+                                console.log("no")
+                            }
+                        }
+
+                    }
+
+                    console.log(take_search_input.value)
+
+                }
+ 
 
                 take_search_results.style.height = "100%"
                 take_search_results.style.padding = "5%"
@@ -105,6 +161,7 @@ fetch("/vezbi.json")
 
 
             } else {
+                console.log(take_search_input.value)
                 take_search_results.style.height = "0%"
                 take_search_results.style.padding = "0%"
                 take_search_results.innerHTML = ""
