@@ -256,7 +256,6 @@ aside {
     background-color: white;
     left: 100%;
     transition: 0.3s ease-in-out;
-    overflow-y: hidden;
     padding: 5%;
 
 }
