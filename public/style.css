@@ -102,6 +102,12 @@ header button {
 
 }
 
+#filter {
+
+    border-radius: 5px;
+
+}
+
 #filter_section {
 
     margin-top: 3%;
