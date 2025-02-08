@@ -296,5 +296,19 @@ take_filter_section.addEventListener("click", (e) => {
     }
 })
 
+let take_aside = document.querySelector("aside")
+let active_aside = 0
+document.getElementById("burger_mehnu").addEventListener("click", (e) => {
+    if (active_aside === 0) {        
+        take_aside.style.left = "0%"
+        active_aside = 1
+    }
+    else{
+        take_aside.style.left = "100%"
+        active_aside = 0
+    }
+
+
+})
 
 
