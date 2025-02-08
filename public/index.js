@@ -300,15 +300,17 @@ take_filter_section.addEventListener("click", (e) => {
 let take_aside = document.querySelector("aside")
 let active_aside = 0
 document.getElementById("burger_mehnu").addEventListener("click", (e) => {
-    if (active_aside === 0) {        
-        take_aside.style.left = "0%"
-        active_aside = 1
-        take_body.style.overflow = "hidden"
-    }
-    else{
+    console.log(e.target.getAttribute("id"))
+    if (active_aside === 1 || e.target.getAttribute("d") !== "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z") {        
         take_aside.style.left = "100%"
         active_aside = 0
         take_body.style.overflow = "auto"
+
+    }
+    else{
+        take_aside.style.left = "0%"
+        active_aside = 1
+        take_body.style.overflow = "hidden"
     }
 
 
