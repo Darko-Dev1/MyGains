@@ -1,5 +1,6 @@
 let muskulii = []
 
+
 fetch("/vezbi.json")
 .then(response => response.json())
 .then(data => {
@@ -26,7 +27,7 @@ fetch("/vezbi.json")
         takee.appendChild(create_banner)
         let take_search_input = document.getElementById("search_input")
         let take_excercises = document.querySelector("#exercises")
-        let take_body = document.querySelector("body")
+
         take_search_input.addEventListener("input", (e) => {
             let take_search_results = document.getElementById("search_results")
             let create_div = document.createElement("div");
@@ -302,10 +303,12 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
     if (active_aside === 0) {        
         take_aside.style.left = "0%"
         active_aside = 1
+        take_body.style.overflow = "hidden"
     }
     else{
         take_aside.style.left = "100%"
         active_aside = 0
+        take_body.style.overflow = "auto"
     }
 
 
