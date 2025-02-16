@@ -1,6 +1,5 @@
 header {
 
-
     background-color: white;
     position: sticky;
     top: 0;
@@ -10,7 +9,7 @@ header {
     -webkit-box-shadow: 0px 8px 10px 1px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 8px 10px 1px rgba(0,0,0,0.75);
 box-shadow: 0px -18px 70px -20px rgba(0,0,0,0.75);
-z-index: 1000;
+z-index: 10000;
 
     
 }
@@ -31,7 +30,7 @@ header button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    z-index: 10000;
+    z-index: 1000;
 }
 #exercises img {
 
@@ -39,13 +38,15 @@ header button {
 
 
 }
-#exercises div {
+#exercises #exercises {
 
     width: 40%;
     margin: 1%;
+    margin-top: 1%;
     border-bottom: black solid 1px;
     animation-name: fade_in;
     animation-duration: 0.5s; 
+    transition: 0.3s;
 
 
 }
@@ -206,7 +207,7 @@ li {
     height: 00%;
     position: fixed;
     padding: 0%;
-    transition: 0.5s;
+    transition: 0.5s;z-index: 10000;
 
 
 }
@@ -257,5 +258,15 @@ aside {
     left: 100%;
     transition: 0.3s ease-in-out;
     padding: 5%;
+
+}
+
+#settings_set{
+    background-color: rgba(184, 184, 184, 0);
+    position: relative;
+    transition: 0.5s;
+
+    width: 100%;
+
 
 }

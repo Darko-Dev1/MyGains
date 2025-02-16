@@ -10,23 +10,31 @@ fetch("/vezbi.json")
     for (each of data["vezbi"]) {
 
         let create_banner = document.createElement("div")
+        create_banner.setAttribute("id", "exercises")
         let create_img_banner = document.createElement("img")
-        let create_a_tag = document.createElement("a")
-        create_a_tag.setAttribute("href", each["gif"])
+
+
         let take_gifs = each["gif"]
         let take_name = each["vezbam"]
         let take_muskul = each["muskul"]
         create_img_banner.setAttribute("src", take_gifs)
         let create_text_field = document.createElement("h3")
         create_text_field.innerText = take_name
-        create_a_tag.appendChild(create_img_banner)
-        create_banner.appendChild(create_a_tag)
+
+        create_banner.appendChild(create_img_banner)
+
         create_banner.appendChild(create_text_field)
         create_banner.setAttribute("value", take_muskul)
+        let settings = document.createElement("div")
+        settings.setAttribute("id", "settings_set")
+        console.log(settings)
 
+        create_banner.appendChild(settings)
         takee.appendChild(create_banner)
+
         let take_search_input = document.getElementById("search_input")
         let take_excercises = document.querySelector("#exercises")
+
 
         take_search_input.addEventListener("input", (e) => {
             let take_search_results = document.getElementById("search_results")
@@ -316,4 +324,38 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 })
 
+let active_ex = 0
+document.getElementById("exercises").addEventListener("click", (e)=>{
+
+        console.log("work")
+        let activeDiv = e.target.closest("div")
+        console.log(activeDiv.offsetTop)
+        console.log(activeDiv)
+        if(active_ex === 1){
+            e.target.closest("img").style.width = "90%"
+            activeDiv.style.width = "40%"
+            activeDiv.children[2].style.backgroundColor = "transparent"
+            activeDiv.children[2].style.height = "0%"
+            activeDiv.style.marginBottom = "1%"
+
+            document.getElementById("settings_set").style.height = "0%"
+
+
+
+            active_ex--
+        } else{
+            activeDiv.style.width = "100%"
+            e.target.closest("img").style.width = "50%"
+            
+            activeDiv.children[2].style.backgroundColor = "red"
+            activeDiv.children[2].style.height = "50%"
+            activeDiv.style.marginBottom = "30%"
+            active_ex++
+
+
+        }
+        console.log(e.target.closest("h3"))
+        console.log(active_ex)
+
+})
 
