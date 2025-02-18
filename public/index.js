@@ -331,30 +331,49 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
         let activeDiv = e.target.closest("div")
         console.log(activeDiv.offsetTop)
         console.log(activeDiv)
+        console.log(activeDiv.querySelector("h3"))
         if(active_ex === 1){
             e.target.closest("img").style.width = "90%"
+            activeDiv.querySelector("h3").style.width = "100%"
+            e.target.closest("img").style.marginRight = "0%"
+            activeDiv.querySelector("h3").style.width = "100%"
+            activeDiv.querySelector("h3").style.textAlign = "center"
+
             activeDiv.style.width = "40%"
             activeDiv.children[2].style.backgroundColor = "transparent"
             activeDiv.children[2].style.height = "0%"
             activeDiv.style.marginBottom = "1%"
+            activeDiv.children[2].style.border = "rgba(0, 0, 0, 0) solid 1px";
+            activeDiv.children[2].style.borderRadius = "5px";
+            activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
 
             document.getElementById("settings_set").style.height = "0%"
 
 
 
-            active_ex--
+            active_ex = 0
         } else{
             activeDiv.style.width = "100%"
-            e.target.closest("img").style.width = "50%"
-            
-            activeDiv.children[2].style.backgroundColor = "red"
-            activeDiv.children[2].style.height = "50%"
-            activeDiv.style.marginBottom = "30%"
-            active_ex++
+            e.target.closest("img").style.width = "40%"
+            e.target.closest("img").style.marginRight = "10%"
+            activeDiv.querySelector("h3").style.width = "40%"
+            activeDiv.querySelector("h3").style.textAlign = "left"
+
+            if (activeDiv.children[2]) {
+                    activeDiv.children[2].style.backgroundColor = "red";
+                    activeDiv.children[2].style.height = "50%";
+                    activeDiv.children[2].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
+                    activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
+
+            }
+            activeDiv.style.marginBottom = "30%";
+            active_ex = 1
+
+
 
 
         }
-        console.log(e.target.closest("h3"))
+
         console.log(active_ex)
 
 })
