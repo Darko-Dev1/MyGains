@@ -37,9 +37,10 @@ header button {
 
     width: 90%;
 
+    border-bottom: rgba(141, 141, 141, 0.479) solid 1px;
 
 }
-#exercises #exercises {
+#exercises #exercise {
 
     width: 40%;
     margin: 1%;
@@ -50,6 +51,12 @@ header button {
     transition: 0.5s;
     border: rgba(0, 0, 0, 0.171) solid 1px;
     border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2%;
+    position: relative;
+
 
 
 }
@@ -57,7 +64,20 @@ header button {
 
     font-size: 15px ;
     width: 100%;
-    transition: 0.8s;
+    display: block;
+    text-align: center;
+
+
+}
+
+#exercises h6 {
+    width: 60%;
+    display: none;
+    text-align: left;
+    padding-top: 5%;
+
+
+
 }
 
 
@@ -274,9 +294,11 @@ aside {
 #settings_set{
     background-color: rgba(184, 184, 184, 0);
     position: relative;
-    transition: 1s;
+    transition: 0.5s;
     border-radius: 0px 0px 5px 5px;
+    display: block;
 
     width: 100%;
+
 
 }

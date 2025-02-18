@@ -10,7 +10,7 @@ fetch("/vezbi.json")
     for (each of data["vezbi"]) {
 
         let create_banner = document.createElement("div")
-        create_banner.setAttribute("id", "exercises")
+        create_banner.setAttribute("id", "exercise")
         let create_img_banner = document.createElement("img")
 
 
@@ -23,6 +23,9 @@ fetch("/vezbi.json")
 
         create_banner.appendChild(create_img_banner)
 
+        let create_h5 = document.createElement("h6")
+        create_h5.innerText = `Difficulty: ${each["nivo_tesko"]} \n With Weights: ${each["so_teg"]} \n Muscle Group: ${each["muskul"]} `
+        create_banner.appendChild(create_h5)
         create_banner.appendChild(create_text_field)
         create_banner.setAttribute("value", take_muskul)
         let settings = document.createElement("div")
@@ -335,17 +338,15 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
         if(active_ex === 1){
             e.target.closest("img").style.width = "90%"
             activeDiv.querySelector("h3").style.width = "100%"
-            e.target.closest("img").style.marginRight = "0%"
-            activeDiv.querySelector("h3").style.width = "100%"
-            activeDiv.querySelector("h3").style.textAlign = "center"
-
+            activeDiv.querySelector("h6").style.display = "none"
             activeDiv.style.width = "40%"
-            activeDiv.children[2].style.backgroundColor = "transparent"
-            activeDiv.children[2].style.height = "0%"
+            activeDiv.children[3].style.backgroundColor = "transparent"
+            activeDiv.children[3].style.height = "0%"
             activeDiv.style.marginBottom = "1%"
-            activeDiv.children[2].style.border = "rgba(0, 0, 0, 0) solid 1px";
-            activeDiv.children[2].style.borderRadius = "5px";
+            activeDiv.children[3].style.border = "rgba(0, 0, 0, 0) solid 1px";
+            activeDiv.children[3].style.borderRadius = "5px";
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
+            activeDiv.querySelector("h3").style.textAlign = "center"
 
             document.getElementById("settings_set").style.height = "0%"
 
@@ -353,20 +354,24 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
 
             active_ex = 0
         } else{
-            activeDiv.style.width = "100%"
+            activeDiv.style.width = "83%"
             e.target.closest("img").style.width = "40%"
-            e.target.closest("img").style.marginRight = "10%"
-            activeDiv.querySelector("h3").style.width = "40%"
+            e.target.closest("img").style.marginLeft = "0%"
+            activeDiv.querySelector("h3").style.width = "100%"
+            activeDiv.querySelector("h3").style.display = "block"
             activeDiv.querySelector("h3").style.textAlign = "left"
 
-            if (activeDiv.children[2]) {
-                    activeDiv.children[2].style.backgroundColor = "red";
-                    activeDiv.children[2].style.height = "50%";
-                    activeDiv.children[2].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
-                    activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
+
+            if (activeDiv.children[3]) {
+                activeDiv.children[3].style.backgroundColor = "red";
+                activeDiv.children[3].style.height = "50%";
+                activeDiv.children[3].style.width = "110%"
+                activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
+                activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
 
             }
-            activeDiv.style.marginBottom = "30%";
+            activeDiv.querySelector("h6").style.display = "inline"
+            activeDiv.style.marginBottom = "20%";
             active_ex = 1
 
 
