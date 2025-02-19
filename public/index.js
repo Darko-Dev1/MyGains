@@ -329,7 +329,7 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 let active_ex = 0
 document.getElementById("exercises").addEventListener("click", (e)=>{
-    console.log("work?")
+
 
 
         let activeDiv = e.target.closest("div")
@@ -362,7 +362,6 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             activeDiv.querySelector("h3").style.display = "block"
             activeDiv.querySelector("h3").style.textAlign = "left"
 
-
             if (activeDiv.children[3]) {
                 activeDiv.children[3].style.backgroundColor = "white";
                 activeDiv.children[3].style.height = "50%";
@@ -371,17 +370,12 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
                 activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
 
             }
+            activeDiv.style.marginBottom = "1%"
             activeDiv.querySelector("h6").style.display = "inline"
             activeDiv.style.marginBottom = "20%";
             active_ex = 1
 
-
-
-
         }
-        console.log(activeDiv.children[0])
-        console.log(e.target.closest("img"))
-        console.log(active_ex)
 
 })
 
