@@ -329,14 +329,15 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 let active_ex = 0
 document.getElementById("exercises").addEventListener("click", (e)=>{
+    console.log("work?")
 
-        console.log("work")
+
         let activeDiv = e.target.closest("div")
         console.log(activeDiv.offsetTop)
         console.log(activeDiv)
         console.log(activeDiv.querySelector("h3"))
         if(active_ex === 1){
-            e.target.closest("img").style.width = "90%"
+            activeDiv.children[0].style.width = "100%"
             activeDiv.querySelector("h3").style.width = "100%"
             activeDiv.querySelector("h6").style.display = "none"
             activeDiv.style.width = "40%"
@@ -355,7 +356,7 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             active_ex = 0
         } else{
             activeDiv.style.width = "83%"
-            e.target.closest("img").style.width = "40%"
+            activeDiv.children[0].style.width = "40%"
             e.target.closest("img").style.marginLeft = "0%"
             activeDiv.querySelector("h3").style.width = "100%"
             activeDiv.querySelector("h3").style.display = "block"
@@ -363,7 +364,7 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
 
 
             if (activeDiv.children[3]) {
-                activeDiv.children[3].style.backgroundColor = "red";
+                activeDiv.children[3].style.backgroundColor = "white";
                 activeDiv.children[3].style.height = "50%";
                 activeDiv.children[3].style.width = "110%"
                 activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
@@ -378,7 +379,8 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
 
 
         }
-
+        console.log(activeDiv.children[0])
+        console.log(e.target.closest("img"))
         console.log(active_ex)
 
 })
