@@ -330,52 +330,45 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 let active_ex = 0
 document.getElementById("exercises").addEventListener("click", (e)=>{
 
-
-
         let activeDiv = e.target.closest("div")
-        console.log(activeDiv.offsetTop)
         console.log(activeDiv)
-        console.log(activeDiv.querySelector("h3"))
-        if(active_ex === 1){
+        console.log(activeDiv.children[1])
+        if(activeDiv.getAttribute("id") === "exercise" && active_ex === 1){
             activeDiv.children[0].style.width = "100%"
             activeDiv.querySelector("h3").style.width = "100%"
-            activeDiv.querySelector("h6").style.display = "none"
+            activeDiv.children[1].style.display = "none"
             activeDiv.style.width = "40%"
             activeDiv.children[3].style.backgroundColor = "transparent"
             activeDiv.children[3].style.height = "0%"
-            activeDiv.style.marginBottom = "1%"
+
             activeDiv.children[3].style.border = "rgba(0, 0, 0, 0) solid 1px";
             activeDiv.children[3].style.borderRadius = "5px";
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
             activeDiv.querySelector("h3").style.textAlign = "center"
-
-            document.getElementById("settings_set").style.height = "0%"
-
-
-
+            activeDiv.style.marginBottom = "1%";
             active_ex = 0
-        } else{
+        } else if(activeDiv.getAttribute("id") === "exercise" && active_ex === 0){
             activeDiv.style.width = "83%"
             activeDiv.children[0].style.width = "40%"
-            e.target.closest("img").style.marginLeft = "0%"
+            activeDiv.children[1].style.display = "inline-block";
+            activeDiv.children[1].style.width = "50%";
+            activeDiv.children[1].style.textAlign = "left"
             activeDiv.querySelector("h3").style.width = "100%"
             activeDiv.querySelector("h3").style.display = "block"
             activeDiv.querySelector("h3").style.textAlign = "left"
-
-            if (activeDiv.children[3]) {
-                activeDiv.children[3].style.backgroundColor = "white";
-                activeDiv.children[3].style.height = "50%";
-                activeDiv.children[3].style.width = "110%"
-                activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
-                activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
-
-            }
-            activeDiv.style.marginBottom = "1%"
-            activeDiv.querySelector("h6").style.display = "inline"
-            activeDiv.style.marginBottom = "20%";
+            activeDiv.children[3].style.backgroundColor = "white";
+            activeDiv.children[3].style.height = "50%";
+            activeDiv.children[3].style.width = "105%"
+            activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
+            activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
+            activeDiv.style.marginBottom = "40%";
             active_ex = 1
 
+        } else{
+            console.error("not good bro")
+
         }
+        console.log(activeDiv.querySelector("h6"))
 
 })
 
