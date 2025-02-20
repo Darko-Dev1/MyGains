@@ -74,9 +74,11 @@ header button {
 #exercise h6 {
     width: 55%;
     display: none;
-    height: 50px;
+    height: 0px;
     text-align: left;
     padding-top: 5%;
+    transition: 0.3s ease-in-out;
+    font-size: 0px;
 
 
 

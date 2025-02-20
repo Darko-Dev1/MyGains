@@ -327,6 +327,14 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 })
 
+/*
+    activeDiv.children[0] = slika
+    activeDiv.children[1] = desc ili ti h6
+    activeDiv.children[2] = h3 ili ime na vezbata
+    activeDiv.children[3] = kontejnerot za settings
+
+*/ 
+
 let active_ex = 0
 document.getElementById("exercises").addEventListener("click", (e)=>{
 
@@ -336,7 +344,9 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
         if(activeDiv.getAttribute("id") === "exercise" && active_ex === 1){
             activeDiv.children[0].style.width = "100%"
             activeDiv.querySelector("h3").style.width = "100%"
-            activeDiv.children[1].style.display = "none"
+
+            activeDiv.children[1].style.fontSize = "0px"
+            activeDiv.children[1].style.height = "0px"
             activeDiv.style.width = "40%"
             activeDiv.children[3].style.backgroundColor = "transparent"
             activeDiv.children[3].style.height = "0%"
@@ -351,6 +361,7 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             activeDiv.style.width = "83%"
             activeDiv.children[0].style.width = "40%"
             activeDiv.children[1].style.display = "inline-block";
+            activeDiv.children[1].style.fontSize = "15px"
             activeDiv.children[1].style.width = "50%";
             activeDiv.children[1].style.textAlign = "left"
             activeDiv.querySelector("h3").style.width = "100%"
