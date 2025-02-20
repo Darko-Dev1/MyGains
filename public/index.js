@@ -317,6 +317,9 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         active_aside = 0
         take_body.style.overflow = "auto"
 
+    } else if (e.target.getAttribute("id") === null) {
+        console.error("no")
+
     }
     else{
         take_aside.style.left = "0%"
@@ -344,13 +347,11 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
         if(activeDiv.getAttribute("id") === "exercise" && active_ex === 1){
             activeDiv.children[0].style.width = "100%"
             activeDiv.querySelector("h3").style.width = "100%"
-
             activeDiv.children[1].style.fontSize = "0px"
             activeDiv.children[1].style.height = "0px"
             activeDiv.style.width = "40%"
             activeDiv.children[3].style.backgroundColor = "transparent"
             activeDiv.children[3].style.height = "0%"
-
             activeDiv.children[3].style.border = "rgba(0, 0, 0, 0) solid 1px";
             activeDiv.children[3].style.borderRadius = "5px";
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
@@ -373,6 +374,7 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
             activeDiv.style.marginBottom = "40%";
+
             active_ex = 1
 
         } else{
