@@ -92,6 +92,12 @@ header button {
 
 }
 
+#SubtitleQuestion {
+    font-size: 0px;
+    transition: 0.3s;
+    padding-top: 1%;
+
+}
 
 #search::before {
 

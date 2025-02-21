@@ -5,14 +5,12 @@ fetch("/vezbi.json")
 .then(response => response.json())
 .then(data => {
 
-
     let takee = document.getElementById("exercises")
     for (each of data["vezbi"]) {
 
         let create_banner = document.createElement("div")
         create_banner.setAttribute("id", "exercise")
         let create_img_banner = document.createElement("img")
-
 
         let take_gifs = each["gif"]
         let take_name = each["vezbam"]
@@ -29,6 +27,11 @@ fetch("/vezbi.json")
         create_banner.appendChild(create_text_field)
         create_banner.setAttribute("value", take_muskul)
         let settings = document.createElement("div")
+        let subtitleQuestion = document.createElement("h4")
+        subtitleQuestion.innerText = "Timed or repetition"
+        subtitleQuestion.setAttribute("id", "SubtitleQuestion")
+        settings.appendChild(subtitleQuestion)
+        console.log(settings)
         settings.setAttribute("id", "settings_set")
         console.log(settings)
 
@@ -37,7 +40,6 @@ fetch("/vezbi.json")
 
         let take_search_input = document.getElementById("search_input")
         let take_excercises = document.querySelector("#exercises")
-
 
         take_search_input.addEventListener("input", (e) => {
             let take_search_results = document.getElementById("search_results")
@@ -122,7 +124,6 @@ fetch("/vezbi.json")
                                 create_div_text.appendChild(create_h6)
                                 create_gif.setAttribute("src", take_gifs)
                                 
-
                                 create_div_ex.setAttribute("id", "first_result")
                                 create_div_ex.appendChild(create_gif)
                                 create_div_text.appendChild(create_h3h)
@@ -131,20 +132,16 @@ fetch("/vezbi.json")
                                 create_div_ex.appendChild(create_div_text)
                                 create_div_text.appendChild(create_h6)
 
-
                             } else {
                                 console.log("no")
                             }
                         }
                     }
-
                 }
 
                 take_search_results.style.height = "100%"
                 take_search_results.style.padding = "5%"
                 take_body.style.overflow = "hidden"
-
-
 
             } else {
                 console.log(take_search_input.value)
@@ -159,7 +156,6 @@ fetch("/vezbi.json")
 
 })
 
-
 let creat_nav_dom = document.getElementById("nav_bar") 
 let take_search = document.getElementById("two")
 let take_body = document.querySelector("body")
@@ -169,7 +165,6 @@ let create_search_bar = document.createElement("input")
 create_search_bar.setAttribute("id", "search_input")
 create_search_bar.setAttribute("placeholder", "search an exercise...")
 creat_nav_dom.appendChild(create_search_bar)
-
 
 let changeX = document.getElementById("change_to_X")
 creat_nav_dom.addEventListener("click", (e) => {
@@ -215,13 +210,8 @@ function filterWorkOut() {
     } else {
 
         take_filter_section.style.height = "0px"
-        filter_active = 0
-      
-
+        filter_active = 0      
     }
-
-
-
 }
 
 let takee = document.getElementById("exercises")
@@ -359,23 +349,25 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
             activeDiv.querySelector("h3").style.textAlign = "center"
             activeDiv.style.marginBottom = "1%";
+            document.getElementById("SubtitleQuestion").style.fontSize = "0px"
             active_ex = 0
         } else if(activeDiv.getAttribute("id") === "exercise" && active_ex === 0){
-            activeDiv.style.width = "83%"
-            activeDiv.children[0].style.width = "40%"
+            activeDiv.style.width = "83%";
+            activeDiv.children[0].style.width = "40%";
             activeDiv.children[1].style.display = "inline-block";
-            activeDiv.children[1].style.fontSize = "15px"
+            activeDiv.children[1].style.fontSize = "15px";
             activeDiv.children[1].style.width = "50%";
-            activeDiv.children[1].style.textAlign = "left"
-            activeDiv.querySelector("h3").style.width = "100%"
-            activeDiv.querySelector("h3").style.display = "block"
-            activeDiv.querySelector("h3").style.textAlign = "left"
+            activeDiv.children[1].style.textAlign = "left";
+            activeDiv.querySelector("h3").style.width = "100%";
+            activeDiv.querySelector("h3").style.display = "block";
+            activeDiv.querySelector("h3").style.textAlign = "left";
             activeDiv.children[3].style.backgroundColor = "white";
             activeDiv.children[3].style.height = "50%";
-            activeDiv.children[3].style.width = "105%"
+            activeDiv.children[3].style.width = "105%";
             activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
             activeDiv.style.marginBottom = "40%";
+            document.getElementById("SubtitleQuestion").style.fontSize = "15px"
 
             active_ex = 1
 
