@@ -27,6 +27,7 @@ header img {
 
 header button {
     border: none;
+    z-index: 100000;
     background-color: transparent;
 }
 
@@ -47,6 +48,8 @@ header button {
     border-bottom: rgba(141, 141, 141, 0.479) solid 1px;
 
 }
+
+
 #exercise {
 
     width: 40%;
@@ -63,9 +66,6 @@ header button {
     justify-content: space-between;
     padding: 2%;
     position: relative;
-
-
-
 
 }
 #exercise h3 {
@@ -86,9 +86,6 @@ header button {
     padding-top: 5%;
     transition: 0.3s ease-in-out;
     font-size: 0px;
-
-
-
 
 }
 

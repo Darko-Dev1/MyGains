@@ -166,6 +166,7 @@ create_search_bar.setAttribute("id", "search_input")
 create_search_bar.setAttribute("placeholder", "search an exercise...")
 creat_nav_dom.appendChild(create_search_bar)
 
+let active_aside = 0
 let changeX = document.getElementById("change_to_X")
 creat_nav_dom.addEventListener("click", (e) => {
     let take_search_results = document.getElementById("search_results")
@@ -178,6 +179,7 @@ creat_nav_dom.addEventListener("click", (e) => {
         create_search_bar.style.height = "70%"
         create_search_bar.style.backgroundColor = "white"
         let deleting = changeX.getAttribute("d")
+        active_aside = 2
         deleting.remove
         changeX.setAttribute("d", "M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z")
 
@@ -299,7 +301,7 @@ take_filter_section.addEventListener("click", (e) => {
 })
 
 let take_aside = document.querySelector("aside")
-let active_aside = 0
+
 document.getElementById("burger_mehnu").addEventListener("click", (e) => {
     console.log(e.target.getAttribute("id"))
     if (active_aside === 1 || e.target.getAttribute("d") !== "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z") {        
@@ -307,9 +309,10 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         active_aside = 0
         take_body.style.overflow = "auto"
 
-    } else if (e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
+    } else if (e.target.getAttribute("id") === "change_to_X" || e.target.getAttribute("id") === "change_to_w" && active_aside === 0 ) {
         console.log(e.target.getAttribute("id"))
         console.log("heheh")
+        console.log(active_aside)
         take_aside.style.left = "0%"
         console.log(take_aside)
         active_aside = 1
@@ -317,8 +320,8 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
     }
     else{
-        take_aside.style.left = "0%"
-        active_aside = 1
+        take_aside.style.left = "100%"
+        active_aside = 0
         take_body.style.overflow = "hidden"
     }
 
