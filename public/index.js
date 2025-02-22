@@ -307,9 +307,12 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         active_aside = 0
         take_body.style.overflow = "auto"
 
-    } else if (e.target.getAttribute("id") === "change_to_w") {
-        take_aside.style.left = "100%"
-        active_aside = 0
+    } else if (e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
+        console.log(e.target.getAttribute("id"))
+        console.log("heheh")
+        take_aside.style.left = "0%"
+        console.log(take_aside)
+        active_aside = 1
         take_body.style.overflow = "auto"
 
     }
