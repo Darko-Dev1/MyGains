@@ -86,6 +86,7 @@ header button {
     padding-top: 5%;
     transition: 0.3s ease-in-out;
     font-size: 0px;
+    overflow: auto;
 
 }
 
@@ -93,6 +94,8 @@ header button {
     font-size: 0px;
     transition: 0.3s;
     padding-top: 1%;
+    position: relative;
+
 
 }
 

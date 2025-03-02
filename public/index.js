@@ -355,14 +355,16 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
             activeDiv.querySelector("h3").style.textAlign = "center"
             activeDiv.style.marginBottom = "1%";
-            document.getElementById("SubtitleQuestion").style.fontSize = "0px"
+            console.log(e.target.closest("div").querySelector("h4"))
+            e.target.closest("div").querySelector("h4").style.fontSize = "0px"
             active_ex = 0
         } else if(activeDiv.getAttribute("id") === "exercise" && active_ex === 0){
             activeDiv.style.width = "83%";
             activeDiv.children[0].style.width = "40%";
             activeDiv.children[1].style.display = "inline-block";
-            activeDiv.children[1].style.fontSize = "15px";
+            activeDiv.children[1].style.fontSize = "13px";
             activeDiv.children[1].style.width = "50%";
+            activeDiv.children[1].style.height = "100px";
             activeDiv.children[1].style.textAlign = "left";
             activeDiv.querySelector("h3").style.width = "100%";
             activeDiv.querySelector("h3").style.display = "block";
@@ -373,7 +375,8 @@ document.getElementById("exercises").addEventListener("click", (e)=>{
             activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
             activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
             activeDiv.style.marginBottom = "40%";
-            document.getElementById("SubtitleQuestion").style.fontSize = "15px"
+            console.log(e.target.closest("div").querySelector("h4"))
+            e.target.closest("div").querySelector("h4").style.fontSize = "15px"
 
             active_ex = 1
 
