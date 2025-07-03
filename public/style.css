@@ -264,12 +264,22 @@ li {
 }
 .search_result {
     display: flex;
-    flex-direction: column;
-    align-items: center ;
+    align-items: center;
+
+    padding-top: 30px;
+    width: 90%;
+    padding-bottom: 30px;
+    border-bottom: rgba(0, 0, 0, 0.185) solid 1px;
+
 }
 
 .search_result img{
-    height: 50%;
+    height: 100%;
+    width: 40%;
+}
+
+.search_result #text_description {
+    width: 60%;
 }
 
 #first_result {

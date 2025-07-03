@@ -45,112 +45,116 @@ fetch("/vezbi.json")
 
             let take_search_input = document.getElementById("search_input")
             let take_excercises = document.querySelector("#exercises")
-
             take_search_input.addEventListener("input", (e) => {
-                let take_search_results = document.getElementById("search_results")
-                let create_div = document.createElement("div");
-
-                if (take_search_input.value === take_name || take_search_input.value.toLowerCase() === take_name.toLowerCase()) {
-                    console.log(take_name)
-                    console.log(take_muskul)
-                    
-                    let num = []
-                    let ex = 0
-                    for (e of data["vezbi"]) {
-                        ex++
-                        if (e["muskul"].toString() === take_muskul) {
-                            num.push(ex)
-                        } else {
-                            for (a of e["muskul"]) {
-                                if (a === take_muskul[0]) {
-                                    num.push(ex)
-                                } else {
-                                    console.log("")
-                                }
-                            }
-                        }
-                    }
-                    let h3h = take_name.toString()
-                    let create_h3h = document.createElement("h3")
-                    create_h3h.innerText = h3h
-                    let create_div_ex = document.createElement("div")
-                    let create_gif = document.createElement("img")
-                    let create_h6 = document.createElement("h6")
-                    let create_div_text = document.createElement("div")
-                    create_div_text.setAttribute("id", "text_description")
-                    create_h6.innerText = take_muskul
-                    create_div_text.appendChild(create_h6)
-                    create_gif.setAttribute("src", take_gifs)
-                    create_div_ex.setAttribute("id", "first_resultttttt")
-                    create_div_ex.appendChild(create_gif)
-                    create_div_text.appendChild(create_h3h)
-                    take_search_results.appendChild(create_div_ex)
-                    create_div_ex.appendChild(create_div_text)
-                    create_div_text.appendChild(create_h6)
-                    document.querySelectorAll("#first_result").forEach((e) => {
-                        e.remove()
-                    })
-                    create_div.innerHTML = "similar exercises..."
-                    create_div.style.paddingTop = "5%"
-                    take_search_results.appendChild(create_div)
-                    for (n of num) {
-                        let create_text_field = document.createElement("h3")
-                        create_text_field.innerText = data["vezbi"][n]["vezbam"]
-                        take_search_results.appendChild(create_text_field)
-                    }
-
-                } else if (take_search_input.value !== "") {
-                    document.querySelectorAll(".search_result").forEach(e => e.remove());
-
-                    ara.forEach((each) => {
-                        if (each.toLowerCase().includes(take_search_input.value.toLowerCase())) {
-                            for (let e of data["vezbi"]) {
-                                if (e.vezbam.toLowerCase() === each.toLowerCase()) {
-                                    // Get the muskul value from the correct object
-                                    let muskul = e["muskul"];
-                                    let take_gifs = e["gif"]
-
-                                    // Create elements
-                                    let create_div = document.createElement("div");
-                                    create_div.classList.add("search_result");
-
-                                    let create_gif = document.createElement("img");
-                                    create_gif.setAttribute("src", take_gifs);
-
-                                    let create_text_div = document.createElement("div");
-                                    create_text_div.setAttribute("id", "text_description");
-
-                                    let create_h3 = document.createElement("h3");
-                                    create_h3.innerText = each;
-
-                                    let create_h6 = document.createElement("h6");
-                                    create_h6.innerText = Array.isArray(muskul) ? muskul.join(", ") : muskul;
-
-                                    create_text_div.appendChild(create_h3);
-                                    create_text_div.appendChild(create_h6);
-                                    create_div.appendChild(create_gif);
-                                    create_div.appendChild(create_text_div);
-                                    take_search_results.appendChild(create_div);
-                                }
-                            }
-                        }
-                        take_search_results.style.padding = "8%"
-                        take_search_results.style.overflow = "auto"
-                        take_search_results.style.height = "100%"
-                        take_body.style.overflow = "none";
-                    });
-                } else {
-                    console.log(take_search_input.value)
-                    take_search_results.style.height = "0%"
-                    take_search_results.style.padding = "0%"
-                    take_search_results.innerHTML = ""
+                const query = take_search_input.value.trim().toLowerCase();
+                const take_search_results = document.getElementById("search_results");
+                take_search_results.innerHTML = "";
+                if (query === "") {
+                    take_search_results.style.height = "0%";
+                    take_search_results.style.padding = "0%";
                     take_body.style.overflow = "auto";
-                    take_search_results.style.overflow = "auto"
-
+                    return;
                 }
 
+                take_search_results.style.padding = "8%";
+                take_search_results.style.overflow = "auto";
+                take_search_results.style.height = "100%";
+                take_body.style.overflow = "none";
+                if (query === take_name.toLowerCase()) {
+                    const matchHeader = document.createElement("h3");
+                    matchHeader.innerText = take_name;
 
-            })
+                    const gif = document.createElement("img");
+                    gif.setAttribute("src", take_gifs);
+
+                    const descDiv = document.createElement("div");
+                    descDiv.setAttribute("id", "text_description");
+
+                    const muskulText = document.createElement("h6");
+                    muskulText.innerText = take_muskul;
+
+                    const mainResultDiv = document.createElement("div");
+                    mainResultDiv.setAttribute("id", "first_resultttttt");
+                    descDiv.appendChild(matchHeader);
+                    descDiv.appendChild(muskulText);
+                    mainResultDiv.appendChild(gif);
+                    mainResultDiv.appendChild(descDiv);
+                    take_search_results.appendChild(mainResultDiv);
+
+                    // Show similar exercises
+                    const similarDiv = document.createElement("div");
+                    similarDiv.innerText = "similar exercises...";
+                    similarDiv.style.paddingTop = "5%";
+                    take_search_results.appendChild(similarDiv);
+
+                    let count = 0;
+                    for (let e of data["vezbi"]) {
+                        const muskulArr = Array.isArray(e.muskul) ? e.muskul : [e.muskul];
+                        if (muskulArr.includes(take_muskul)) {
+                            count++;
+                            const similarText = document.createElement("h3");
+                            similarText.innerText = e.vezbam;
+                            take_search_results.appendChild(similarText);
+                        }
+                    }
+
+                    return;
+                }
+
+                // ✅ Handle partial search (from `ara`)
+                const shownExercises = new Set();
+                const newTerms = new Set();
+
+                ara.forEach(term => {
+                    if (term.toLowerCase().includes(query)) {
+                        newTerms.add(term.toLowerCase());
+                    }
+                });
+
+                const matchingExercises = [];
+
+                data["vezbi"].forEach(e => {
+                    const exerciseName = e.vezbam.toLowerCase();
+                    if (exerciseName.includes(query)) {
+                        matchingExercises.push(e);
+                    }
+                });
+
+                matchingExercises.sort((a, b) => a.vezbam.localeCompare(b.vezbam));
+                matchingExercises.forEach(e => {
+                    const exerciseName = e.vezbam.toLowerCase();
+
+                    if (!shownExercises.has(exerciseName)) {
+                        shownExercises.add(exerciseName);
+
+                        const muskul = e.muskul;
+                        const gif = e.gif;
+
+                        const resultDiv = document.createElement("div");
+                        resultDiv.classList.add("search_result");
+
+                        const img = document.createElement("img");
+                        img.setAttribute("src", gif);
+
+                        const textDiv = document.createElement("div");
+                        textDiv.setAttribute("id", "text_description");
+
+                        const h3 = document.createElement("h3");
+                        h3.innerText = e.vezbam;
+
+                        const h6 = document.createElement("h6");
+                        h6.innerText = Array.isArray(muskul) ? muskul.join(", ") : muskul;
+
+                        textDiv.appendChild(h3);
+                        textDiv.appendChild(h6);
+                        resultDiv.appendChild(img);
+                        resultDiv.appendChild(textDiv);
+                        take_search_results.appendChild(resultDiv);
+                    }
+                });
+            });
+
+
         }
 
     })
