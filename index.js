@@ -3,15 +3,12 @@ const app = express();
 const path = require('path');
 const mongoose = require("mongoose")
 
-// Set EJS as the view engine
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Serve static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, "public")));
 
-
-//konektirame so mongodB
 const mongoURL = "mongodb://localhost:27017/mygains";
 
 mongoose.connect(mongoURL, {
@@ -25,13 +22,10 @@ mongoose.connect(mongoURL, {
 
 app.use(express.json())
 
-// Render the EJS template
 app.get('/', (req, res) => {
-  console.log('MongoDB Compass е поврзана со Express.js!');
-  res.render('index');  // Make sure 'index.ejs' exists in the 'views' folder
+  res.render('index'); 
 });
 
-// Export the app for Vercel to handle requests
 app.listen(3000, ()=> {
   console.log("hello")
 
