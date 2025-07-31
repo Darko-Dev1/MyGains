@@ -36,13 +36,9 @@ fetch("/vezbi.json")
             subtitleQuestion.innerText = "Timed or repetition"
             subtitleQuestion.setAttribute("id", "SubtitleQuestion")
             settings.appendChild(subtitleQuestion)
-            console.log(settings)
             settings.setAttribute("id", "settings_set")
-            console.log(settings)
-
             create_banner.appendChild(settings)
             takee.appendChild(create_banner)
-
             let take_search_input = document.getElementById("search_input")
             let take_excercises = document.querySelector("#exercises")
             take_search_input.addEventListener("input", (e) => {
@@ -101,7 +97,6 @@ fetch("/vezbi.json")
                     return;
                 }
 
-                // ✅ Handle partial search (from `ara`)
                 const shownExercises = new Set();
                 const newTerms = new Set();
 
@@ -180,7 +175,6 @@ creat_nav_dom.addEventListener("click", (e) => {
     if (take_id.getAttribute("id") === "search" || take_id.getAttribute("id") === "one" || take_id.getAttribute("id") === "two" || take_id.getAttribute("id") === "search_input") {
         create_search_bar.style.width = "65%"
         create_search_bar.style.height = "70%"
-        create_search_bar.style.backgroundColor = "white"
         let deleting = changeX.getAttribute("d")
         active_aside = 2
         deleting.remove
@@ -194,12 +188,11 @@ creat_nav_dom.addEventListener("click", (e) => {
         take_search_results.innerHTML = ""
         create_search_bar.style.width = "0%"
         create_search_bar.style.height = "0%"
-        create_search_bar.style.backgroundColor = "transparent"
         let deleting = changeX.getAttribute("d")
         deleting.remove
         changeX.setAttribute("d", "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z")
         deleting.remove
-        take_body.style.overflow = "auto";
+        // take_body.style.overflow = "auto";
     }
 })
 
@@ -264,7 +257,6 @@ take_filter_section.addEventListener("click", (e) => {
         console.log(ime_na_muskul)
 
         console.log("tuka e lista za muskuli: " + muskulii)
-        take_filter.style.backgroundColor = "white"
         take_filter.innerHTML = ime_na_muskul
         filter_active--
 
@@ -311,6 +303,7 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         take_aside.style.left = "100%"
         active_aside = 0
         take_body.style.overflow = "auto"
+        // take_body.style.overflow = "hidden"
 
     } else if (e.target.getAttribute("id") === "change_to_X" || e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
         console.log(e.target.getAttribute("id"))
@@ -318,9 +311,10 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         console.log(active_aside)
         take_aside.style.left = "0%"
         console.log(take_aside)
+        takee.style.overflow = "hidden"
         active_aside = 1
-        take_body.style.overflow = "auto"
-
+        // take_body.style.overflow = "auto"
+        take_body.style.overflow = "hidden"
     }
     else {
         take_aside.style.left = "100%"
@@ -372,7 +366,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         activeDiv.querySelector("h3").style.width = "100%";
         activeDiv.querySelector("h3").style.display = "block";
         activeDiv.querySelector("h3").style.textAlign = "left";
-        activeDiv.children[3].style.backgroundColor = "white";
         activeDiv.children[3].style.height = "50%";
         activeDiv.children[3].style.width = "105.6%";
         activeDiv.children[3].style.padding = "2%";
@@ -391,4 +384,36 @@ document.getElementById("exercises").addEventListener("click", (e) => {
     console.log(activeDiv.querySelector("h6"))
 
 })
+
+const darkTheme = localStorage
+console.log(darkTheme)
+document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
+
+const BtnDarkMode = document.querySelector("#darkmode")
+console.log(BtnDarkMode)
+BtnDarkMode.addEventListener("click", () => {
+    if (darkTheme.getItem("theme") === "white") {
+        darkTheme.setItem("theme", "black")
+        darkTheme.setItem("themeAtr", "white")
+        console.log("works")
+    } else {
+        darkTheme.setItem("theme", "white")
+        darkTheme.setItem("themeAtr", "black")
+    }
+    document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
+    document.querySelector("aside").style.fill = `red`
+    document.querySelector("body").style.color = `${darkTheme.getItem("themeAtr")}`
+    document.querySelector("#nav_bar").style.backgroundColor = `${darkTheme.getItem("theme")}`   
+    document.querySelector("aside").style.backgroundColor = `${darkTheme.getItem("theme")}`
+    document.querySelector("aside").querySelectorAll("button").forEach(e => {
+        e.style.color = `${darkTheme.getItem("themeAtr")}`
+    })
+    document.querySelector("#search_input").style.backgroundColor= `${darkTheme.getItem("theme")}`
+    const red = "red"
+    takee.querySelectorAll("#exercise").forEach((e) => {
+        e.style.borderColor = `${darkTheme.getItem("themeAtr")}`
+    })
+
+})
+
 

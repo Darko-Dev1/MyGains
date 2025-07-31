@@ -131,7 +131,6 @@ header button {
 
 #search_input {
 
-    background-color: transparent;
     width: 0%;
     transform: translate(-20%, 0%);
     z-index: 100;
@@ -328,7 +327,7 @@ aside {
 
     width: 100%;
     position: fixed;
-    height: 100%;
+    height: 100vh;
     background-color: white;    
     left: 100%;
     transition: 0.3s ease-in-out;
@@ -336,19 +335,24 @@ aside {
     z-index: 10000;
     padding-top: 15%;
 
+
 }
 aside button{
     width: 100%;
     background-color: transparent;
     margin-top: 5%;
     padding: 5%;
+        color: blue;
     border: none; 
     border-bottom: 2px solid black;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    
 }
 
 #settings_set{
-    background-color: rgba(255, 255, 255, 0);
     position: relative;
     transition: 0.5s;
     border-radius: 0px 0px 5px 5px;
