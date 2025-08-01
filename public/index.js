@@ -414,9 +414,13 @@ BtnDarkMode.addEventListener("click", () => {
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
         console.log('hello?')
-    } else {
+    } else if (darkTheme.getItem("theme") === "black") {
         darkTheme.setItem("theme", "white")
         darkTheme.setItem("themeAtr", "black")
+        darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 232505.png")
+    }else {
+        darkTheme.setItem("theme", "black")
+        darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 232505.png")
     }
     headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
