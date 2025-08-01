@@ -304,7 +304,11 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         console.log(e.target.getAttribute("id"))
         console.log("heheh")
         console.log(active_aside)
-        take_aside.style.left = "0%"
+        if (window.innerWidth > 720) {
+            take_aside.style.left = "70%"
+        } else {
+            take_aside.style.left = "0%"
+        }
         console.log(take_aside)
         // takee.style.overflow = "hidden"
         active_aside = 1

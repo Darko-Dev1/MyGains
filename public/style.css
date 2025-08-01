@@ -295,7 +295,8 @@ aside {
     transition: 0.3s ease-in-out;
     padding: 5%;
     z-index: 10000;
-    padding-top: 15%;
+    padding-top: 5%;
+    text-align: center;
 
 
 }
@@ -304,14 +305,20 @@ aside button {
     width: 100%;
     background-color: transparent;
     margin-top: 5%;
-    padding: 5%;
-    border: none;
-    border-bottom: 2px solid black;
-    display: flex;
+    padding: 2%;
+    height: 70px;
+    border-radius: 5px;
+    /* display: flex;
     align-items: center;
     justify-content: space-around;
-    flex-direction: column;
+    flex-direction: column; */
+    position: relative;
 
+}
+
+aside button svg {
+    height: 20px;
+    width: 60%;
 }
 
 #settings_set {
@@ -328,4 +335,11 @@ aside button {
     #exercise {
         width: 25%;
     }
+    aside {
+        width: 30%;
+    }
+    aside button svg {
+    height: 50%;
+    width: 60%;
+}
 }
