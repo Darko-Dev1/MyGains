@@ -93,7 +93,6 @@ fetch("/vezbi.json")
                             take_search_results.appendChild(similarText);
                         }
                     }
-
                     return;
                 }
 
@@ -148,12 +147,8 @@ fetch("/vezbi.json")
                     }
                 });
             });
-
-
         }
-
     })
-
 let creat_nav_dom = document.getElementById("nav_bar")
 let take_search = document.getElementById("two")
 let take_body = document.querySelector("body")
@@ -284,10 +279,8 @@ take_filter_section.addEventListener("click", (e) => {
                             ess.style.display = "none"
                         }
                         console.log(a)
-
                     }
                 }
-
             }
         }
         console.log(muskulii)
@@ -346,7 +339,14 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         activeDiv.querySelector("h3").style.width = "100%"
         activeDiv.children[1].style.fontSize = "0px"
         activeDiv.children[1].style.height = "0px"
-        activeDiv.style.width = "40%"
+        console.log(window.width)
+        window.innerWidth
+        if (window.innerWidth > 720) {
+            activeDiv.style.width = "25%"
+        } else {
+            activeDiv.style.width = "40%"
+        }
+
         activeDiv.children[3].style.backgroundColor = "transparent"
         activeDiv.children[3].style.height = "0%"
         activeDiv.children[3].style.border = "rgba(0, 0, 0, 0) solid 1px";
@@ -358,7 +358,7 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         e.target.closest("div").querySelector("h4").style.fontSize = "0px"
         active_ex = 0
     } else if (activeDiv.getAttribute("id") === "exercise" && active_ex === 0) {
-        activeDiv.style.width = "83%";
+        activeDiv.style.width = "100%";
         activeDiv.children[0].style.width = "40%";
         activeDiv.children[1].style.display = "inline-block";
         activeDiv.children[1].style.fontSize = "13px";

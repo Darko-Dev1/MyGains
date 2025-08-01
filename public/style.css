@@ -273,10 +273,6 @@ li {
 
 }
 
-/*
-    popravi popout za koga ke stisnes za vezba, podobri animacii i UI da mozes da stavis minuti repeticii etc/.
-*/
-
 
 @keyframes fade_in {
     from {
@@ -326,4 +322,10 @@ aside button {
     margin: -8px;
     margin-top: 1%;
 
+}
+
+@media (min-width:720px) {
+    #exercise {
+        width: 25%;
+    }
 }
