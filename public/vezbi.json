@@ -4,7 +4,7 @@
 
         {
             "vezbam": "Dumbbell Cossack Squat",
-            "muskul": ["hip", "leg"],
+            "muskul": ["hip", "Legs"],
             "repeticii": 15,
             "nivo_tesko": "tesko",
             "so_teg": "da",
@@ -14,7 +14,7 @@
         },         
         {
             "vezbam": "Dumbbell Goblet Squat",
-            "muskul": ["hip", "leg"],
+            "muskul": ["hip", "Legs"],
             "repeticii": 15,
             "nivo_tesko": "tesko",
             "so_teg": "da",
@@ -24,7 +24,7 @@
         }, 
         {
             "vezbam": "Cursty Lunge",
-            "muskul": ["hip", "leg"],
+            "muskul": ["hip", "Legs"],
             "repeticii": 15,
             "nivo_tesko": "tesko",
             "so_teg": "ne",
@@ -34,7 +34,7 @@
         }, 
         {
             "vezbam": "Standing Leg Circles",
-            "muskul": ["hip", "leg"],
+            "muskul": ["hip", "Legs"],
             "repeticii": 15,
             "nivo_tesko": "tesko",
             "so_teg": "ne",
@@ -331,7 +331,7 @@
         , 
         {
             "vezbam": "Pistol Squat",
-            "muskul": ["leg"],
+            "muskul": ["Legs"],
             "repeticii": 15,
             "nivo_tesko": "tesko",
             "so_teg": "ne",

@@ -1,4 +1,5 @@
 let muskulii = []
+const darkTheme = localStorage
 
 
 fetch("/vezbi.json")
@@ -55,6 +56,7 @@ fetch("/vezbi.json")
                 take_search_results.style.padding = "8%";
                 take_search_results.style.overflow = "auto";
                 take_search_results.style.height = "100%";
+
                 take_body.style.overflow = "none";
                 if (query === take_name.toLowerCase()) {
                     const matchHeader = document.createElement("h3");
@@ -77,7 +79,6 @@ fetch("/vezbi.json")
                     mainResultDiv.appendChild(descDiv);
                     take_search_results.appendChild(mainResultDiv);
 
-                    // Show similar exercises
                     const similarDiv = document.createElement("div");
                     similarDiv.innerText = "similar exercises...";
                     similarDiv.style.paddingTop = "5%";
@@ -176,6 +177,7 @@ creat_nav_dom.addEventListener("click", (e) => {
         create_search_bar.style.width = "65%"
         create_search_bar.style.height = "70%"
         let deleting = changeX.getAttribute("d")
+        take_search_input.style.display = "block";
         active_aside = 2
         deleting.remove
         changeX.setAttribute("d", "M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z")
@@ -183,6 +185,7 @@ creat_nav_dom.addEventListener("click", (e) => {
     } else {
 
         take_search_results.style.height = "0%"
+        take_search_input.style.display = "none";
         take_search_input.value = ""
         take_search_results.style.padding = "0%"
         take_search_results.innerHTML = ""
@@ -192,8 +195,9 @@ creat_nav_dom.addEventListener("click", (e) => {
         deleting.remove
         changeX.setAttribute("d", "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z")
         deleting.remove
-        // take_body.style.overflow = "auto";
+        take_body.style.overflow = "auto";
     }
+
 })
 
 let take_filter_section = document.getElementById("dropDownFilter")
@@ -222,12 +226,10 @@ take_filter_section.addEventListener("click", (e) => {
 
     if (take_filter.getAttribute("value") === "inactive") {
 
+        take_filter.style.backgroundColor = `gray`
         take_filter.setAttribute("value", "active")
         take_filter.innerHTML += `<svg id="close" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 422c-44.3 0-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90s86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422m0-362C141.1 60 48 153.1 48 268s93.1 208 208 208 208-93.1 208-208S370.9 60 256 60z"></path><path d="M360 181.1L330.9 152 256 226.9 181.1 152 152 181.1l74.9 74.9-74.9 74.9 29.1 29.1 74.9-74.9 74.9 74.9 29.1-29.1-74.9-74.9z"></path></svg>`
-        take_filter.style.backgroundColor = "rgb(165, 165, 165)"
-
         muskulii.push(ime_na_muskul)
-
         for (ess of takee.children) {
 
             if (muskulii.includes(ess.getAttribute("value"))) {
@@ -248,6 +250,7 @@ take_filter_section.addEventListener("click", (e) => {
 
     } else if (take_filter.getAttribute("value") === "active") {
 
+        take_filter.style.backgroundColor = "transparent"
         const index = muskulii.indexOf(ime_na_muskul);
         if (index !== -1) {
             muskulii.splice(index, 1);
@@ -311,10 +314,10 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         console.log(active_aside)
         take_aside.style.left = "0%"
         console.log(take_aside)
-        takee.style.overflow = "hidden"
+        // takee.style.overflow = "hidden"
         active_aside = 1
-        // take_body.style.overflow = "auto"
         take_body.style.overflow = "hidden"
+        // take_body.style.overflow = "hidden"
     }
     else {
         take_aside.style.left = "100%"
@@ -385,31 +388,51 @@ document.getElementById("exercises").addEventListener("click", (e) => {
 
 })
 
-const darkTheme = localStorage
+const headerSection = document.querySelector("header")
 console.log(darkTheme)
+headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
 document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
-
+document.querySelector("aside").style.backgroundColor = `${darkTheme.getItem("theme")}`
+document.querySelector("body").style.color = `${darkTheme.getItem("themeAtr")}`
+document.querySelector("#search_results").style.backgroundColor = `${darkTheme.getItem("theme")}`
+document.querySelector("#nav_bar").style.backgroundColor = `${darkTheme.getItem("theme")}`
+document.querySelector("#nav_bar").style.fill = `${darkTheme.getItem("themeAtr")}`
+document.querySelector("#search_input").style.color = `${darkTheme.getItem("themeAtr")}`
+document.querySelector("aside").querySelectorAll("button").forEach(e => {
+    e.style.color = `${darkTheme.getItem("themeAtr")}`
+    e.style.fill = `${darkTheme.getItem("themeAtr")}`
+})
+document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
+takee.querySelectorAll("#exercise").forEach((e) => {
+    e.style.borderColor = `${darkTheme.getItem("themeAtr")}`
+})
 const BtnDarkMode = document.querySelector("#darkmode")
 console.log(BtnDarkMode)
 BtnDarkMode.addEventListener("click", () => {
     if (darkTheme.getItem("theme") === "white") {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
-        console.log("works")
+        darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
+        console.log('hello?')
     } else {
         darkTheme.setItem("theme", "white")
         darkTheme.setItem("themeAtr", "black")
+        darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 232505.png")
     }
+    headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
     document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
     document.querySelector("aside").style.fill = `red`
     document.querySelector("body").style.color = `${darkTheme.getItem("themeAtr")}`
-    document.querySelector("#nav_bar").style.backgroundColor = `${darkTheme.getItem("theme")}`   
+    document.querySelector("#nav_bar").style.backgroundColor = `${darkTheme.getItem("theme")}`
+    document.querySelector("#nav_bar").style.fill = `${darkTheme.getItem("themeAtr")}`
+    document.querySelector("#search_input").style.color = `${darkTheme.getItem("themeAtr")}`
     document.querySelector("aside").style.backgroundColor = `${darkTheme.getItem("theme")}`
+    document.querySelector("#search_results").style.backgroundColor = `${darkTheme.getItem("theme")}`
     document.querySelector("aside").querySelectorAll("button").forEach(e => {
         e.style.color = `${darkTheme.getItem("themeAtr")}`
+        e.style.fill = `${darkTheme.getItem("themeAtr")}`
     })
-    document.querySelector("#search_input").style.backgroundColor= `${darkTheme.getItem("theme")}`
-    const red = "red"
+    document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
     takee.querySelectorAll("#exercise").forEach((e) => {
         e.style.borderColor = `${darkTheme.getItem("themeAtr")}`
     })
