@@ -1,7 +1,6 @@
 let muskulii = []
 const darkTheme = localStorage
 
-
 fetch("/vezbi.json")
     .then(response => response.json())
     .then(data => {
@@ -403,9 +402,15 @@ document.querySelector("aside").querySelectorAll("button").forEach(e => {
     e.style.fill = `${darkTheme.getItem("themeAtr")}`
 })
 document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
-takee.querySelectorAll("#exercise").forEach((e) => {
-    e.style.borderColor = `${darkTheme.getItem("themeAtr")}`
-})
+console.log(takee)
+console.log(takee.querySelectorAll("#exercise"))
+setTimeout(() => {
+    takee.querySelectorAll("#exercise").forEach((e) => {
+        console.log("works")
+        e.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
+    })
+}, 800)
+
 const BtnDarkMode = document.querySelector("#darkmode")
 console.log(BtnDarkMode)
 BtnDarkMode.addEventListener("click", () => {
@@ -418,7 +423,7 @@ BtnDarkMode.addEventListener("click", () => {
         darkTheme.setItem("theme", "white")
         darkTheme.setItem("themeAtr", "black")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 232505.png")
-    }else {
+    } else {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
@@ -438,7 +443,8 @@ BtnDarkMode.addEventListener("click", () => {
     })
     document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
     takee.querySelectorAll("#exercise").forEach((e) => {
-        e.style.borderColor = `${darkTheme.getItem("themeAtr")}`
+        console.log("this one works")
+        e.style.border = `${darkTheme.getItem("themeAtr")} solid 0.5px`
     })
 
 })
