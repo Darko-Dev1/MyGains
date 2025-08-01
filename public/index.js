@@ -421,7 +421,7 @@ BtnDarkMode.addEventListener("click", () => {
     }else {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
-        darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 232505.png")
+        darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
     }
     headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
     document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
