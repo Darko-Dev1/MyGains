@@ -15,7 +15,6 @@ mongoose.connect(mongoURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 
-
 })
 .then(() => console.log("connected to mongodb"))
 .catch(err => console.error("error: " + err))
@@ -24,6 +23,14 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
   res.render('index'); 
+});
+
+app.get('/aboutme', (req, res) => {
+  res.render('aboutme'); 
+});
+
+app.get('/account', (req, res) => {
+  res.render('account'); 
 });
 
 app.listen(3000, ()=> {
