@@ -6,8 +6,8 @@
             "vezbam": "Dumbbell Cossack Squat",
             "muskul": ["hip", "Legs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2024/09/dumbbell-cossack-squat.gif"
 
@@ -16,8 +16,8 @@
             "vezbam": "Dumbbell Goblet Squat",
             "muskul": ["hip", "Legs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/01/Dumbbell-Goblet-Squat.gif"
 
@@ -26,8 +26,8 @@
             "vezbam": "Cursty Lunge",
             "muskul": ["hip", "Legs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/09/curtsy-lunge.gif"
 
@@ -36,8 +36,8 @@
             "vezbam": "Standing Leg Circles",
             "muskul": ["hip", "Legs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/10/Standing-Leg-Circles.gif"
 
@@ -47,8 +47,8 @@
             "vezbam": "Cross Crucnh",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/07/Cross-Crunch.gif"
 
@@ -58,8 +58,8 @@
             "vezbam": "Cross body mountain climber",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/07/Cross-Body-Mountain-Climber.gif"
 
@@ -69,8 +69,8 @@
             "vezbam": "Alternate Leg Raises",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/08/Alternate-Leg-Raises.gif"
 
@@ -80,8 +80,8 @@
             "vezbam": "Bicycle Crunch",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Bicycle-Crunch.gif"
 
@@ -91,8 +91,8 @@
             "vezbam": "Lying Leg Raise",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lying-Leg-Raise.gif"
 
@@ -102,8 +102,8 @@
             "vezbam": "T-Cross Sit-up",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/05/T-Cross-Sit-up.gif"
 
@@ -113,8 +113,8 @@
             "vezbam": "Reverse Crunch",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Reverse-Crunch-1.gif"
 
@@ -124,8 +124,8 @@
             "vezbam": "Bent Over Dumbbell Row",
             "muskul": ["Back","Wing"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Bent-Over-Dumbbell-Row.gif"
 
@@ -135,8 +135,8 @@
             "vezbam": "Dumbbell Bent Over Reverse Row",
             "muskul": ["Back","Wing"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/10/Dumbbell-Bent-Over-Reverse-Row.gif"
 
@@ -146,8 +146,8 @@
             "vezbam": "Upper Back Stretch",
             "muskul": ["Back","Wing"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/05/Upper-Back-Stretch.gif"
 
@@ -157,8 +157,8 @@
             "vezbam": "Standing Reach Up Back rotation Stretch",
             "muskul": ["Back","Wing", "Shoulders"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/04/Standing-Reach-Up-Back-rotation-Stretch.gif"
 
@@ -168,8 +168,8 @@
             "vezbam": "Lying Upper Body Rotation",
             "muskul": ["Back","Wing","Shoulders", "Abs", "Chest"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/02/Lying-Upper-Body-Rotation.gif"
 
@@ -179,8 +179,8 @@
             "vezbam": "waiter curl",
             "muskul": ["Biceps"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/09/waiter-curl.gif"
 
@@ -190,8 +190,8 @@
             "vezbam": "Double Arm Dumbbell Curl",
             "muskul": ["Biceps"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/04/Double-Arm-Dumbbell-Curl.gif"
 
@@ -201,8 +201,8 @@
             "vezbam": "Zottman curl",
             "muskul": ["Biceps"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/04/zottman-curl.gif"
 
@@ -212,8 +212,8 @@
             "vezbam": "Biceps Leg Concentration Curl",
             "muskul": ["Biceps"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/04/Biceps-Leg-Concentration-Curl.gif"
 
@@ -223,8 +223,8 @@
             "vezbam": "Arm Scissors",
             "muskul": ["Chest"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/02/Arm-Scissors.gif"
 
@@ -234,8 +234,8 @@
             "vezbam": "Drop Push-Up",
             "muskul": ["Chest"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/06/Drop-Push-Up.gif"
 
@@ -245,8 +245,8 @@
             "vezbam": "Incline Dumbbel Hammer-Press",
             "muskul": ["Chest"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "da",
+            "nivo_tesko": "hard",
+            "so_teg": "yes",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/06/Incline-Dumbbel-Hammer-Press.gif"
 
@@ -256,8 +256,8 @@
             "vezbam": "Navy-Seal-Burpee",
             "muskul": ["Full-Body", "Cardio"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/10/Navy-Seal-Burpee.gif"
 
@@ -267,8 +267,8 @@
             "vezbam": "Sprint",
             "muskul": ["Cardio"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2023/06/sprint.gif"
 
@@ -278,8 +278,8 @@
             "vezbam": "Diagonal Neck Stretch",
             "muskul": ["Neck"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/07/Diagonal-Neck-Stretch-360x360.png"
 
@@ -289,8 +289,8 @@
             "vezbam": "Standing Calf Raise",
             "muskul": ["Calf"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/06/Standing-Calf-Raise.gif"
 
@@ -300,8 +300,8 @@
             "vezbam": "Front and Back Neck Stretch",
             "muskul": ["Neck"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/06/Front-and-Back-Neck-Stretch.gif"
 
@@ -311,8 +311,8 @@
             "vezbam": "Full Lotus Pose",
             "muskul": ["Yoga"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/05/Full-Lotus-Pose-360x360.png"
 
@@ -322,8 +322,8 @@
             "vezbam": "Heel Touch",
             "muskul": ["Abs"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Heel-Touch.gif"
 
@@ -333,8 +333,8 @@
             "vezbam": "Pistol Squat",
             "muskul": ["Legs"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Pistol-Squat.gif"
 
@@ -344,8 +344,8 @@
             "vezbam": "Water Bottle Hammer Curl",
             "muskul": ["Biceps", "Forearm"],
             "repeticii": 15,
-            "nivo_tesko": "tesko",
-            "so_teg": "ne",
+            "nivo_tesko": "hard",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2022/06/Water-Bottle-Hammer-Curl.gif"
 
@@ -355,8 +355,8 @@
             "vezbam": "Standing One Arm Chest Stretch",
             "muskul": ["Biceps", "Chest", "Forearm"],
             "repeticii": 15,
-            "nivo_tesko": "lesno",
-            "so_teg": "ne",
+            "nivo_tesko": "easy",
+            "so_teg": "no",
             "slika": "",
             "gif": "https://fitnessprogramer.com/wp-content/uploads/2021/08/Standing-one-arm-chest-stretch.gif"
 
