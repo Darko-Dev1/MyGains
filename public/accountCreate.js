@@ -3,6 +3,7 @@ let darkTheme = localStorage
 const Body = document.querySelector("body")
 const navBar = document.querySelector("#nav_bar")
 const idImg = document.querySelector("#logo")
+console.log(idImg)
 let take_aside = document.querySelector("aside")
 
 
