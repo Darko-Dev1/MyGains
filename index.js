@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const mongoose = require("mongoose")
 
-const mongoURL = "mongodb+srv://darkokitanoski:jfhioufs1231@cluster0.fbjelhc.mongodb.net/";
+
 
 const DB = async () => {
     try {
