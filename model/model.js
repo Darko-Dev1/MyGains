@@ -9,11 +9,11 @@ const DBschema = mongoose.Schema({
         required: true,
         unique: true,
     },
-    id: {
-        type: Number,
-        required: true,
-        unique: true,
-    }
+    // id: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    // }
 })
 
 const UserSaved = mongoose.model("Users", DBschema)

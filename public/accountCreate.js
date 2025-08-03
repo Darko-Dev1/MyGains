@@ -84,5 +84,23 @@ BtnDarkMode.addEventListener("click", () => {
         e.style.fill = `${darkTheme.getItem("themeAtr")}`
     })
 
-
 })
+
+document.getElementById("registerBTN").addEventListener("click", () => {
+    const RegUser = async () => {
+        try {
+            console.log("hey")
+            const res = await axios.post("/register", {
+                UserName: document.getElementById("nameReg").value,
+                email: document.getElementById("emailReg").value
+            })
+            console.log(res)
+            window.location.href = "/account"
+        }catch {
+            console.error("not saved")
+        }
+    }
+    RegUser()
+})
+
+

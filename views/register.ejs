@@ -9,6 +9,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/Screenshot 2025-01-21 233337.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -51,11 +52,11 @@
     </aside>
     <div class="container" id="formbox">
         <h1>Create an account</h1>
-        <form action="/account">
-            <p>Name: </p><input type="text">
-            <p>Email: </p><input type="email">
-            <button type="submit">Register</button>
-        </form>
+        <div>
+            <p>Name: </p><input id="nameReg" type="text">
+            <p>Email: </p><input id="emailReg" type="email">
+            <button id="registerBTN" type="submit">Register</button>
+        </div>
         <a href="/login">Have an account already?</a>
     </div>
 

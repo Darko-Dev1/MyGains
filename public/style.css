@@ -263,7 +263,7 @@ li {
     text-align: center;
 }
 
-#formbox form {
+#formbox div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -271,10 +271,11 @@ li {
     flex-direction: column;
 }
 
-#formbox form input {
+#formbox div input {
     width: 50%;
+    padding: 2%;
 }
-#formbox form button {
+#formbox div button {
     width: 20%;
     padding: 3%;
     margin: 2%;
