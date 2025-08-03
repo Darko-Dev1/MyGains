@@ -3,21 +3,19 @@ const app = express();
 const path = require('path');
 const UserSaved = require("./model/model")
 
+app.use(express.json())
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use("/", require("./routes/routes"))
 const mongoose = require("mongoose")
-
-
 
 const DB = async () => {
     try {
         const res = await mongoose.connect(mongoURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-
         })
         return res
     } catch {
@@ -25,28 +23,8 @@ const DB = async () => {
     }
   }
 
-app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.render('index'); 
-});
 
-app.post('/account', (req, res) => {
-  const data = req.body
-  console.log(data)
-  const NewUser = new UserSaved({
-    UserName: req.body
-  })
-
-});
-
-app.get('/aboutme', (req, res) => {
-  res.render('aboutme'); 
-});
-
-app.get('/account', (req, res) => {
-  res.render('account'); 
-});
 
 app.listen(3000, ()=> {
   console.log("hello")

@@ -9,10 +9,12 @@ const DBschema = mongoose.Schema({
         required: true,
         unique: true,
     },
-    Exercise: {
-        type: Object
+    id: {
+        type: Number,
+        required: true,
+        unique: true,
     }
 })
 
-const UserSaved = mongoose.model("User", DBschema)
+const UserSaved = mongoose.model("Users", DBschema)
 module.exports = UserSaved

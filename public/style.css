@@ -257,6 +257,30 @@ li {
 
 }
 
+#formbox {
+    border: 1px solid black;
+    padding: 2%;
+    text-align: center;
+}
+
+#formbox form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#formbox form input {
+    width: 50%;
+}
+#formbox form button {
+    width: 20%;
+    padding: 3%;
+    margin: 2%;
+}
+
+
 #text_description {
     padding-left: 3%;
 
