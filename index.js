@@ -12,8 +12,6 @@ app.use("/", require("./routes/routes"))
 const mongoose = require("mongoose")
 const mongoURL = process.env.MONGODB_URI
 
-
-
 const DB = async () => {
     try {
         const res = await mongoose.connect(mongoURL, {
@@ -27,8 +25,4 @@ const DB = async () => {
   }
 DB()
 
-app.listen(3000, ()=> {
-  console.log("hello")
-
-})
-
+module.exports = app;
