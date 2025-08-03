@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const UserSaved = require("../model/model")
+const savedExecise = require("../model/modelExercise")
 
 router.get('/', (req, res) => {
     res.render('index');
@@ -58,6 +59,7 @@ router.get('/aboutme', (req, res) => {
 
 router.get('/account', (req, res) => {
     res.render('account');
+    console.log({savedExecise})
 });
 
 module.exports = router

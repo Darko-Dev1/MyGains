@@ -79,7 +79,7 @@ BtnDarkMode.addEventListener("click", () => {
 
 })
 
-if (!localStorage.getItem("loginInfo")) {
+if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = `No saves...`
 } else {
