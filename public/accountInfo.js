@@ -82,6 +82,13 @@ BtnDarkMode.addEventListener("click", () => {
 if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = `No saves...`
+    document.getElementById("logOutBtn").style.display = "block"
+    document.getElementById("logOutBtn").addEventListener("click", () => {
+        localStorage.removeItem("loginInfo")
+        window.location.href = "/account"
+    })
+
 } else {
     document.getElementById("welcome").innerHTML = ``
+    document.getElementById("logOutBtn").style.display = "none"
 }
