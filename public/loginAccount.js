@@ -1,9 +1,7 @@
 let darkTheme = localStorage
-
 const Body = document.querySelector("body")
 const navBar = document.querySelector("#nav_bar")
 const idImg = document.querySelector("#logo")
-console.log(idImg)
 let take_aside = document.querySelector("aside")
 
 
@@ -19,12 +17,10 @@ take_aside.querySelectorAll("button").forEach(e => {
     e.style.fill = `${darkTheme.getItem("themeAtr")}`
 })
 
-
 // aside code
 
 let active_aside = 0
 document.getElementById("burger_mehnu").addEventListener("click", (e) => {
-    console.log(e.target.getAttribute("id"))
     if (active_aside === 1 || e.target.getAttribute("d") !== "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z") {
         take_aside.style.left = "100%"
         active_aside = 0
@@ -32,15 +28,11 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         // take_body.style.overflow = "hidden"
 
     } else if (e.target.getAttribute("id") === "change_to_X" || e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
-        console.log(e.target.getAttribute("id"))
-        console.log("heheh")
-        console.log(active_aside)
         if (window.innerWidth > 720) {
             take_aside.style.left = "70%"
         } else {
             take_aside.style.left = "0%"
         }
-        console.log(take_aside)
         // takee.style.overflow = "hidden"
         active_aside = 1
         Body.style.overflow = "hidden"
@@ -56,7 +48,6 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 })
 
 const BtnDarkMode = document.querySelector("#darkmode")
-console.log(BtnDarkMode)
 BtnDarkMode.addEventListener("click", () => {
     if (darkTheme.getItem("theme") === "white") {
         darkTheme.setItem("theme", "black")
@@ -88,18 +79,16 @@ BtnDarkMode.addEventListener("click", () => {
 
 
 document.getElementById("loginBTN").addEventListener("click", () => {
-    console.log(document.getElementById("nameRegg").value)
     const RegUser = async () => {
         try {
-            console.log("hey")
+            localStorage.setItem("loginInfo", document.getElementById("nameRegg").value)
             const res = await axios.post("/login", {
                 UserName: document.getElementById("nameRegg").value,
                 email: document.getElementById("emailRegg").value
             })
-            console.log(res)
-            localStorage.setItem("loginInfo", document.getElementById("nameRegg").value)
             window.location.href = "/account"
-        }catch {
+        } catch {
+            window.location.href = "/login"
             console.error("inccorect info")
         }
     }

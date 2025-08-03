@@ -12,15 +12,14 @@ router.put('/account', (req, res) => {
 router.delete('/account', (req, res) => {
 
 });
-
+let loginFailMSG = ""
 router.get("/register", (req, res) => {
-    res.render("register")
+    res.render("register", {msg: loginFailMSG})
 })
 
 router.post("/register", async (req, res) => {
     try {
         const data = req.body
-        console.log(data)
         const NewUser = new UserSaved({
             UserName: data["UserName"],
             email: data["email"]
@@ -29,23 +28,24 @@ router.post("/register", async (req, res) => {
 
         res.status(201).send("User saved");
     } catch {
+        loginFailMSG = "Account already created with these credentials"
         res.status(500).send("Server error");
     }
 })
 
 router.get("/login", (req, res) => {
-    res.render("login")
+    res.render("login", {msg: loginFailMSG})
 })
 
+
 router.post("/login", async (req, res) => {
-    console.log("helo")
     try {
         const data = req.body
         const user = await UserSaved.findOne({ email: data["email"] });
         if (!user) {
+            loginFailMSG = "There is no account with these credentials"
             return res.status(404).json({ message: "User not found" });
         }
-        console.log(user)
         res.json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });

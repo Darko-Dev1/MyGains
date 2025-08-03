@@ -387,12 +387,10 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         console.error("not good bro")
 
     }
-    console.log(activeDiv.querySelector("h6"))
 
 })
 
 const headerSection = document.querySelector("header")
-console.log(darkTheme)
 headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
 document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
 document.querySelector("aside").style.backgroundColor = `${darkTheme.getItem("theme")}`
@@ -406,23 +404,18 @@ document.querySelector("aside").querySelectorAll("button").forEach(e => {
     e.style.fill = `${darkTheme.getItem("themeAtr")}`
 })
 document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
-console.log(takee)
-console.log(takee.querySelectorAll("#exercise"))
 setTimeout(() => {
     takee.querySelectorAll("#exercise").forEach((e) => {
-        console.log("works")
         e.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
     })
 }, 800)
 
 const BtnDarkMode = document.querySelector("#darkmode")
-console.log(BtnDarkMode)
 BtnDarkMode.addEventListener("click", () => {
     if (darkTheme.getItem("theme") === "white") {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
-        console.log('hello?')
     } else if (darkTheme.getItem("theme") === "black") {
         darkTheme.setItem("theme", "white")
         darkTheme.setItem("themeAtr", "black")
@@ -447,7 +440,6 @@ BtnDarkMode.addEventListener("click", () => {
     })
     document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
     takee.querySelectorAll("#exercise").forEach((e) => {
-        console.log("this one works")
         e.style.border = `${darkTheme.getItem("themeAtr")} solid 0.5px`
     })
 

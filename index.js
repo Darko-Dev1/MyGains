@@ -25,4 +25,8 @@ const DB = async () => {
   }
 DB()
 
+// app.listen(3000, () => {
+//     console.log("runs")
+// })
+
 module.exports = app;

@@ -1,9 +1,7 @@
 let darkTheme = localStorage
-
 const Body = document.querySelector("body")
 const navBar = document.querySelector("#nav_bar")
 const idImg = document.querySelector("#logo")
-console.log(idImg)
 let take_aside = document.querySelector("aside")
 
 
@@ -24,7 +22,6 @@ take_aside.querySelectorAll("button").forEach(e => {
 
 let active_aside = 0
 document.getElementById("burger_mehnu").addEventListener("click", (e) => {
-    console.log(e.target.getAttribute("id"))
     if (active_aside === 1 || e.target.getAttribute("d") !== "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z") {
         take_aside.style.left = "100%"
         active_aside = 0
@@ -33,14 +30,12 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
     } else if (e.target.getAttribute("id") === "change_to_X" || e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
         console.log(e.target.getAttribute("id"))
-        console.log("heheh")
-        console.log(active_aside)
         if (window.innerWidth > 720) {
             take_aside.style.left = "70%"
         } else {
             take_aside.style.left = "0%"
         }
-        console.log(take_aside)
+
         // takee.style.overflow = "hidden"
         active_aside = 1
         Body.style.overflow = "hidden"
@@ -56,13 +51,11 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 })
 
 const BtnDarkMode = document.querySelector("#darkmode")
-console.log(BtnDarkMode)
 BtnDarkMode.addEventListener("click", () => {
     if (darkTheme.getItem("theme") === "white") {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
-        console.log('hello?')
     } else if (darkTheme.getItem("theme") === "black") {
         darkTheme.setItem("theme", "white")
         darkTheme.setItem("themeAtr", "black")
@@ -86,7 +79,7 @@ BtnDarkMode.addEventListener("click", () => {
 
 })
 
-if (localStorage.getItem("loginInfo")) {
+if (!localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = `No saves...`
 } else {

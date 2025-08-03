@@ -90,7 +90,6 @@ BtnDarkMode.addEventListener("click", () => {
 document.getElementById("registerBTN").addEventListener("click", () => {
     const RegUser = async () => {
         try {
-            console.log("hey")
             const res = await axios.post("/register", {
                 UserName: document.getElementById("nameReg").value,
                 email: document.getElementById("emailReg").value
@@ -99,6 +98,7 @@ document.getElementById("registerBTN").addEventListener("click", () => {
             localStorage.setItem("loginInfo", document.getElementById("nameReg").value)
             window.location.href = "/account"
         }catch {
+            window.location.href = "/register"
             console.error("account already created with these credentials")
         }
     }
