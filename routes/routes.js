@@ -6,7 +6,10 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
-router.post('/account', (req, res) => {
+router.put('/account', (req, res) => {
+
+});
+router.delete('/account', (req, res) => {
 
 });
 
@@ -22,8 +25,8 @@ router.post("/register", async (req, res) => {
             UserName: data["UserName"],
             email: data["email"]
         })
-        await NewUser.save(); // ✅ Save to MongoDB
-    
+        await NewUser.save(); //Save to MongoDB
+
         res.status(201).send("User saved");
     } catch {
         res.status(500).send("Server error");
@@ -32,6 +35,21 @@ router.post("/register", async (req, res) => {
 
 router.get("/login", (req, res) => {
     res.render("login")
+})
+
+router.post("/login", async (req, res) => {
+    console.log("helo")
+    try {
+        const data = req.body
+        const user = await UserSaved.findOne({ email: data["email"] });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        console.log(user)
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 })
 
 router.get('/aboutme', (req, res) => {

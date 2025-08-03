@@ -86,25 +86,9 @@ BtnDarkMode.addEventListener("click", () => {
 
 })
 
-
-document.getElementById("registerBTN").addEventListener("click", () => {
-    const RegUser = async () => {
-        try {
-            console.log("hey")
-            const res = await axios.post("/register", {
-                UserName: document.getElementById("nameReg").value,
-                email: document.getElementById("emailReg").value
-            })
-            console.log(res)
-            localStorage.setItem("loginInfo", document.getElementById("nameReg").value)
-            window.location.href = "/account"
-        }catch {
-            console.error("account already created with these credentials")
-        }
-    }
-    RegUser()
-})
-
-
-
-
+if (localStorage.getItem("loginInfo")) {
+    document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
+    document.getElementById("activity").innerHTML = `No saves...`
+} else {
+    document.getElementById("welcome").innerHTML = ``
+}
