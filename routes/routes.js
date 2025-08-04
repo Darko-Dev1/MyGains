@@ -7,18 +7,50 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
+router.get('/api/user/:id', async (req, res) => {
+    console.log(parseInt(req.params.id))
+    const docs = await savedExecise.find();
+    const docAtIndex = docs[parseInt(req.params.id)];
+    res.json(docAtIndex)
+});
+
+router.get('/api/user', async (req, res) => {
+    const docs = await savedExecise.find();
+    res.json(docs)
+});
+
+
+router.put('/api/user/:id', async (req, res) => {
+    console.log(req.body)
+    const savedExercisesAcc = req.body
+    console.log(parseInt(req.params.id))
+    const docs = await savedExecise.find();
+    const docAtIndex = docs[parseInt(req.params.id)];
+    const doc = await savedExecise.findOne({ userName: docAtIndex.userName });
+    console.log(doc)
+    doc.exercisesNotes.push({
+        name: "Push-up",
+        note: "Did 20 reps"
+    });
+
+    await doc.save();
+
+});
+
 router.post('/', async (req, res) => {
     console.log(req.body)
     const savedExercisesAcc = req.body
     try {
 
-        const newSave = new savedExecise({
-            userName: savedExercisesAcc.userName,
-            exercisesNotes: savedExercisesAcc.Exercises
-        })
-        // const exerciseSaved = newSave.findOne({ userName: savedExercisesAcc.userName })
         const count = await savedExecise.countDocuments();
         console.log("Number of documents:", count);
+        const newSave = new savedExecise({
+            userName: savedExercisesAcc.userName,
+            exercisesNotes: savedExercisesAcc.Exercises,
+            id: count
+        })
+        // const exerciseSaved = newSave.findOne({ userName: savedExercisesAcc.userName })
+
 
         await newSave.save()
 
@@ -34,6 +66,7 @@ router.post('/', async (req, res) => {
 router.put('/account', (req, res) => {
 
 });
+
 router.delete('/account', (req, res) => {
 
 });

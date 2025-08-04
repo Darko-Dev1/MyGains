@@ -407,29 +407,54 @@ function expand(div) {
     document.querySelector("#addBTNexercise").style.fill = darkTheme.getItem("themeAtr")
     document.querySelector("#addBTNexercise").style.border = `${darkTheme.getItem("themeAtr")} 1px solid`
     document.querySelector("#addBTNexercise").style.color = darkTheme.getItem("themeAtr")
-    localStorage.setItem("savedOne", "0")
+
     document.querySelector("#addBTNexercise").addEventListener("click", () => {
         console.log("works?")
         console.log(document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML)
-        const saveWorkoutAcc = async () => {
+        if (localStorage.getItem("savedOne") === "0") {
 
-            try {
-                const res = await axios.post("/", {
-                    userName: localStorage.getItem("loginInfo"),
-                    Exercise: {
-                        name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
-                        note: "no note written"
-                    }
-                })
-                console.log(res)
-                localStorage.setItem("savedOne", "1")
-            } catch {
-                console.error("not working")
-                window.location.href = "/login"
+            const saveWorkoutAcc = async () => {
+
+                try {
+                    const res = await axios.post("/", {
+                        userName: localStorage.getItem("loginInfo"),
+                        Exercise: {
+                            name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
+                            note: "no note written"
+                        }
+                    })
+                    console.log(res)
+                    localStorage.setItem("savedOne", "1")
+                } catch {
+                    console.error("not working")
+                    window.location.href = "/login"
+                }
+
             }
+            saveWorkoutAcc()
+        } else if(localStorage.getItem("savedOne") === "1") {
+            const saveWorkoutAcc = async () => {
 
+                try {
+                    const res = await axios.put("/", {
+                        userName: localStorage.getItem("loginInfo"),
+                        Exercise: {
+                            name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
+                            note: "no note written"
+                        }
+                    })
+                    console.log(res)
+                    localStorage.setItem("savedOne", "1")
+                } catch {
+                    console.error("not working")
+                    window.location.href = "/login"
+                }
+
+            }
+            saveWorkoutAcc()
+        } else {
+            window.location.href = "/login"
         }
-        saveWorkoutAcc()
     })
 
 }

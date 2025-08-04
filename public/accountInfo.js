@@ -87,8 +87,10 @@ if (localStorage.getItem("loginInfo")) {
         localStorage.removeItem("loginInfo")
         window.location.href = "/account"
     })
+    localStorage.setItem("savedOne", "0")
 
 } else {
+    localStorage.setItem("savedOne", "10")
     document.getElementById("welcome").innerHTML = ``
     document.getElementById("logOutBtn").style.display = "none"
 }
