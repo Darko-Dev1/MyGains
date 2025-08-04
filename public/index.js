@@ -223,11 +223,11 @@ take_filter_section.addEventListener("click", (e) => {
         for (ess of takee.children) {
 
             if (muskulii.includes(ess.getAttribute("value"))) {
-                ess.style.display = "block"
+                ess.style.display = "flex"
             } else {
                 for (a of ess.getAttribute("value").split(",")) {
                     if (muskulii.includes(a)) {
-                        ess.style.display = "block"
+                        ess.style.display = "flex"
                         break
                     } else {
                         ess.style.display = "none"
@@ -258,18 +258,18 @@ take_filter_section.addEventListener("click", (e) => {
         if (muskulii.length === 0) {
             for (ess of takee.children) {
 
-                ess.style.display = "block"
+                ess.style.display = "flex"
             }
 
         } else {
             for (ess of takee.children) {
-
+                console.log(ess)
                 if (muskulii.includes(ess.getAttribute("value"))) {
-                    ess.style.display = "block"
+                    ess.style.display = "flex"
                 } else {
                     for (a of ess.getAttribute("value").split(",")) {
                         if (muskulii.includes(a)) {
-                            ess.style.display = "block"
+                            ess.style.display = "flex"
                             break
                         } else {
                             ess.style.display = "none"
