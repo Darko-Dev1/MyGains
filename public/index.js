@@ -32,10 +32,6 @@ fetch("/vezbi.json")
             create_banner.appendChild(create_text_field)
             create_banner.setAttribute("value", take_muskul)
             let settings = document.createElement("div")
-            let subtitleQuestion = document.createElement("h4")
-            subtitleQuestion.innerText = "Timed or repetition"
-            subtitleQuestion.setAttribute("id", "SubtitleQuestion")
-            settings.appendChild(subtitleQuestion)
             settings.setAttribute("id", "settings_set")
             create_banner.appendChild(settings)
             takee.appendChild(create_banner)
@@ -333,6 +329,8 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 */
 
 let active_ex = 0
+const addButton = document.createElement("button")
+addButton.setAttribute("id", "addBTNexercise")
 document.getElementById("exercises").addEventListener("click", (e) => {
 
     let activeDiv = e.target.closest("div")
@@ -343,25 +341,26 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         activeDiv.querySelector("h3").style.width = "100%"
         activeDiv.children[1].style.fontSize = "0px"
         activeDiv.children[1].style.height = "0px"
-        console.log(window.width)
-        window.innerWidth
+        
         if (window.innerWidth > 720) {
             activeDiv.style.width = "25%"
+            activeDiv.style.height = "50vh"
+
         } else {
             activeDiv.style.width = "40%"
+            activeDiv.style.height = "30vh"
         }
-
-        activeDiv.children[3].style.backgroundColor = "transparent"
-        activeDiv.children[3].style.height = "0%"
-        activeDiv.children[3].style.border = "rgba(0, 0, 0, 0) solid 1px";
+        activeDiv.children[3].style.display = "none"
         activeDiv.children[3].style.borderRadius = "5px";
-        activeDiv.style.borderBottom = "rgba(0, 0, 0, 0.18)solid 1px";
+        document.querySelector("#addBTNexercise").remove()
         activeDiv.querySelector("h3").style.textAlign = "center"
         activeDiv.style.marginBottom = "1%";
-        console.log(e.target.closest("div").querySelector("h4"))
-        e.target.closest("div").querySelector("h4").style.fontSize = "0px"
         active_ex = 0
     } else if (activeDiv.getAttribute("id") === "exercise" && active_ex === 0) {
+        activeDiv.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        })
         activeDiv.style.width = "100%";
         activeDiv.children[0].style.width = "40%";
         activeDiv.children[1].style.display = "inline-block";
@@ -372,24 +371,20 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         activeDiv.querySelector("h3").style.width = "100%";
         activeDiv.querySelector("h3").style.display = "block";
         activeDiv.querySelector("h3").style.textAlign = "left";
-        activeDiv.children[3].style.height = "50%";
-        activeDiv.children[3].style.width = "105.6%";
+        activeDiv.children[3].style.display = "flex"
+        activeDiv.children[3].style.height = "30%";
         activeDiv.children[3].style.padding = "2%";
-        activeDiv.children[3].style.border = "rgba(0, 0, 0, 0.41) solid 1px";
-        activeDiv.style.borderBottom = "rgba(0, 0, 0, 0) solid 0px";
-        activeDiv.style.marginBottom = "40%";
-        console.log(e.target.closest("div").querySelector("h4"))
-        e.target.closest("div").querySelector("h4").style.fontSize = "15px"
-
+        activeDiv.style.height = "35vh"
+        addButton.innerHTML = `Add exercise <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm107 229h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"></path></svg>`
+        activeDiv.children[3].appendChild(addButton)
+        // activeDiv.style.marginBottom = "40%";
         active_ex = 1
 
     } else {
         console.error("not good bro")
 
     }
-
 })
-
 const headerSection = document.querySelector("header")
 headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
 document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
