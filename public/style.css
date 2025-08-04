@@ -348,8 +348,6 @@ aside button svg {
     justify-content: center;
     align-items: center;
     width: 90%;
-    left: 50%;
-    transform: translate(-50%, 10%);
 
 }
 
@@ -370,10 +368,10 @@ aside button svg {
     width: 60%;
 }
 
-@media (min-width:720px) {
+@media (min-width:920px) {
     #exercise {
         width: 25%;
-        height: 50vh;
+        height: 60vh;
     }
     aside {
         width: 30%;

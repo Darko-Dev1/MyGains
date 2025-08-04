@@ -328,63 +328,95 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 */
 
-let active_ex = 0
-const addButton = document.createElement("button")
-addButton.setAttribute("id", "addBTNexercise")
+let active_ex = 0;
+const addButton = document.createElement("button");
+addButton.setAttribute("id", "addBTNexercise");
+let prevActive = null;
+
 document.getElementById("exercises").addEventListener("click", (e) => {
+    const clickedDiv = e.target.closest("div");
 
-    let activeDiv = e.target.closest("div")
-    console.log(activeDiv)
-    console.log(activeDiv.children[1])
-    if (activeDiv.getAttribute("id") === "exercise" && active_ex === 1) {
-        activeDiv.children[0].style.width = "100%"
-        activeDiv.querySelector("h3").style.width = "100%"
-        activeDiv.children[1].style.fontSize = "0px"
-        activeDiv.children[1].style.height = "0px"
-        
-        if (window.innerWidth > 720) {
-            activeDiv.style.width = "25%"
-            activeDiv.style.height = "50vh"
+    if (!clickedDiv || clickedDiv.getAttribute("id") !== "exercise") return;
 
-        } else {
-            activeDiv.style.width = "40%"
-            activeDiv.style.height = "30vh"
-        }
-        activeDiv.children[3].style.display = "none"
-        activeDiv.children[3].style.borderRadius = "5px";
-        document.querySelector("#addBTNexercise").remove()
-        activeDiv.querySelector("h3").style.textAlign = "center"
-        activeDiv.style.marginBottom = "1%";
-        active_ex = 0
-    } else if (activeDiv.getAttribute("id") === "exercise" && active_ex === 0) {
-        activeDiv.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        })
-        activeDiv.style.width = "100%";
-        activeDiv.children[0].style.width = "40%";
-        activeDiv.children[1].style.display = "inline-block";
-        activeDiv.children[1].style.fontSize = "13px";
-        activeDiv.children[1].style.width = "50%";
-        activeDiv.children[1].style.height = "100px";
-        activeDiv.children[1].style.textAlign = "left";
-        activeDiv.querySelector("h3").style.width = "100%";
-        activeDiv.querySelector("h3").style.display = "block";
-        activeDiv.querySelector("h3").style.textAlign = "left";
-        activeDiv.children[3].style.display = "flex"
-        activeDiv.children[3].style.height = "30%";
-        activeDiv.children[3].style.padding = "2%";
-        activeDiv.style.height = "35vh"
-        addButton.innerHTML = `Add exercise <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm107 229h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"></path></svg>`
-        activeDiv.children[3].appendChild(addButton)
-        // activeDiv.style.marginBottom = "40%";
-        active_ex = 1
-
-    } else {
-        console.error("not good bro")
-
+    // CASE 1: Clicked the currently active div => collapse it
+    if (prevActive === clickedDiv) {
+        collapse(prevActive);
+        active_ex = 0;
+        prevActive = null;
+        return;
     }
-})
+
+    // CASE 2: Clicked a different div while one is active => collapse old, expand new
+    if (prevActive) collapse(prevActive);
+
+    expand(clickedDiv);
+    prevActive = clickedDiv;
+    active_ex = 1;
+    console.log(active_ex)
+
+});
+
+function collapse(div) {
+    div.children[0].style.width = "100%";
+    div.querySelector("h3").style.width = "100%";
+    div.querySelector("h3").style.textAlign = "center";
+    div.children[1].style.fontSize = "0px";
+    div.children[1].style.height = "0px";
+
+    if (window.innerWidth > 920) {
+        div.style.width = "25%";
+        div.style.height = "60vh";
+    } else {
+        div.style.width = "40%";
+        div.style.height = "30vh";
+    }
+
+    div.children[3].style.display = "none";
+    div.children[3].style.borderRadius = "5px";
+
+    const existingBtn = document.querySelector("#addBTNexercise");
+    if (existingBtn) existingBtn.remove();
+
+    div.style.marginBottom = "1%";
+}
+
+function expand(div) {
+    div.scrollIntoView({ behavior: "smooth", block: "center" });
+    div.children[0].style.width = "40%";
+    div.children[1].style.display = "inline-block";
+    div.children[1].style.fontSize = "13px";
+    div.children[1].style.width = "50%";
+    div.children[1].style.height = "100px";
+    div.children[1].style.textAlign = "left";
+
+    if (window.innerWidth > 920) {
+        div.style.height = "80vh";
+    } else {
+        div.style.height = "30vh";
+    }
+
+    div.style.width = "85%";
+    div.querySelector("h3").style.width = "100%";
+    div.querySelector("h3").style.display = "block";
+    div.querySelector("h3").style.textAlign = "left";
+
+    div.children[3].style.display = "flex";
+    div.children[3].style.height = "30%";
+    div.children[3].style.padding = "2%";
+
+    addButton.innerHTML = `Add exercise <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm107 229h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"></path></svg>`;
+    div.children[3].appendChild(addButton);
+    document.querySelector("#addBTNexercise").style.fill = darkTheme.getItem("themeAtr")
+    document.querySelector("#addBTNexercise").style.border = `${darkTheme.getItem("themeAtr")} 1px solid`
+    document.querySelector("#addBTNexercise").style.color = darkTheme.getItem("themeAtr")
+
+
+}
+
+
+
+
+
 const headerSection = document.querySelector("header")
 headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
 document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
