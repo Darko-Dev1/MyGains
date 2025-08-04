@@ -338,7 +338,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
 
     if (!clickedDiv || clickedDiv.getAttribute("id") !== "exercise") return;
 
-    // CASE 1: Clicked the currently active div => collapse it
     if (prevActive === clickedDiv) {
         collapse(prevActive);
         active_ex = 0;
@@ -346,7 +345,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         return;
     }
 
-    // CASE 2: Clicked a different div while one is active => collapse old, expand new
     if (prevActive) collapse(prevActive);
 
     expand(clickedDiv);
@@ -409,11 +407,34 @@ function expand(div) {
     document.querySelector("#addBTNexercise").style.fill = darkTheme.getItem("themeAtr")
     document.querySelector("#addBTNexercise").style.border = `${darkTheme.getItem("themeAtr")} 1px solid`
     document.querySelector("#addBTNexercise").style.color = darkTheme.getItem("themeAtr")
+    localStorage.setItem("savedOne", "0")
+    document.querySelector("#addBTNexercise").addEventListener("click", () => {
+        console.log("works?")
+        console.log(document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML)
+        const saveWorkoutAcc = async () => {
 
+            try {
+                const res = await axios.post("/", {
+                    userName: localStorage.getItem("loginInfo"),
+                    Exercise: {
+                        name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
+                        note: "no note written"
+                    }
+                })
+                console.log(res)
+                localStorage.setItem("savedOne", "1")
+            } catch {
+                console.error("not working")
+                window.location.href = "/login"
+            }
+
+        }
+        saveWorkoutAcc()
+    })
 
 }
 
-
+addButton
 
 
 

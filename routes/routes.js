@@ -7,6 +7,30 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
+router.post('/', async (req, res) => {
+    console.log(req.body)
+    const savedExercisesAcc = req.body
+    try {
+
+        const newSave = new savedExecise({
+            userName: savedExercisesAcc.userName,
+            exercisesNotes: savedExercisesAcc.Exercises
+        })
+        // const exerciseSaved = newSave.findOne({ userName: savedExercisesAcc.userName })
+        const count = await savedExecise.countDocuments();
+        console.log("Number of documents:", count);
+
+        await newSave.save()
+
+        res.status(201).send("User saved");
+    } catch {
+        res.status(500).send("Server error");
+    }
+
+
+});
+
+
 router.put('/account', (req, res) => {
 
 });
@@ -15,7 +39,7 @@ router.delete('/account', (req, res) => {
 });
 let loginFailMSG = ""
 router.get("/register", (req, res) => {
-    res.render("register", {msg: loginFailMSG})
+    res.render("register", { msg: loginFailMSG })
 })
 
 router.post("/register", async (req, res) => {
@@ -35,7 +59,7 @@ router.post("/register", async (req, res) => {
 })
 
 router.get("/login", (req, res) => {
-    res.render("login", {msg: loginFailMSG})
+    res.render("login", { msg: loginFailMSG })
 })
 
 
@@ -59,7 +83,6 @@ router.get('/aboutme', (req, res) => {
 
 router.get('/account', (req, res) => {
     res.render('account');
-    console.log({savedExecise})
 });
 
 module.exports = router
