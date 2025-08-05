@@ -5,7 +5,7 @@ const idImg = document.querySelector("#logo")
 let take_aside = document.querySelector("aside")
 
 
-navBar.style.backgroundColor = "transparent"
+navBar.style.backgroundColor = darkTheme.getItem("theme")
 take_aside.style.backgroundColor = `${darkTheme.getItem("theme")}`
 take_aside.style.color = `${darkTheme.getItem("themeAtr")}`
 Body.style.backgroundColor = `${darkTheme.getItem("theme")}`
@@ -100,8 +100,41 @@ const DisplySaved = async () => {
             finduserFromDb()
         }
         const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`)
+        const ExercisesFetch = async (currentsavedEx) => {
+            try {
+                const res = await axios.get("/vezbi.json")
+                const displayThese = res.data.vezbi.filter((e) => {
+                    return e.vezbam === currentsavedEx
+                })
+                const displayThes = displayThese[0]
+                let create_banner = document.createElement("div")
+                create_banner.setAttribute("id", "exercise")
+                let create_img_banner = document.createElement("img")
+
+                let take_gifs = displayThes["gif"]
+                let take_name = displayThes["vezbam"]
+                let take_muskul = displayThes["muskul"]
+                create_img_banner.setAttribute("src", take_gifs)
+                let create_text_field = document.createElement("h3")
+                create_text_field.innerText = take_name
+
+                create_banner.appendChild(create_img_banner)
+                let take_excercises = document.querySelector("#exercises")
+                let create_h5 = document.createElement("h6")
+                create_h5.innerText = `Difficulty: ${displayThes["nivo_tesko"]} \n With Weights: ${displayThes["so_teg"]} \n Muscle Group: ${displayThes["muskul"]} `
+                create_banner.appendChild(create_h5)
+                create_banner.appendChild(create_text_field)
+                create_banner.setAttribute("value", take_muskul)
+                let settings = document.createElement("div")
+                settings.setAttribute("id", "settings_set")
+                create_banner.appendChild(settings)
+                take_excercises.appendChild(create_banner)
+            } catch {
+                console.error("json not fetched")
+            }
+        }
         res.data.exercisesNotes.forEach((e) => {
-            return document.querySelector("#exercises").innerHTML += `${e.name} <br>`
+            ExercisesFetch(e.name)
         })
     } catch {
         console.error("doesnt work")
