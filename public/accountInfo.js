@@ -79,6 +79,36 @@ BtnDarkMode.addEventListener("click", () => {
 
 })
 
+
+
+const DisplySaved = async () => {
+
+    console.log(parseInt(localStorage.getItem("accountID")))
+    try {
+        if (localStorage.getItem("loginInfo")) {
+            const finduserFromDb = async () => {
+
+                const res = await axios.get("/api/user")
+                console.log(localStorage.getItem("loginInfo"))
+                const userFound = res.data.filter((e) => {
+                    return e.userName === localStorage.getItem("loginInfo")
+                })
+                localStorage.setItem("accountID", userFound[0].id)
+                console.log(localStorage.getItem("accountID"))
+
+            }
+            finduserFromDb()
+        }
+        const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`)
+        res.data.exercisesNotes.forEach((e) => {
+            return document.querySelector("#exercises").innerHTML += `${e.name} <br>`
+        })
+    } catch {
+        console.error("doesnt work")
+    }
+}
+
+
 if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = `No saves...`
@@ -88,6 +118,7 @@ if (localStorage.getItem("loginInfo")) {
         window.location.href = "/account"
     })
     localStorage.setItem("savedOne", "0")
+    DisplySaved()
 
 } else {
     localStorage.setItem("savedOne", "10")
