@@ -14,30 +14,32 @@ router.get('/api/user/:id', async (req, res) => {
     res.json(docAtIndex)
 });
 
-router.get('/api/user', async (req, res) => {
-    const docs = await savedExecise.find();
-    res.json(docs)
-});
-
-
 router.put('/api/user/:id', async (req, res) => {
-    console.log(req.body)
-    const savedExercisesAcc = req.body
-    console.log(parseInt(req.params.id))
-    const docs = await savedExecise.find();
-    const docAtIndex = docs[parseInt(req.params.id)];
-    const doc = await savedExecise.findOne({ userName: docAtIndex.userName });
-    console.log(doc)
-    doc.exercisesNotes.push({
-        name: "Push-up",
-        note: "Did 20 reps"
-    });
+    console.log("what: ", req.body)
+    try {
+        const userId = parseInt(req.params.id);
+        const { Exercise } = req.body;
 
-    await doc.save();
+        const doc = await savedExecise.findOne({ id: userId });
 
+        if (!doc) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        doc.exercisesNotes.push({
+            name: Exercise.name,
+            note: "Did 20 reps"
+        });
+
+        await doc.save();
+        res.status(200).json({ message: "Exercise added successfully", data: doc });
+    } catch (error) {
+        console.error("Update error:", error);
+        res.status(500).json({ error: "Server error" });
+    }
 });
 
-router.post('/', async (req, res) => {
+router.post('/api/user', async (req, res) => {
     console.log(req.body)
     const savedExercisesAcc = req.body
     try {
@@ -46,12 +48,11 @@ router.post('/', async (req, res) => {
         console.log("Number of documents:", count);
         const newSave = new savedExecise({
             userName: savedExercisesAcc.userName,
-            exercisesNotes: savedExercisesAcc.Exercises,
-            id: count
+            exercisesNotes: savedExercisesAcc.Exercise,
+            id: count,
+            posted: savedExercisesAcc.posting
         })
         // const exerciseSaved = newSave.findOne({ userName: savedExercisesAcc.userName })
-
-
         await newSave.save()
 
         res.status(201).send("User saved");
@@ -59,8 +60,12 @@ router.post('/', async (req, res) => {
         res.status(500).send("Server error");
     }
 
-
 });
+
+router.get("/api/user", async (req, res) => {
+    const find = await savedExecise.find()
+    res.json(find)
+})
 
 
 router.put('/account', (req, res) => {

@@ -378,6 +378,29 @@ function collapse(div) {
     div.style.marginBottom = "1%";
 }
 
+if (localStorage.getItem("loginInfo")) {
+    const finduserFromDb = async () => {
+        try {
+            const res = await axios.get("/api/user")
+            console.log(localStorage.getItem("loginInfo"))
+            const userFound = res.data.filter((e) => {
+                return e.userName === localStorage.getItem("loginInfo")
+            })
+            console.log(userFound[0])
+            if (userFound[0].posted) {
+                localStorage.setItem("savedOne", "1")
+            } else {
+                localStorage.setItem("savedOne", "0")
+            }
+            localStorage.setItem("accountID", userFound[0].id)
+            console.log(localStorage.getItem("accountID"))
+        } catch {
+            localStorage.setItem("savedOne", "0")
+        }
+    }
+    finduserFromDb()
+}
+
 function expand(div) {
     div.scrollIntoView({ behavior: "smooth", block: "center" });
     div.children[0].style.width = "40%";
@@ -408,56 +431,95 @@ function expand(div) {
     document.querySelector("#addBTNexercise").style.border = `${darkTheme.getItem("themeAtr")} 1px solid`
     document.querySelector("#addBTNexercise").style.color = darkTheme.getItem("themeAtr")
 
-    document.querySelector("#addBTNexercise").addEventListener("click", () => {
-        console.log("works?")
-        console.log(document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML)
-        if (localStorage.getItem("savedOne") === "0") {
+    // document.querySelector("#addBTNexercise").addEventListener("click", () => {
+    //     console.log(localStorage.getItem("savedOne"))
+    //     console.log(document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML)
+    //     if (localStorage.getItem("savedOne") === "0") {
 
-            const saveWorkoutAcc = async () => {
+    //         const saveWorkoutAcc = async () => {
 
-                try {
-                    const res = await axios.post("/", {
-                        userName: localStorage.getItem("loginInfo"),
-                        Exercise: {
-                            name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
-                            note: "no note written"
-                        }
-                    })
-                    console.log(res)
-                    localStorage.setItem("savedOne", "1")
-                } catch {
-                    console.error("not working")
-                    window.location.href = "/login"
-                }
+    //             try {
+    //                 const res = await axios.post("/api/user", {
+    //                     userName: localStorage.getItem("loginInfo"),
+    //                     Exercise: {
+    //                         name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
+    //                         note: "no note written"
+    //                     },
+    //                     posting: true
+    //                 })
+    //                 console.log(res)
+    //                 localStorage.setItem("savedOne", "1")
+    //             } catch {
+    //                 console.error("not working")
+    //                 window.location.href = "/login"
+    //             }
 
-            }
-            saveWorkoutAcc()
-        } else if(localStorage.getItem("savedOne") === "1") {
-            const saveWorkoutAcc = async () => {
+    //         }
+    //         saveWorkoutAcc()
+    //     } else if (localStorage.getItem("savedOne") === "1") {
+    //         const saveWorkoutAcc = async () => {
 
-                try {
-                    const res = await axios.put("/", {
-                        userName: localStorage.getItem("loginInfo"),
-                        Exercise: {
-                            name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
-                            note: "no note written"
-                        }
-                    })
-                    console.log(res)
-                    localStorage.setItem("savedOne", "1")
-                } catch {
-                    console.error("not working")
-                    window.location.href = "/login"
-                }
+    //             try {
+    //                 const res = await axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
+    //                     userName: localStorage.getItem("loginInfo"),
+    //                     Exercise: {
+    //                         name: document.querySelector("#addBTNexercise").closest("#exercise").querySelector("h3").innerHTML,
+    //                         note: "no note written"
+    //                     }
+    //                 })
+    //                 console.log(res)
+    //                 localStorage.setItem("savedOne", "1")
+    //             } catch {
+    //                 console.error("not working")
+    //                 window.location.href = "/login"
+    //             }
 
-            }
-            saveWorkoutAcc()
-        } else {
-            window.location.href = "/login"
-        }
-    })
+    //         }
+    //         saveWorkoutAcc()
+    //     } else {
+    //         window.location.href = "/login"
+    //     }
+    // })
 
 }
+
+document.getElementById("exercises").addEventListener("click", (e) => {
+
+    const btn = e.target.closest("#addBTNexercise");
+    if (!btn) return; 
+
+    const exerciseDiv = btn.closest("#exercise");
+    if (!exerciseDiv) return; 
+
+    const exerciseName = exerciseDiv.querySelector("h3").innerText;
+
+    if (localStorage.getItem("savedOne") === "0") {
+        axios.post("/api/user", {
+            userName: localStorage.getItem("loginInfo"),
+            Exercise: { name: exerciseName, note: "no note written" },
+            posting: true
+        }).then(res => {
+            console.log(res);
+            localStorage.setItem("savedOne", "1");
+        }).catch(() => {
+            console.error("not working");
+            window.location.href = "/login";
+        });
+    } else if (localStorage.getItem("savedOne") === "1") {
+        axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
+            userName: localStorage.getItem("loginInfo"),
+            Exercise: { name: exerciseName, note: "no note written" }
+        }).then(res => {
+            console.log(res);
+            localStorage.setItem("savedOne", "1");
+        }).catch(() => {
+            console.error("not working");
+            window.location.href = "/login";
+        });
+    } else {
+        window.location.href = "/login";
+    }
+});
 
 addButton
 

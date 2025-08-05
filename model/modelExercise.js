@@ -1,9 +1,14 @@
 const mongoose = require("mongoose")
 
-const addedExercise = mongoose.Schema({
+const addedExercise = new mongoose.Schema({
     userName: String,
     exercisesNotes: Array,
-    id: Number
+    id: Number,
+    posted: {
+        type: Boolean,
+        default: false
+
+    }
 
 })
 
