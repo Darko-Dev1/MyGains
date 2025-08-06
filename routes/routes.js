@@ -46,7 +46,7 @@ router.delete("/api/user/:id/exercisesNotes", async (req, res) => {
 
     try {
         const result = await savedExecise.updateOne(
-            { id: userId },  
+            { id: userId },
             { $pull: { exercisesNotes: { name: noteName } } }
         );
 
@@ -120,27 +120,28 @@ router.post("/register", async (req, res) => {
 
 router.get("/login", (req, res) => {
     res.render("login", { msg: loginFailMSG })
+
 })
 
 
 router.post("/login", async (req, res) => {
-  try {
-    const { name, email } = req.body;
+    try {
+        const { name, email } = req.body;
 
-    // Find a user where both email and name match
-    const user = await UserSaved.findOne({ UserName: name, email:email});
-    console.log(user)
+        const user = await UserSaved.findOne({ UserName: name, email: email });
+        console.log("this", user)
+        if (user === null) {
+            console.log("hee")
+            loginFailMSG = `There is no account with these credentials`
+            return res.status(401).json({ redirect: '/login', error: 'Account does not exist' });
+        } else {
+            return res.status(200).json({ redirect: '/account' });
+        }
 
-    if (!user) {
-      return res.status(404).json({ message: "Invalid credentials" });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-
-    // ✅ If user is found, return it
-    res.json(user);
-
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 });
 
 router.get('/aboutme', (req, res) => {

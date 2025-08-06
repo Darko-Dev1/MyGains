@@ -81,14 +81,23 @@ BtnDarkMode.addEventListener("click", () => {
 document.getElementById("loginBTN").addEventListener("click", () => {
     const RegUser = async () => {
         try {
-            localStorage.setItem("loginInfo", document.getElementById("nameRegg").value)
-            const res = await axios.post("/login", {
-                name: document.getElementById("nameRegg").value,
-                email: document.getElementById("emailRegg").value
-            });
-            window.location.href = "/account"
+            if (document.getElementById("nameRegg").value !== "" && document.getElementById("emailRegg").value !== "") {
+                localStorage.setItem("loginInfo", document.getElementById("nameRegg").value)
+                const res = await axios.post("/login", {
+                    name: document.getElementById("nameRegg").value,
+                    email: document.getElementById("emailRegg").value
+                });
+                console.log(res.data.url)
+                if (res.data.redirect) {
+                    window.location.href = res.data.redirect;
+                }
+            } else {
+                document.querySelector("p").innerHTML = "Please fill out the form"
+            }
+
         } catch (err) {
-            console.log(err)
+            window.location.href = err.response.data.redirect
+            console.log(err.response.data.redirect)
             console.error("inccorect info")
         }
     }
