@@ -158,6 +158,7 @@ const DisplySaved = async () => {
 if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = ``
+    document.getElementById("exercises").innerHTML = `No saves`
     document.getElementById("logOutBtn").style.display = "block"
     document.getElementById("logOutBtn").addEventListener("click", () => {
         localStorage.removeItem("loginInfo")
