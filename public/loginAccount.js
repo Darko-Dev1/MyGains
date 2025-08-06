@@ -96,6 +96,7 @@ document.getElementById("loginBTN").addEventListener("click", () => {
             }
 
         } catch (err) {
+            localStorage.removeItem("loginInfo")
             window.location.href = err.response.data.redirect
             console.log(err.response.data.redirect)
             console.error("inccorect info")
