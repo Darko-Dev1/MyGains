@@ -83,12 +83,12 @@ document.getElementById("loginBTN").addEventListener("click", () => {
         try {
             localStorage.setItem("loginInfo", document.getElementById("nameRegg").value)
             const res = await axios.post("/login", {
-                UserName: document.getElementById("nameRegg").value,
+                name: document.getElementById("nameRegg").value,
                 email: document.getElementById("emailRegg").value
-            })
+            });
             window.location.href = "/account"
-        } catch {
-            window.location.href = "/login"
+        } catch (err) {
+            console.log(err)
             console.error("inccorect info")
         }
     }

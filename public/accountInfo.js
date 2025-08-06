@@ -91,17 +91,22 @@ const DisplySaved = async () => {
                 const res = await axios.get("/api/user")
                 console.log(localStorage.getItem("loginInfo"))
                 const userFound = res.data.filter((e) => {
+                    console.log(e.userName, localStorage.getItem("loginInfo"))
                     return e.userName === localStorage.getItem("loginInfo")
                 })
+                console.log(userFound)
                 localStorage.setItem("accountID", userFound[0].id)
                 console.log(localStorage.getItem("accountID"))
 
+
             }
-            finduserFromDb()
+            await finduserFromDb()
+
         }
-        const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`)
+
         const ExercisesFetch = async (currentsavedEx) => {
             try {
+
                 const res = await axios.get("/vezbi.json")
                 const displayThese = res.data.vezbi.filter((e) => {
                     return e.vezbam === currentsavedEx
@@ -133,18 +138,26 @@ const DisplySaved = async () => {
                 console.error("json not fetched")
             }
         }
-        res.data.exercisesNotes.forEach((e) => {
-            ExercisesFetch(e.name)
-        })
+        setTimeout(async () => {
+            const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`)
+            console.log(parseInt(localStorage.getItem("accountID")))
+            document.querySelector("#exercises").innerHTML = ""
+            res.data.exercisesNotes.forEach((e) => {
+                ExercisesFetch(e.name)
+            })
+        }, 500)
+        document.querySelector("#exercises").innerHTML = "loading..."
+
+
     } catch {
-        console.error("doesnt work")
+        document.getElementById("activity").innerHTML = `No saves...`
     }
 }
 
 
 if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
-    document.getElementById("activity").innerHTML = `No saves...`
+    document.getElementById("activity").innerHTML = ``
     document.getElementById("logOutBtn").style.display = "block"
     document.getElementById("logOutBtn").addEventListener("click", () => {
         localStorage.removeItem("loginInfo")

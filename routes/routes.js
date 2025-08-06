@@ -39,6 +39,28 @@ router.put('/api/user/:id', async (req, res) => {
     }
 });
 
+router.delete("/api/user/:id/exercisesNotes", async (req, res) => {
+    const userId = req.params.id;
+    const noteName = req.query.name;
+    console.log("Note to delete:", noteName);
+
+    try {
+        const result = await savedExecise.updateOne(
+            { id: userId },  
+            { $pull: { exercisesNotes: { name: noteName } } }
+        );
+
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ message: "Exercise note not found or already deleted" });
+        }
+
+        res.status(200).json({ message: "Exercise note deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 router.post('/api/user', async (req, res) => {
     console.log(req.body)
     const savedExercisesAcc = req.body
@@ -102,18 +124,24 @@ router.get("/login", (req, res) => {
 
 
 router.post("/login", async (req, res) => {
-    try {
-        const data = req.body
-        const user = await UserSaved.findOne({ email: data["email"] });
-        if (!user) {
-            loginFailMSG = "There is no account with these credentials"
-            return res.status(404).json({ message: "User not found" });
-        }
-        res.json(user);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+  try {
+    const { name, email } = req.body;
+
+    // Find a user where both email and name match
+    const user = await UserSaved.findOne({ UserName: name, email:email});
+    console.log(user)
+
+    if (!user) {
+      return res.status(404).json({ message: "Invalid credentials" });
     }
-})
+
+    // ✅ If user is found, return it
+    res.json(user);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 router.get('/aboutme', (req, res) => {
     res.render('aboutme');
