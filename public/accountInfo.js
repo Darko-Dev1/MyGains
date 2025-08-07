@@ -4,7 +4,6 @@ const navBar = document.querySelector("#nav_bar")
 const idImg = document.querySelector("#logo")
 let take_aside = document.querySelector("aside")
 
-
 navBar.style.backgroundColor = darkTheme.getItem("theme")
 take_aside.style.backgroundColor = `${darkTheme.getItem("theme")}`
 take_aside.style.color = `${darkTheme.getItem("themeAtr")}`
@@ -16,7 +15,6 @@ take_aside.querySelectorAll("button").forEach(e => {
     e.style.color = `${darkTheme.getItem("themeAtr")}`
     e.style.fill = `${darkTheme.getItem("themeAtr")}`
 })
-
 
 // aside code
 
@@ -76,6 +74,13 @@ BtnDarkMode.addEventListener("click", () => {
         e.style.color = `${darkTheme.getItem("themeAtr")}`
         e.style.fill = `${darkTheme.getItem("themeAtr")}`
     })
+    setTimeout(() => {
+        document.querySelector("#exercises").querySelectorAll("#exercise").forEach((e) => {
+            console.log(e)
+            e.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
+            e.children[3].style.color = `${darkTheme.getItem("themeAtr")} `
+        })
+    }, 800)
 
 })
 
@@ -121,8 +126,9 @@ const DisplySaved = async () => {
                 let take_muskul = displayThes["muskul"]
                 create_img_banner.setAttribute("src", take_gifs)
                 let create_text_field = document.createElement("h3")
+                create_text_field.style.textAlign = "center"
                 create_text_field.innerText = take_name
-
+                create_text_field.style.padding = "3%"
                 create_banner.appendChild(create_img_banner)
                 let take_excercises = document.querySelector("#exercises")
                 let create_h5 = document.createElement("h6")
@@ -130,8 +136,13 @@ const DisplySaved = async () => {
                 create_banner.appendChild(create_h5)
                 create_banner.appendChild(create_text_field)
                 create_banner.setAttribute("value", take_muskul)
-                let settings = document.createElement("div")
-                settings.setAttribute("id", "settings_set")
+                let settings = document.createElement("textarea")
+                settings.setAttribute("class", "textareaNote")
+                settings.setAttribute("placeholder", "Note")
+                settings.style.backgroundColor = "transparent"
+                settings.style.width = "100%"
+                settings.style.maxHeight = "25%"
+                settings.style.color = `${darkTheme.getItem("themeAtr")}`
                 create_banner.appendChild(settings)
                 create_banner.style.width = "85%"
                 take_excercises.appendChild(create_banner)
@@ -139,10 +150,13 @@ const DisplySaved = async () => {
                 create_banner.scrollIntoView({ behavior: "smooth", block: "center" });
                 create_banner.children[0].style.width = "40%";
                 create_banner.children[1].style.display = "inline-block";
+                create_banner.children[0].style.marginRight = "4%"
                 create_banner.children[1].style.fontSize = "13px";
                 create_banner.children[1].style.width = "50%";
                 create_banner.children[1].style.height = "100px";
                 create_banner.children[1].style.textAlign = "left";
+                create_banner.style.paddingBottom = "5%"
+
 
                 if (window.innerWidth > 920) {
                     create_banner.style.height = "80vh";
@@ -151,12 +165,14 @@ const DisplySaved = async () => {
                 }
 
                 create_banner.style.width = "85%";
+                create_banner.style.margin = "2%"
                 create_banner.querySelector("h3").style.width = "100%";
                 create_banner.querySelector("h3").style.display = "block";
-                create_banner.querySelector("h3").style.textAlign = "left";
+                create_banner.querySelector("h3").style.textAlign = "center";
                 create_banner.children[3].style.display = "flex";
                 create_banner.children[3].style.height = "30%";
                 create_banner.children[3].style.padding = "2%";
+                create_banner.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
             } catch {
                 console.error("json not fetched")
             }
@@ -170,7 +186,6 @@ const DisplySaved = async () => {
             })
         }, 500)
         document.querySelector("#exercises").innerHTML = "loading..."
-
 
     } catch {
         document.getElementById("activity").innerHTML = `No saves...`

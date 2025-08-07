@@ -520,10 +520,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
     }
 });
 
-addButton
-
-
-
 const headerSection = document.querySelector("header")
 headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
 document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
@@ -546,6 +542,7 @@ setTimeout(() => {
     takee.querySelectorAll("#addBTNexercise").forEach((e) => {
         e.style.color = `${darkTheme.getItem("themeAtr")}`
         e.style.fill = `${darkTheme.getItem("themeAtr")}`
+        e.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
     })
 }, 800)
 
@@ -580,10 +577,12 @@ BtnDarkMode.addEventListener("click", () => {
     document.querySelector("#search_input").style.backgroundColor = `${darkTheme.getItem("theme")}`
     takee.querySelectorAll("#exercise").forEach((e) => {
         e.style.border = `${darkTheme.getItem("themeAtr")} solid 0.5px`
+        console.log(e.children[3].querySelector("#addBTNexercise").style)
     })
     takee.querySelectorAll("#addBTNexercise").forEach((e) => {
         e.style.color = `${darkTheme.getItem("themeAtr")}`
         e.style.fill = `${darkTheme.getItem("themeAtr")}`
+        e.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
     })
 
 })
