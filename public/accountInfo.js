@@ -133,7 +133,30 @@ const DisplySaved = async () => {
                 let settings = document.createElement("div")
                 settings.setAttribute("id", "settings_set")
                 create_banner.appendChild(settings)
+                create_banner.style.width = "85%"
                 take_excercises.appendChild(create_banner)
+
+                create_banner.scrollIntoView({ behavior: "smooth", block: "center" });
+                create_banner.children[0].style.width = "40%";
+                create_banner.children[1].style.display = "inline-block";
+                create_banner.children[1].style.fontSize = "13px";
+                create_banner.children[1].style.width = "50%";
+                create_banner.children[1].style.height = "100px";
+                create_banner.children[1].style.textAlign = "left";
+
+                if (window.innerWidth > 920) {
+                    create_banner.style.height = "80vh";
+                } else {
+                    create_banner.style.height = "30vh";
+                }
+
+                create_banner.style.width = "85%";
+                create_banner.querySelector("h3").style.width = "100%";
+                create_banner.querySelector("h3").style.display = "block";
+                create_banner.querySelector("h3").style.textAlign = "left";
+                create_banner.children[3].style.display = "flex";
+                create_banner.children[3].style.height = "30%";
+                create_banner.children[3].style.padding = "2%";
             } catch {
                 console.error("json not fetched")
             }
