@@ -134,6 +134,21 @@ const DisplySaved = async () => {
                 let create_h5 = document.createElement("h6")
                 create_h5.innerText = `Difficulty: ${displayThes["nivo_tesko"]} \n With Weights: ${displayThes["so_teg"]} \n Muscle Group: ${displayThes["muskul"]} `
                 create_banner.appendChild(create_h5)
+                const addButton = document.createElement("button");
+                addButton.setAttribute("id", "addBTNexercise");
+                addButton.style.position = "absolute"
+                addButton.style.height = "25%"
+                addButton.style.left = "50%"
+                addButton.style.transform = "translate(50%, -20%)"
+                addButton.style.padding = "5%"
+                addButton.style.width = "40%"
+                addButton.innerHTML = `<svg stroke="currentColor" fill="red" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>`
+                addButton.addEventListener("click", () => {
+                    delteFunc(take_name)
+                    create_banner.style.display = "none"
+                })
+
+                create_banner.appendChild(addButton)
                 create_banner.appendChild(create_text_field)
                 create_banner.setAttribute("value", take_muskul)
                 let settings = document.createElement("textarea")
@@ -170,7 +185,6 @@ const DisplySaved = async () => {
                 create_banner.querySelector("h3").style.display = "block";
                 create_banner.querySelector("h3").style.textAlign = "center";
                 create_banner.children[3].style.display = "flex";
-                create_banner.children[3].style.height = "30%";
                 create_banner.children[3].style.padding = "2%";
                 create_banner.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
             } catch {
@@ -192,7 +206,6 @@ const DisplySaved = async () => {
     }
 }
 
-
 if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = ``
@@ -209,4 +222,28 @@ if (localStorage.getItem("loginInfo")) {
     localStorage.setItem("savedOne", "10")
     document.getElementById("welcome").innerHTML = ``
     document.getElementById("logOutBtn").style.display = "none"
+}
+
+
+
+const delteFunc = async (EXname) => {
+    const exerciseName = EXname;
+    const res = await axios.get(`/api/user/${parseInt(localStorage.getItem("accountID"))}`)
+    const filtered = res.data.exercisesNotes.filter((e) => {
+        return e.name === exerciseName
+    })
+    const encodedName = encodeURIComponent(exerciseName);
+    if (filtered) {
+
+
+        axios.delete(`/api/user/${parseInt(localStorage.getItem("accountID"))}/exercisesNotes?name=${encodedName}`)
+            .then(res => {
+                console.log("Deleted:", res);
+                
+            })
+            .catch(err => {
+                console.error("Delete failed", err);
+                window.location.href = "/login";
+            });
+    }
 }
