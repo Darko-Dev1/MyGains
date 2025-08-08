@@ -368,6 +368,18 @@ aside button svg {
     width: 60%;
 }
 
+.saveNoteBTN {
+    padding: 2%;
+    background-color: transparent;
+}
+
+textarea {
+
+    width: 70%;
+    text-align: left;
+
+}
+
 @media (min-width:920px) {
     #exercise {
         width: 25%;

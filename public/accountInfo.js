@@ -76,15 +76,16 @@ BtnDarkMode.addEventListener("click", () => {
     })
     setTimeout(() => {
         document.querySelector("#exercises").querySelectorAll("#exercise").forEach((e) => {
-            console.log(e)
             e.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
             e.children[3].style.color = `${darkTheme.getItem("themeAtr")} `
+
+        })
+        document.querySelectorAll(".saveNoteBTN").forEach((e) => {
+            e.style.color = `${darkTheme.getItem("themeAtr")} `
         })
     }, 800)
 
 })
-
-
 
 const DisplySaved = async () => {
 
@@ -151,16 +152,54 @@ const DisplySaved = async () => {
                 create_banner.appendChild(addButton)
                 create_banner.appendChild(create_text_field)
                 create_banner.setAttribute("value", take_muskul)
+                const contianerArea = document.createElement("div")
                 let settings = document.createElement("textarea")
                 settings.setAttribute("class", "textareaNote")
                 settings.setAttribute("placeholder", "Note")
                 settings.style.backgroundColor = "transparent"
-                settings.style.width = "100%"
-                settings.style.maxHeight = "25%"
+                settings.style.maxHeight = "100%"
                 settings.style.color = `${darkTheme.getItem("themeAtr")}`
-                create_banner.appendChild(settings)
+                axios.get(`/api/user/${parseInt(localStorage.getItem("accountID"))}`)
+                    .then(res => {
+                        console.log("Added:", res.data.exercisesNotes);
+
+                        const found = res.data.exercisesNotes.find(e => e.name === take_name);
+
+                        if (found && found.note !== "no note written") {
+                            settings.value = found.note;
+                        } else {
+                            settings.value = ""
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Put failed", err);
+                        window.location.href = "/login";
+                    });
+                const noteSave = document.createElement("button")
+                noteSave.innerHTML = "Save Note"
+                noteSave.setAttribute("class", "saveNoteBTN")
+                noteSave.style.color = `${darkTheme.getItem("themeAtr")}`
+                noteSave.addEventListener("click", (e) => {
+                    console.log(e.target.closest("#exercise").querySelector("textarea").value)
+                    axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
+                        userName: localStorage.getItem("loginInfo"),
+                        Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value }
+                    }).then(res => {
+                        console.log("Added:", res);
+                    }).catch(err => {
+                        console.error("Put failed", err);
+                        window.location.href = "/login";
+                    });
+                })
+                contianerArea.appendChild(settings)
+                contianerArea.appendChild(noteSave)
+                contianerArea.style.width = "100%"
+                contianerArea.style.display = "flex"
+                contianerArea.style.justifyContent = "space-between"
+                create_banner.appendChild(contianerArea)
                 create_banner.style.width = "85%"
                 take_excercises.appendChild(create_banner)
+
 
                 create_banner.scrollIntoView({ behavior: "smooth", block: "center" });
                 create_banner.children[0].style.width = "40%";
@@ -239,7 +278,7 @@ const delteFunc = async (EXname) => {
         axios.delete(`/api/user/${parseInt(localStorage.getItem("accountID"))}/exercisesNotes?name=${encodedName}`)
             .then(res => {
                 console.log("Deleted:", res);
-                
+
             })
             .catch(err => {
                 console.error("Delete failed", err);

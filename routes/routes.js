@@ -15,24 +15,35 @@ router.get('/api/user/:id', async (req, res) => {
 });
 
 router.put('/api/user/:id', async (req, res) => {
-    console.log("what: ", req.body)
+    console.log("what: ", req.body);
     try {
         const userId = parseInt(req.params.id);
         const { Exercise } = req.body;
+        console.log("this " + Exercise)
 
         const doc = await savedExecise.findOne({ id: userId });
+        console.log(doc)
 
         if (!doc) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        doc.exercisesNotes.push({
-            name: Exercise.name,
-            note: "Did 20 reps"
-        });
+        // Find the existing exercise by name
+        const existing = doc.exercisesNotes.find(ex => ex.name === Exercise.name);
+        console.log(doc.exercisesNotes.find(ex => ex.name === Exercise.name))
+
+        if (existing) {
+            existing.note = Exercise.note;
+            doc.markModified('exercisesNotes');
+        } else {
+            doc.exercisesNotes.push({
+                name: Exercise.name,
+                note: "no note written"
+            });
+        }
 
         await doc.save();
-        res.status(200).json({ message: "Exercise added successfully", data: doc });
+        res.status(200).json({ message: "Exercise note updated successfully", data: doc });
     } catch (error) {
         console.error("Update error:", error);
         res.status(500).json({ error: "Server error" });
