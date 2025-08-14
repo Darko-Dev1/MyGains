@@ -53,17 +53,102 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 document.getElementById("createFolder").addEventListener("click", () => {
     document.getElementById("FolderCreateTab").style.display = "flex"
-    document.querySelector("body").style.overflow = "hidden"
+    document.querySelector("body").style.overflowY = "none"
 })
+
+// Function to display folders
+function getUserFolders() {
+    const username = localStorage.getItem("loginInfo");
+    if (!username) return [];
+    return JSON.parse(localStorage.getItem(`folders_${username}`)) || [];
+}
+
+// Save folders for the current user
+function setUserFolders(folders) {
+    const username = localStorage.getItem("loginInfo");
+    if (!username) return;
+    localStorage.setItem(`folders_${username}`, JSON.stringify(folders));
+}
+
+// Display folders
+function displayFolders() {
+    const folders = getUserFolders();
+    const container = document.querySelector("#foldersContainer");
+    container.innerHTML = "";
+
+    const header = document.createElement("p");
+    header.textContent = "Here are your folders:";
+    header.id = "foldersHeader";
+    header.style.color = "#aaa";
+    header.style.textAlign = "center";
+    container.appendChild(header);
+
+    folders.forEach((folder, index) => {
+        const div = document.createElement("div");
+        div.classList.add("folder");
+        div.dataset.index = index;
+
+        div.innerHTML = `
+            <span class="folder-name">${folder.name}</span>
+            <span class="delete-btn" style="float:right; cursor:pointer;">
+                <svg stroke="currentColor" fill="red" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                </svg>
+            </span>
+            <div class="exercises">
+                ${folder.exercises.map(ex => `<div class="exercise-item">${ex}</div>`).join("")}
+            </div>
+        `;
+
+        div.addEventListener("click", e => {
+            if (!e.target.closest(".delete-btn")) div.classList.toggle("expanded");
+        });
+
+        div.querySelector(".delete-btn").addEventListener("click", () => {
+            folders.splice(index, 1);
+            setUserFolders(folders);
+            displayFolders();
+        });
+
+        container.appendChild(div);
+    });
+}
+
+// Event listener to create a new folder
+document.querySelector("#submitBTNfolder").addEventListener("click", () => {
+    const folderInput = document.querySelector("#foldername");
+    const folderName = folderInput.value.trim();
+    if (!folderName) return;
+
+    let folders = getUserFolders();
+
+    if (folders.length >= 5) {
+        alert("You can only create a maximum of 5 folders.");
+        return;
+    }
+
+    if (!folders.some(f => f.name === folderName)) {
+        folders.push({ name: folderName, exercises: [] });
+        setUserFolders(folders);
+        displayFolders();
+    } else {
+        alert("Folder name already exists.");
+    }
+
+    folderInput.value = "";
+});
+
+// Initialize folder display
+displayFolders();
 
 document.getElementById("closeTab").addEventListener("click", () => {
     document.getElementById("FolderCreateTab").style.display = "none"
-    document.getElementById("body").style.overflow = "auto"
+    document.querySelector("body").style.overflowY = "auto"
 })
 
 const BtnDarkMode = document.querySelector("#darkmode")
 BtnDarkMode.addEventListener("click", () => {
- 
+
     if (darkTheme.getItem("theme") === "white") {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
@@ -77,7 +162,7 @@ BtnDarkMode.addEventListener("click", () => {
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
     }
-       document.getElementById("FolderCreateTab").style.backgroundColor = darkTheme.getItem("theme")
+    document.getElementById("FolderCreateTab").style.backgroundColor = darkTheme.getItem("theme")
     idImg.setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
     document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
     document.querySelector("aside").style.fill = `red`
@@ -279,15 +364,6 @@ if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = ``
     document.getElementById("logOutBtn").style.display = "none"
 }
-
-
-document.getElementById("imgBannerFolder").addEventListener("change", (e) => {
-    const file = document.getElementById("imgBannerFolder").files[0];
-    if (file) {
-        document.getElementById("preview").src = URL.createObjectURL(file);
-        document.getElementById("preview").style.display = 'block';
-    }
-})
 
 
 const delteFunc = async (EXname) => {

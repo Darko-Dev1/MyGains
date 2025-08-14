@@ -90,14 +90,19 @@ BtnDarkMode.addEventListener("click", () => {
 document.getElementById("registerBTN").addEventListener("click", () => {
     const RegUser = async () => {
         try {
-            const res = await axios.post("/register", {
-                UserName: document.getElementById("nameReg").value,
-                email: document.getElementById("emailReg").value
-            })
-            console.log(res)
-            localStorage.setItem("loginInfo", document.getElementById("nameReg").value)
-            window.location.href = "/account"
-        }catch {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("emailReg").value)) {
+                const res = await axios.post("/register", {
+                    UserName: document.getElementById("nameReg").value,
+                    email: document.getElementById("emailReg").value
+                })
+                console.log(res)
+                localStorage.setItem("loginInfo", document.getElementById("nameReg").value)
+                window.location.href = "/account"
+            } else {
+                window.location.href = "/register"
+            }
+
+        } catch {
             window.location.href = "/register"
             console.error("account already created with these credentials")
         }

@@ -17,15 +17,14 @@ header {
 }
 
 #FolderCreateTab {
-    position: sticky;
-    top: 0;
+    position: fixed;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 110vh;
-
-
+    height: 100vh;
+    width: 100%;
+    z-index: 1000000;
 }
 
 #FolderCreateTab li {
@@ -152,8 +151,6 @@ header button {
 
 }
 
-
-
 #search_input {
 
     width: 0%;
@@ -165,6 +162,57 @@ header button {
     outline: none;
     transition: .3s;
     display: none;
+}
+
+#foldersContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Each folder */
+.folder {
+    background-color: #111;       /* dark black */
+    color: #fff;                  /* white text */
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Expanded state */
+.folder.expanded {
+    background-color: #222;       /* slightly lighter */
+}
+
+/* Container for exercises inside folder */
+.folder .exercises {
+    margin-top: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.folder.expanded .exercises {
+    display: flex;
+}
+
+#foldersHeader {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.folder .exercise-item {
+    background-color: #333;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 #change_to_X {

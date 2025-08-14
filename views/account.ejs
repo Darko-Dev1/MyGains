@@ -58,10 +58,8 @@
                 d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z">
             </path>
         </svg>
-        <li>Name your folder: <input type="text"></li>
-        <li>inser folder banner (optional): <input type="file" id="imgBannerFolder" accept="image/png, image/jpeg"></li>
-        <img id="preview" style="display: none; height: 100px; width: 100px;"></img>
-        <input type="submit">
+        <li>Name your folder: <input type="text" id="foldername"></li>
+        <input id="submitBTNfolder" type="submit">
     </form>
     <div class="container">
         <h1 id="welcome"></h1>
@@ -89,6 +87,11 @@
         </div>
 
     </div>
+
+    <div id="foldersContainer">
+        <p id="foldersHeader">Here are your folders:</p>
+    </div>
+
 
     <div class="conatiner" id="exercises">
 
