@@ -86,7 +86,6 @@ BtnDarkMode.addEventListener("click", () => {
 
 })
 
-
 document.getElementById("registerBTN").addEventListener("click", () => {
     const RegUser = async () => {
         try {
@@ -99,7 +98,12 @@ document.getElementById("registerBTN").addEventListener("click", () => {
                 localStorage.setItem("loginInfo", document.getElementById("nameReg").value)
                 window.location.href = "/account"
             } else {
-                window.location.href = "/register"
+                setTimeout(() => {
+                    window.location.href = "/register"
+
+                })
+
+                alert("invalid name or email")
             }
 
         } catch {

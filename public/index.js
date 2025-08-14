@@ -350,7 +350,7 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         return;
     }
 
-    if (prevActive) collapse(prevActive);
+    if (prevActive) collapse(prevActive); console.log("ajde bre")
 
     expand(clickedDiv);
     prevActive = clickedDiv;
@@ -360,6 +360,7 @@ document.getElementById("exercises").addEventListener("click", (e) => {
 });
 
 function collapse(div) {
+    hideFolderSelector()
     div.children[0].style.width = "100%";
     div.querySelector("h3").style.width = "100%";
     div.querySelector("h3").style.textAlign = "center";
@@ -380,72 +381,6 @@ function collapse(div) {
     div.style.marginBottom = "1%";
 }
 
-function showFolderSelectorBelowBanner(callback) {
-    // 1. Read + normalize folders from localStorage
-    const raw = JSON.parse(localStorage.getItem("folders")) || [];
-    const folders = raw.map(f => (typeof f === "string" ? { name: f, exercises: [] } : f));
-
-    // 2. Persist normalized version if changed
-    if (JSON.stringify(raw) !== JSON.stringify(folders)) {
-        localStorage.setItem("folders", JSON.stringify(folders));
-    }
-
-    // 3. No folders → redirect
-    if (folders.length === 0) {
-        window.location.href = "/account";
-        return;
-    }
-
-    // 4. Remove any previous selector
-    const old = document.getElementById("folderSelectorBelowBanner");
-    if (old) old.remove();
-
-    // 5. Build selector container (no colors)
-    const container = document.createElement("div");
-    container.id = "folderSelectorBelowBanner";
-    container.style.display = "flex";
-    container.style.alignItems = "center";
-    container.style.gap = "1rem";
-    container.style.marginTop = "1rem";
-
-    const label = document.createElement("span");
-    label.textContent = "Choose a folder:";
-
-    const select = document.createElement("select");
-    folders.forEach(folder => {
-        const opt = document.createElement("option");
-        opt.value = folder.name;        // ✅ folder name only
-        opt.textContent = folder.name;  // ✅ folder name only
-        select.appendChild(opt);
-    });
-
-    const confirmBtn = document.createElement("button");
-    confirmBtn.textContent = "Save here";
-    confirmBtn.style.cursor = "pointer";
-    confirmBtn.onclick = () => {
-        hideFolderSelector();
-        callback(select.value); // returns just the folder name
-    };
-
-    container.append(label, select, confirmBtn);
-
-    // 6. Insert below banner (or fallback)
-    const banner = document.getElementById("banner");
-    if (banner) banner.insertAdjacentElement("afterend", container);
-    else document.body.prepend(container);
-}
-
-// Separate helper
-function hideFolderSelector() {
-    const el = document.getElementById("folderSelectorBelowBanner");
-    if (el) el.remove();
-}
-
-// Separate helper to hide it anytime
-function hideFolderSelector() {
-    const el = document.getElementById("folderSelectorBelowBanner");
-    if (el) el.style.display = "none";
-}
 
 if (localStorage.getItem("loginInfo")) {
     const finduserFromDb = async () => {
@@ -471,6 +406,7 @@ if (localStorage.getItem("loginInfo")) {
 }
 
 function expand(div) {
+    hideFolderSelector()
     div.scrollIntoView({ behavior: "smooth", block: "center" });
     div.children[0].style.width = "40%";
     div.children[1].style.display = "inline-block";
@@ -501,11 +437,8 @@ function expand(div) {
         addButton.innerHTML = `Add Exercise <svg ... ></svg>`;
     }
 
-
 }
 
-
-// Helper to hide/remove the selector
 function hideFolderSelector() {
     const el = document.getElementById("folderSelectorBelowBanner");
     if (el) el.remove();
@@ -520,14 +453,18 @@ document.getElementById("exercises").addEventListener("click", (e) => {
 
     const exerciseName = exerciseDiv.querySelector("h3").innerText;
 
-    // -----------------------------
-    // Folder selector below banner
-    // -----------------------------
-    const foldersRaw = JSON.parse(localStorage.getItem("folders")) || [];
+    const username = localStorage.getItem("loginInfo");
+    if (!username) {
+        window.location.href = "/account";
+        return;
+    }
+
+    // Get folders for current user
+    const foldersRaw = JSON.parse(localStorage.getItem(`folders_${username}`)) || [];
     const folders = foldersRaw.map(f => (typeof f === "string" ? { name: f, exercises: [] } : f));
 
     if (folders.length === 0) {
-        window.location.href = "/account";
+        alert("you need to create a folder in the account section")
         return;
     }
 
@@ -535,13 +472,18 @@ document.getElementById("exercises").addEventListener("click", (e) => {
     const oldSelector = document.getElementById("folderSelectorBelowBanner");
     if (oldSelector) oldSelector.remove();
 
-    // Create selector container
     const container = document.createElement("div");
     container.id = "folderSelectorBelowBanner";
     container.style.display = "flex";
     container.style.alignItems = "center";
     container.style.gap = "1rem";
-    container.style.marginTop = "1rem";
+    container.style.marginTop = "0.5rem"; // small space below banner
+    container.style.width = "100%";       // full width of banner
+    container.style.boxSizing = "border-box"; // prevent overflow
+    container.style.position = "relative"; // ensure it's under the banner, not absolute/fixed
+    container.style.zIndex = "10";
+    container.style.height = "10vh"
+    container.style.backgroundColor = `${localStorage.getItem("theme")}`
 
     const label = document.createElement("span");
     label.textContent = "Choose a folder:";
@@ -561,14 +503,11 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         const selectedFolder = select.value;
         container.remove(); // hide selector after selection
 
-        const exerciseData = { name: exerciseName, note: "no note written", folder: selectedFolder };
-
-        // -----------------------------
-        // Original save logic
-        // -----------------------------
+        const exerciseData = { name: exerciseName, note: "no note written"};
+        
         if (localStorage.getItem("savedOne") === "0") {
             axios.post("/api/user", {
-                userName: localStorage.getItem("loginInfo"),
+                userName: username,
                 Exercise: exerciseData,
                 posting: true
             }).then(res => {
@@ -600,7 +539,7 @@ document.getElementById("exercises").addEventListener("click", (e) => {
                                 });
                         } else {
                             axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
-                                userName: localStorage.getItem("loginInfo"),
+                                userName: username,
                                 Exercise: exerciseData
                             }).then(res => {
                                 console.log("Added:", res);
@@ -623,11 +562,7 @@ document.getElementById("exercises").addEventListener("click", (e) => {
     };
 
     container.append(label, select, confirmBtn);
-
-    // Insert the folder selector below the banner
-    const banner = document.getElementById("banner");
-    if (banner) banner.insertAdjacentElement("afterend", container);
-    else document.body.prepend(container); // fallback
+    exerciseDiv.appendChild(container)
 });
 
 const headerSection = document.querySelector("header")
