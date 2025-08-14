@@ -15,6 +15,9 @@ take_aside.querySelectorAll("button").forEach(e => {
     e.style.color = `${darkTheme.getItem("themeAtr")}`
     e.style.fill = `${darkTheme.getItem("themeAtr")}`
 })
+document.getElementById("logOutBtn").style.color = `${darkTheme.getItem("themeAtr")} `
+document.getElementById("createFolder").style.color = `${darkTheme.getItem("themeAtr")} `
+document.getElementById("createFolder").style.fill = `${darkTheme.getItem("themeAtr")} `
 
 // aside code
 
@@ -84,7 +87,9 @@ BtnDarkMode.addEventListener("click", () => {
             e.style.color = `${darkTheme.getItem("themeAtr")} `
         })
     }, 800)
-
+    document.getElementById("logOutBtn").style.color = `${darkTheme.getItem("themeAtr")} `
+    document.getElementById("createFolder").style.color = `${darkTheme.getItem("themeAtr")} `
+    document.getElementById("createFolder").style.fill = `${darkTheme.getItem("themeAtr")} `
 })
 
 const DisplySaved = async () => {
@@ -249,7 +254,7 @@ if (localStorage.getItem("loginInfo")) {
     document.getElementById("welcome").innerHTML = `Welcome, ${localStorage.getItem("loginInfo")}`
     document.getElementById("activity").innerHTML = ``
     document.getElementById("exercises").innerHTML = `No saves`
-    document.getElementById("logOutBtn").style.display = "block"
+    document.getElementById("logOutBtn").style.display = "flex"
     document.getElementById("logOutBtn").addEventListener("click", () => {
         localStorage.removeItem("loginInfo")
         window.location.href = "/account"
@@ -263,6 +268,14 @@ if (localStorage.getItem("loginInfo")) {
     document.getElementById("logOutBtn").style.display = "none"
 }
 
+
+document.getElementById("imgBannerFolder").addEventListener("change", (e) => {
+    const file = document.getElementById("imgBannerFolder").files[0];
+    if (file) {
+        document.getElementById("preview").src = URL.createObjectURL(file);
+        document.getElementById("preview").style.display = 'block';
+    }
+})
 
 
 const delteFunc = async (EXname) => {

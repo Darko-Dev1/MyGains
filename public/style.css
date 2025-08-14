@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 header {
 
     background-color: white;
@@ -12,6 +14,44 @@ header {
     z-index: 1000000;
     height: 70px;
 
+}
+
+#FolderCreateTab {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#actionTab {
+    display: flex;
+    height: 5vh;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-bottom: 7%;
+}
+
+#createFolder {
+
+    width: 40%;
+flex-direction: column-reverse;
+
+
+}
+
+#actionTab button {
+    background-color: transparent;
+    padding: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 150%;
+}
+
+
+#actionTab button svg {
+    height: 3em;
+    width: 2em;
 }
 
 .dark-mode {
@@ -270,6 +310,7 @@ li {
     width: 50%;
     padding: 2%;
 }
+
 #formbox div button {
     width: 20%;
     padding: 3%;
@@ -385,11 +426,13 @@ textarea {
         width: 25%;
         height: 60vh;
     }
+
     aside {
         width: 30%;
     }
+
     aside button svg {
-    height: 50%;
-    width: 60%;
-}
+        height: 50%;
+        width: 60%;
+    }
 }
