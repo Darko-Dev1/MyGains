@@ -18,7 +18,7 @@ take_aside.querySelectorAll("button").forEach(e => {
 document.getElementById("logOutBtn").style.color = `${darkTheme.getItem("themeAtr")} `
 document.getElementById("createFolder").style.color = `${darkTheme.getItem("themeAtr")} `
 document.getElementById("createFolder").style.fill = `${darkTheme.getItem("themeAtr")} `
-
+document.getElementById("FolderCreateTab").style.backgroundColor = darkTheme.getItem("theme")
 // aside code
 
 let active_aside = 0
@@ -51,8 +51,19 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
 
 })
 
+document.getElementById("createFolder").addEventListener("click", () => {
+    document.getElementById("FolderCreateTab").style.display = "flex"
+    document.querySelector("body").style.overflow = "hidden"
+})
+
+document.getElementById("closeTab").addEventListener("click", () => {
+    document.getElementById("FolderCreateTab").style.display = "none"
+    document.getElementById("body").style.overflow = "auto"
+})
+
 const BtnDarkMode = document.querySelector("#darkmode")
 BtnDarkMode.addEventListener("click", () => {
+ 
     if (darkTheme.getItem("theme") === "white") {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
@@ -66,6 +77,7 @@ BtnDarkMode.addEventListener("click", () => {
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
     }
+       document.getElementById("FolderCreateTab").style.backgroundColor = darkTheme.getItem("theme")
     idImg.setAttribute("src", `${darkTheme.getItem("themeLogo")}`)
     document.querySelector("body").style.backgroundColor = `${darkTheme.getItem("theme")}`
     document.querySelector("aside").style.fill = `red`

@@ -17,10 +17,29 @@ header {
 }
 
 #FolderCreateTab {
-    position: absolute;
-    display: flex;
+    position: sticky;
+    top: 0;
+    display: none;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    height: 110vh;
+
+
+}
+
+#FolderCreateTab li {
+    display: flex;
+    width: 80%;
+    height: 15%;
+    border: none;
+    margin: 0;
+}
+
+#closeTab {
+    position: absolute;
+    left: 80%;
+    top: 0%;
 }
 
 #actionTab {
