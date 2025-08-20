@@ -429,14 +429,6 @@ function expand(div) {
     div.children[3].style.height = "30%";
     div.children[3].style.padding = "2%";
 
-    if (div.children[3].children[0].getAttribute("data-ExsSaved") === "false") {
-        addButton.innerHTML = `Add Exercise <svg ... ></svg>`;
-    } else if (div.children[3].children[0].getAttribute("data-ExsSaved") === "true") {
-        addButton.innerHTML = `Exercise added <svg ... ></svg>`;
-    } else {
-        addButton.innerHTML = `Add Exercise <svg ... ></svg>`;
-    }
-
 }
 
 function hideFolderSelector() {
@@ -502,9 +494,10 @@ document.getElementById("exercises").addEventListener("click", (e) => {
     confirmBtn.onclick = () => {
         const selectedFolder = select.value;
         container.remove(); // hide selector after selection
+        console.log(selectedFolder)
 
-        const exerciseData = { name: exerciseName, note: "no note written"};
-        
+        const exerciseData = { name: exerciseName, note: "no note written", foldername: selectedFolder };
+
         if (localStorage.getItem("savedOne") === "0") {
             axios.post("/api/user", {
                 userName: username,
@@ -525,31 +518,22 @@ document.getElementById("exercises").addEventListener("click", (e) => {
 
                     const encodedName = encodeURIComponent(exerciseName);
                     if (filtered) {
-                        if (btn.getAttribute("data-ExsSaved") === "true") {
-                            btn.setAttribute("data-ExsSaved", "false");
+                        axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
+                            userName: username,
+                            Exercise: exerciseData
+                        }).then(res => {
+                            console.log("Added:", res);
+                            btn.setAttribute("data-ExsSaved", "true");
+                            setTimeout(() => {
+                                btn.innerHTML = `Add exercise <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm107 229h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"></path></svg>`
+                            }, 2000)    
+                            btn.innerHTML = `Exercise added <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M16.972 6.251c-.967-.538-2.185-.188-2.72.777l-3.713 6.682-2.125-2.125c-.781-.781-2.047-.781-2.828 0-.781.781-.781 2.047 0 2.828l4 4c.378.379.888.587 1.414.587l.277-.02c.621-.087 1.166-.46 1.471-1.009l5-9c.537-.966.189-2.183-.776-2.72z"></path></svg>`;
+                            
+                        }).catch(err => {
+                            console.error("Put failed", err);
+                            window.location.href = "/login";
+                        });
 
-                            axios.delete(`/api/user/${parseInt(localStorage.getItem("accountID"))}/exercisesNotes?name=${encodedName}`)
-                                .then(res => {
-                                    console.log("Deleted:", res);
-                                    btn.innerHTML = `Exercise removed <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>`;
-                                })
-                                .catch(err => {
-                                    console.error("Delete failed", err);
-                                    window.location.href = "/login";
-                                });
-                        } else {
-                            axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
-                                userName: username,
-                                Exercise: exerciseData
-                            }).then(res => {
-                                console.log("Added:", res);
-                                btn.setAttribute("data-ExsSaved", "true");
-                                btn.innerHTML = `Exercise added <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M16.972 6.251c-.967-.538-2.185-.188-2.72.777l-3.713 6.682-2.125-2.125c-.781-.781-2.047-.781-2.828 0-.781.781-.781 2.047 0 2.828l4 4c.378.379.888.587 1.414.587l.277-.02c.621-.087 1.166-.46 1.471-1.009l5-9c.537-.966.189-2.183-.776-2.72z"></path></svg>`;
-                            }).catch(err => {
-                                console.error("Put failed", err);
-                                window.location.href = "/login";
-                            });
-                        }
                     }
                 } catch (error) {
                     console.log(error);

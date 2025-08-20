@@ -86,6 +86,7 @@ function displayFolders() {
     folders.forEach((folder, index) => {
         const div = document.createElement("div");
         div.classList.add("folder");
+        div.setAttribute("id", folder.name)
         div.dataset.index = index;
 
         div.innerHTML = `
@@ -108,6 +109,15 @@ function displayFolders() {
             folders.splice(index, 1);
             setUserFolders(folders);
             displayFolders();
+            axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
+                userName: localStorage.getItem("loginInfo"),
+                Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value, foldername: res.data.exercisesNotes }
+            }).then(res => {
+                console.log("Added:", res);
+            }).catch(err => {
+                console.error("Put failed", err);
+                window.location.href = "/login";
+            });
         });
 
         container.appendChild(div);
@@ -212,7 +222,7 @@ const DisplySaved = async () => {
 
         }
 
-        const ExercisesFetch = async (currentsavedEx) => {
+        const ExercisesFetch = async (currentsavedEx, currentFolderName) => {
             try {
 
                 const res = await axios.get("/vezbi.json")
@@ -267,6 +277,7 @@ const DisplySaved = async () => {
 
                         const found = res.data.exercisesNotes.find(e => e.name === take_name);
 
+
                         if (found && found.note !== "no note written") {
                             settings.value = found.note;
                         } else {
@@ -285,7 +296,7 @@ const DisplySaved = async () => {
                     console.log(e.target.closest("#exercise").querySelector("textarea").value)
                     axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
                         userName: localStorage.getItem("loginInfo"),
-                        Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value }
+                        Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value, foldername: res.data.exercisesNotes }
                     }).then(res => {
                         console.log("Added:", res);
                     }).catch(err => {
@@ -328,6 +339,15 @@ const DisplySaved = async () => {
                 create_banner.children[3].style.display = "flex";
                 create_banner.children[3].style.padding = "2%";
                 create_banner.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
+                console.log(currentFolderName)
+                console.log(document.querySelector(`#${currentFolderName}`))
+                console.log(create_banner)
+                if (document.querySelector(`#${currentFolderName}`) !== null) {
+                    document.querySelector(`#${currentFolderName}`).appendChild(create_banner)
+                } else {
+                    create_banner.remove()
+                }
+
             } catch {
                 console.error("json not fetched")
             }
@@ -337,7 +357,7 @@ const DisplySaved = async () => {
             console.log(parseInt(localStorage.getItem("accountID")))
             document.querySelector("#exercises").innerHTML = ""
             res.data.exercisesNotes.forEach((e) => {
-                ExercisesFetch(e.name)
+                ExercisesFetch(e.name, e.folderName)
             })
         }, 500)
         document.querySelector("#exercises").innerHTML = "loading..."

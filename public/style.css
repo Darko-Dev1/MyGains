@@ -182,17 +182,24 @@ header button {
     cursor: pointer;
     transition: all 0.3s ease;
     overflow: hidden;
+    height: 50px;
     position: relative;
+}
+.folder #exercise:nth-child(1) {
+
+    margin-top: 30px;
+
 }
 
 /* Expanded state */
 .folder.expanded {
-    background-color: #222;       /* slightly lighter */
+    background-color: #222; 
+    height: max-content;      /* slightly lighter */
 }
 
 /* Container for exercises inside folder */
 .folder .exercises {
-    margin-top: 10px;
+    margin-top: 40px;
     display: none;
     flex-direction: column;
     gap: 6px;

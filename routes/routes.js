@@ -19,10 +19,9 @@ router.put('/api/user/:id', async (req, res) => {
     try {
         const userId = parseInt(req.params.id);
         const { Exercise } = req.body;
-        console.log("this " + Exercise)
 
         const doc = await savedExecise.findOne({ id: userId });
-        console.log(doc)
+        console.log("2nd", doc)
 
         if (!doc) {
             return res.status(404).json({ error: "User not found" });
@@ -30,7 +29,7 @@ router.put('/api/user/:id', async (req, res) => {
 
         // Find the existing exercise by name
         const existing = doc.exercisesNotes.find(ex => ex.name === Exercise.name);
-        console.log(doc.exercisesNotes.find(ex => ex.name === Exercise.name))
+        console.log("3rd ", doc.exercisesNotes.find(ex => ex.name === Exercise.name))
 
         if (existing) {
             existing.note = Exercise.note;
@@ -38,6 +37,7 @@ router.put('/api/user/:id', async (req, res) => {
         } else {
             doc.exercisesNotes.push({
                 name: Exercise.name,
+                folderName: Exercise.foldername,
                 note: "no note written"
             });
         }
@@ -82,6 +82,7 @@ router.post('/api/user', async (req, res) => {
         const newSave = new savedExecise({
             userName: savedExercisesAcc.userName,
             exercisesNotes: savedExercisesAcc.Exercise,
+            folderName: savedExercisesAcc.foldername,
             id: count,
             posted: savedExercisesAcc.posting
         })
