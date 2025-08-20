@@ -10,7 +10,6 @@ fetch("/vezbi.json")
         data["vezbi"].map((vezbi) => {
             ara.push(vezbi["vezbam"])
         })
-        console.log(ara)
         for (each of data["vezbi"]) {
 
             let create_banner = document.createElement("div")
@@ -166,7 +165,6 @@ creat_nav_dom.addEventListener("click", (e) => {
     let take_search_results = document.getElementById("search_results")
     let take_search_input = document.getElementById("search_input")
     let take_id = e.target
-    console.log(take_id.getAttribute("id"))
 
     if (take_id.getAttribute("id") === "search" || take_id.getAttribute("id") === "one" || take_id.getAttribute("id") === "two" || take_id.getAttribute("id") === "search_input") {
         create_search_bar.style.width = "65%"
@@ -215,7 +213,6 @@ let takee = document.getElementById("exercises")
 take_filter_section.addEventListener("click", (e) => {
 
     let take_filter = e.target
-    console.log(take_filter_section)
     let ime_na_muskul = take_filter.getAttribute("class")
 
 
@@ -237,7 +234,7 @@ take_filter_section.addEventListener("click", (e) => {
                     } else {
                         ess.style.display = "none"
                     }
-                    console.log(a)
+
                 }
             }
 
@@ -250,11 +247,7 @@ take_filter_section.addEventListener("click", (e) => {
         if (index !== -1) {
             muskulii.splice(index, 1);
         }
-        console.log(muskulii)
-        console.log(take_filter)
-        console.log(ime_na_muskul)
 
-        console.log("tuka e lista za muskuli: " + muskulii)
         take_filter.innerHTML = ime_na_muskul
         filter_active--
 
@@ -268,7 +261,6 @@ take_filter_section.addEventListener("click", (e) => {
 
         } else {
             for (ess of takee.children) {
-                console.log(ess)
                 if (muskulii.includes(ess.getAttribute("value"))) {
                     ess.style.display = "flex"
                 } else {
@@ -279,12 +271,10 @@ take_filter_section.addEventListener("click", (e) => {
                         } else {
                             ess.style.display = "none"
                         }
-                        console.log(a)
                     }
                 }
             }
         }
-        console.log(muskulii)
     } else {
 
         console.log(muskulii)
@@ -294,7 +284,7 @@ take_filter_section.addEventListener("click", (e) => {
 let take_aside = document.querySelector("aside")
 
 document.getElementById("burger_mehnu").addEventListener("click", (e) => {
-    console.log(e.target.getAttribute("id"))
+
     if (active_aside === 1 || e.target.getAttribute("d") !== "M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z") {
         take_aside.style.left = "100%"
         active_aside = 0
@@ -302,15 +292,12 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         // take_body.style.overflow = "hidden"
 
     } else if (e.target.getAttribute("id") === "change_to_X" || e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
-        console.log(e.target.getAttribute("id"))
-        console.log("heheh")
-        console.log(active_aside)
         if (window.innerWidth > 720) {
             take_aside.style.left = "70%"
         } else {
             take_aside.style.left = "0%"
         }
-        console.log(take_aside)
+
         // takee.style.overflow = "hidden"
         active_aside = 1
         take_body.style.overflow = "hidden"
@@ -350,12 +337,12 @@ document.getElementById("exercises").addEventListener("click", (e) => {
         return;
     }
 
-    if (prevActive) collapse(prevActive); console.log("ajde bre")
+    if (prevActive) collapse(prevActive); 
 
     expand(clickedDiv);
     prevActive = clickedDiv;
     active_ex = 1;
-    console.log(active_ex)
+
 
 });
 
@@ -386,18 +373,15 @@ if (localStorage.getItem("loginInfo")) {
     const finduserFromDb = async () => {
         try {
             const res = await axios.get("/api/user")
-            console.log(localStorage.getItem("loginInfo"))
             const userFound = res.data.filter((e) => {
                 return e.userName === localStorage.getItem("loginInfo")
             })
-            console.log(userFound[0])
             if (userFound[0].posted) {
                 localStorage.setItem("savedOne", "1")
             } else {
                 localStorage.setItem("savedOne", "0")
             }
             localStorage.setItem("accountID", userFound[0].id)
-            console.log(localStorage.getItem("accountID"))
         } catch {
             localStorage.setItem("savedOne", "0")
         }
@@ -494,7 +478,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
     confirmBtn.onclick = () => {
         const selectedFolder = select.value;
         container.remove(); // hide selector after selection
-        console.log(selectedFolder)
 
         const exerciseData = { name: exerciseName, note: "no note written", foldername: selectedFolder };
 
@@ -504,7 +487,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
                 Exercise: exerciseData,
                 posting: true
             }).then(res => {
-                console.log(res);
                 localStorage.setItem("savedOne", "1");
             }).catch(() => {
                 console.error("not working");
@@ -522,7 +504,6 @@ document.getElementById("exercises").addEventListener("click", (e) => {
                             userName: username,
                             Exercise: exerciseData
                         }).then(res => {
-                            console.log("Added:", res);
                             btn.setAttribute("data-ExsSaved", "true");
                             setTimeout(() => {
                                 btn.innerHTML = `Add exercise <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M256 48C141.125 48 48 141.125 48 256s93.125 208 208 208 208-93.125 208-208S370.875 48 256 48zm107 229h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"></path></svg>`

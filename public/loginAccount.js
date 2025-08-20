@@ -53,7 +53,6 @@ BtnDarkMode.addEventListener("click", () => {
         darkTheme.setItem("theme", "black")
         darkTheme.setItem("themeAtr", "white")
         darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png")
-        console.log('hello?')
     } else if (darkTheme.getItem("theme") === "black") {
         darkTheme.setItem("theme", "white")
         darkTheme.setItem("themeAtr", "black")
@@ -87,7 +86,6 @@ document.getElementById("loginBTN").addEventListener("click", () => {
                     name: document.getElementById("nameRegg").value,
                     email: document.getElementById("emailRegg").value
                 });
-                console.log(res.data.url)
                 if (res.data.redirect) {
                     window.location.href = res.data.redirect;
                 }
@@ -98,7 +96,6 @@ document.getElementById("loginBTN").addEventListener("click", () => {
         } catch (err) {
             localStorage.removeItem("loginInfo")
             window.location.href = err.response.data.redirect
-            console.log(err.response.data.redirect)
             console.error("inccorect info")
         }
     }

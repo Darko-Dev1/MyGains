@@ -30,7 +30,6 @@ document.getElementById("burger_mehnu").addEventListener("click", (e) => {
         // take_body.style.overflow = "hidden"
 
     } else if (e.target.getAttribute("id") === "change_to_X" || e.target.getAttribute("id") === "change_to_w" && active_aside === 0) {
-        console.log(e.target.getAttribute("id"))
         if (window.innerWidth > 720) {
             take_aside.style.left = "70%"
         } else {
@@ -102,22 +101,17 @@ function displayFolders() {
         `;
 
         div.addEventListener("click", e => {
-            if (!e.target.closest(".delete-btn")) div.classList.toggle("expanded");
+            if (!e.target.closest(".delete-btn") && !e.target.closest("#exercise")) div.classList.toggle("expanded");
         });
 
         div.querySelector(".delete-btn").addEventListener("click", () => {
             folders.splice(index, 1);
             setUserFolders(folders);
             displayFolders();
-            axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
-                userName: localStorage.getItem("loginInfo"),
-                Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value, foldername: res.data.exercisesNotes }
-            }).then(res => {
-                console.log("Added:", res);
-            }).catch(err => {
-                console.error("Put failed", err);
-                window.location.href = "/login";
-            });
+            div.querySelector(".delete-btn").closest("div").querySelector(".exercises").querySelectorAll("#exercise").forEach((e) => {
+                delteFunc(e.querySelector("h3").innerHTML, )
+            })
+            // delteFunc()
         });
 
         container.appendChild(div);
@@ -205,18 +199,11 @@ const DisplySaved = async () => {
     try {
         if (localStorage.getItem("loginInfo")) {
             const finduserFromDb = async () => {
-
                 const res = await axios.get("/api/user")
-                console.log(localStorage.getItem("loginInfo"))
                 const userFound = res.data.filter((e) => {
-                    console.log(e.userName, localStorage.getItem("loginInfo"))
                     return e.userName === localStorage.getItem("loginInfo")
                 })
-                console.log(userFound)
                 localStorage.setItem("accountID", userFound[0].id)
-                console.log(localStorage.getItem("accountID"))
-
-
             }
             await finduserFromDb()
 
@@ -273,11 +260,7 @@ const DisplySaved = async () => {
                 settings.style.color = `${darkTheme.getItem("themeAtr")}`
                 axios.get(`/api/user/${parseInt(localStorage.getItem("accountID"))}`)
                     .then(res => {
-                        console.log("Added:", res.data.exercisesNotes);
-
                         const found = res.data.exercisesNotes.find(e => e.name === take_name);
-
-
                         if (found && found.note !== "no note written") {
                             settings.value = found.note;
                         } else {
@@ -293,7 +276,7 @@ const DisplySaved = async () => {
                 noteSave.setAttribute("class", "saveNoteBTN")
                 noteSave.style.color = `${darkTheme.getItem("themeAtr")}`
                 noteSave.addEventListener("click", (e) => {
-                    console.log(e.target.closest("#exercise").querySelector("textarea").value)
+                
                     axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
                         userName: localStorage.getItem("loginInfo"),
                         Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value, foldername: res.data.exercisesNotes }
@@ -311,8 +294,6 @@ const DisplySaved = async () => {
                 contianerArea.style.justifyContent = "space-between"
                 create_banner.appendChild(contianerArea)
                 create_banner.style.width = "85%"
-                take_excercises.appendChild(create_banner)
-
 
                 create_banner.scrollIntoView({ behavior: "smooth", block: "center" });
                 create_banner.children[0].style.width = "40%";
@@ -339,13 +320,18 @@ const DisplySaved = async () => {
                 create_banner.children[3].style.display = "flex";
                 create_banner.children[3].style.padding = "2%";
                 create_banner.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
-                console.log(currentFolderName)
-                console.log(document.querySelector(`#${currentFolderName}`))
-                console.log(create_banner)
-                if (document.querySelector(`#${currentFolderName}`) !== null) {
-                    document.querySelector(`#${currentFolderName}`).appendChild(create_banner)
+                const folder = document.getElementById(currentFolderName); // works even with spaces
+
+                if (folder) {
+                    const exercises = folder.querySelector(".exercises");
+                    if (exercises) {
+                        exercises.appendChild(create_banner);
+                    } else {
+                        console.warn("No .exercises container inside folder:", currentFolderName);
+                    }
                 } else {
-                    create_banner.remove()
+                    console.warn("Folder not found:", currentFolderName);
+                    create_banner.remove();
                 }
 
             } catch {
@@ -354,7 +340,6 @@ const DisplySaved = async () => {
         }
         setTimeout(async () => {
             const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`)
-            console.log(parseInt(localStorage.getItem("accountID")))
             document.querySelector("#exercises").innerHTML = ""
             res.data.exercisesNotes.forEach((e) => {
                 ExercisesFetch(e.name, e.folderName)
@@ -399,7 +384,6 @@ const delteFunc = async (EXname) => {
         axios.delete(`/api/user/${parseInt(localStorage.getItem("accountID"))}/exercisesNotes?name=${encodedName}`)
             .then(res => {
                 console.log("Deleted:", res);
-
             })
             .catch(err => {
                 console.error("Delete failed", err);
