@@ -57,9 +57,29 @@ document.getElementById("createFolder").addEventListener("click", () => {
 
 // Function to display folders
 function getUserFolders() {
-    const username = localStorage.getItem("loginInfo");
-    if (!username) return [];
-    return JSON.parse(localStorage.getItem(`folders_${username}`)) || [];
+  const username = localStorage.getItem("loginInfo");
+  if (!username) return [];
+
+  const key = `folders_${username}`;
+  const raw = localStorage.getItem(key);
+  if (!raw) return [];
+
+  try {
+    const parsed = JSON.parse(raw);
+
+    // Accept both shapes: [] or { folders: [] }
+    const arr = Array.isArray(parsed)
+      ? parsed
+      : (parsed && Array.isArray(parsed.folders) ? parsed.folders : []);
+
+    // Migrate to the clean [] shape for future reads
+    localStorage.setItem(key, JSON.stringify(arr));
+    return arr;
+  } catch (e) {
+    console.warn("Invalid folders JSON in localStorage. Resetting.", e);
+    localStorage.removeItem(key);
+    return [];
+  }
 }
 
 // Save folders for the current user
@@ -72,77 +92,81 @@ function setUserFolders(folders) {
 
 // Display folders
 function displayFolders() {
-    const folders = getUserFolders();
-    console.log(localStorage.getItem("loginInfo"))
-    console.log(folders)
-    const container = document.querySelector("#foldersContainer");
-    container.innerHTML = "";
+  const folders = getUserFolders(); // always an array now
+  const container = document.querySelector("#foldersContainer");
+  container.innerHTML = "";
 
-    const header = document.createElement("p");
-    header.textContent = "Here are your folders:";
-    header.id = "foldersHeader";
-    header.style.color = "#aaa";
-    header.style.textAlign = "center";
-    container.appendChild(header);
+  const header = document.createElement("p");
+  header.textContent = "Here are your folders:";
+  header.id = "foldersHeader";
+  header.style.color = "#aaa";
+  header.style.textAlign = "center";
+  container.appendChild(header);
 
-    folders.forEach((folder, index) => {
-        const div = document.createElement("div");
-        div.classList.add("folder");
-        div.setAttribute("id", folder.name)
-        div.dataset.index = index;
+  folders.forEach((folder, index) => {
+    const div = document.createElement("div");
+    div.classList.add("folder");
+    div.setAttribute("id", folder.name);
+    div.dataset.index = index;
 
-        div.innerHTML = `
-            <span class="folder-name">${folder.name}</span>
-            <span class="delete-btn" style="float:right; cursor:pointer;">
-                <svg stroke="currentColor" fill="red" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-                </svg>
-            </span>
-            <div class="exercises">
-                ${folder.exercises.map(ex => `<div class="exercise-item">${ex}</div>`).join("")}
-            </div>
-        `;
+    const exercisesSafe = Array.isArray(folder.exercises) ? folder.exercises : [];
 
-        div.addEventListener("click", e => {
-            if (!e.target.closest(".delete-btn") && !e.target.closest("#exercise")) div.classList.toggle("expanded");
-        });
+    div.innerHTML = `
+      <span class="folder-name">${folder.name}</span>
+      <span class="delete-btn" style="float:right; cursor:pointer;">
+        <svg stroke="currentColor" fill="red" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+        </svg>
+      </span>
+      <div class="exercises">
+        ${exercisesSafe.map(ex => `<div class="exercise-item">${ex}</div>`).join("")}
+      </div>
+    `;
 
-        div.querySelector(".delete-btn").addEventListener("click", () => {
-            folders.splice(index, 1);
-            setUserFolders(folders);
-            displayFolders();
-            div.querySelector(".delete-btn").closest("div").querySelector(".exercises").querySelectorAll("#exercise").forEach((e) => {
-                delteFunc(e.querySelector("h3").innerHTML, )
-            })
-            // delteFunc()
-        });
-
-        container.appendChild(div);
+    div.addEventListener("click", e => {
+      if (!e.target.closest(".delete-btn") && !e.target.closest("#exercise")) {
+        div.classList.toggle("expanded");
+      }
     });
+
+    div.querySelector(".delete-btn").addEventListener("click", () => {
+      const updated = getUserFolders(); // re-read to be safe
+      updated.splice(index, 1);
+      setUserFolders(updated);
+      displayFolders();
+      // If you keep the delete loop below, guard selectors to avoid errors
+      const exWrap = div.querySelector(".exercises");
+      if (exWrap) {
+        exWrap.querySelectorAll("#exercise").forEach(el => {
+          const h3 = el.querySelector("h3");
+          if (h3) delteFunc(h3.textContent);
+        });
+      }
+    });
+
+    container.appendChild(div);
+  });
 }
 
 // Event listener to create a new folder
 document.querySelector("#submitBTNfolder").addEventListener("click", () => {
-    const folderInput = document.querySelector("#foldername");
-    const folderName = folderInput.value.trim();
-    if (!folderName) return;
+  const folderInput = document.querySelector("#foldername");
+  const folderName = folderInput.value.trim();
+  if (!folderName) return;
 
-    let folders = getUserFolders();
-
-    if (folders.length >= 5) {
-        alert("You can only create a maximum of 5 folders.");
-        return;
-    }
-
-    if (!folders.some(f => f.name === folderName)) {
-        folders.push({ name: folderName, exercises: [] });
-        setUserFolders(folders);
-        
-    } else {
-        alert("Folder name already exists.");
-    }
-
-    folderInput.value = "";
+  let folders = getUserFolders(); // guaranteed array
+  if (folders.length >= 5) {
+    alert("You can only create a maximum of 5 folders.");
+    return;
+  }
+  if (!folders.some(f => f.name === folderName)) {
+    folders.push({ name: folderName, exercises: [] });
+    setUserFolders(folders);
+    displayFolders(); // refresh UI after add
+  } else {
+    alert("Folder name already exists.");
+  }
+  folderInput.value = "";
 });
 
 // Initialize folder display
@@ -364,8 +388,9 @@ if (localStorage.getItem("loginInfo")) {
         window.location.href = "/account"
     })
     localStorage.setItem("savedOne", "0")
+    displayFolders(); 
     DisplySaved()
-    displayFolders();
+    
 
 } else {
     localStorage.setItem("savedOne", "10")
