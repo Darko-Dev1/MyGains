@@ -265,9 +265,6 @@ const DisplySaved = async () => {
                 create_banner.style.padding = "2%";
                 create_banner.style.position = "relative";
                 create_banner.style.display = "flex";
-                create_banner.style.flexDirection = "column";
-
-                create_banner.style.height = window.innerWidth > 920 ? "80vh" : "30vh";
 
                 // Exercise title
                 let create_text_field = document.createElement("h3");
