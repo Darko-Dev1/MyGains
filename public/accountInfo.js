@@ -64,6 +64,7 @@ function getUserFolders() {
 
 // Save folders for the current user
 function setUserFolders(folders) {
+    console.log(folders)
     const username = localStorage.getItem("loginInfo");
     if (!username) return;
     localStorage.setItem(`folders_${username}`, JSON.stringify(folders));
@@ -72,6 +73,8 @@ function setUserFolders(folders) {
 // Display folders
 function displayFolders() {
     const folders = getUserFolders();
+    console.log(localStorage.getItem("loginInfo"))
+    console.log(folders)
     const container = document.querySelector("#foldersContainer");
     container.innerHTML = "";
 
@@ -134,7 +137,7 @@ document.querySelector("#submitBTNfolder").addEventListener("click", () => {
     if (!folders.some(f => f.name === folderName)) {
         folders.push({ name: folderName, exercises: [] });
         setUserFolders(folders);
-        displayFolders();
+        
     } else {
         alert("Folder name already exists.");
     }
@@ -143,7 +146,7 @@ document.querySelector("#submitBTNfolder").addEventListener("click", () => {
 });
 
 // Initialize folder display
-displayFolders();
+// displayFolders();
 
 document.getElementById("closeTab").addEventListener("click", () => {
     document.getElementById("FolderCreateTab").style.display = "none"
@@ -206,145 +209,144 @@ const DisplySaved = async () => {
                 localStorage.setItem("accountID", userFound[0].id)
             }
             await finduserFromDb()
-
         }
 
-        const ExercisesFetch = async (currentsavedEx, currentFolderName) => {
-            try {
+        // Make ExercisesFetch global if not already
+const ExercisesFetch = async (currentsavedEx, currentFolderName) => {
+    try {
+        const res = await axios.get("/vezbi.json");
+        const displayThese = res.data.vezbi.filter(e => e.vezbam === currentsavedEx);
+        if (!displayThese.length) return;
 
-                const res = await axios.get("/vezbi.json")
-                const displayThese = res.data.vezbi.filter((e) => {
-                    return e.vezbam === currentsavedEx
-                })
-                const displayThes = displayThese[0]
-                let create_banner = document.createElement("div")
-                create_banner.setAttribute("id", "exercise")
-                let create_img_banner = document.createElement("img")
+        const displayThes = displayThese[0];
 
-                let take_gifs = displayThes["gif"]
-                let take_name = displayThes["vezbam"]
-                let take_muskul = displayThes["muskul"]
-                create_img_banner.setAttribute("src", take_gifs)
-                let create_text_field = document.createElement("h3")
-                create_text_field.style.textAlign = "center"
-                create_text_field.innerText = take_name
-                create_text_field.style.padding = "3%"
-                create_banner.appendChild(create_img_banner)
-                let take_excercises = document.querySelector("#exercises")
-                let create_h5 = document.createElement("h6")
-                create_h5.innerText = `Difficulty: ${displayThes["nivo_tesko"]} \n With Weights: ${displayThes["so_teg"]} \n Muscle Group: ${displayThes["muskul"]} `
-                create_banner.appendChild(create_h5)
-                const addButton = document.createElement("button");
-                addButton.setAttribute("id", "addBTNexercise");
-                addButton.style.position = "absolute"
-                addButton.style.height = "25%"
-                addButton.style.left = "50%"
-                addButton.style.transform = "translate(50%, -20%)"
-                addButton.style.padding = "5%"
-                addButton.style.width = "40%"
-                addButton.innerHTML = `<svg stroke="currentColor" fill="red" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>`
-                addButton.addEventListener("click", () => {
-                    delteFunc(take_name)
-                    create_banner.style.display = "none"
-                })
+        // Main container
+        let create_banner = document.createElement("div");
+        create_banner.setAttribute("id", "exercise");
+        create_banner.style.width = "95%";
+        create_banner.style.margin = "2%";
+        create_banner.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`;
+        create_banner.style.padding = "2%";
+        create_banner.style.position = "relative";
+        create_banner.style.display = "flex";
+        create_banner.style.flexDirection = "column"; // header + row
 
-                create_banner.appendChild(addButton)
-                create_banner.appendChild(create_text_field)
-                create_banner.setAttribute("value", take_muskul)
-                const contianerArea = document.createElement("div")
-                let settings = document.createElement("textarea")
-                settings.setAttribute("class", "textareaNote")
-                settings.setAttribute("placeholder", "Note")
-                settings.style.backgroundColor = "transparent"
-                settings.style.maxHeight = "100%"
-                settings.style.color = `${darkTheme.getItem("themeAtr")}`
-                axios.get(`/api/user/${parseInt(localStorage.getItem("accountID"))}`)
-                    .then(res => {
-                        const found = res.data.exercisesNotes.find(e => e.name === take_name);
-                        if (found && found.note !== "no note written") {
-                            settings.value = found.note;
-                        } else {
-                            settings.value = ""
-                        }
-                    })
-                    .catch(err => {
-                        console.error("Put failed", err);
-                        window.location.href = "/login";
-                    });
-                const noteSave = document.createElement("button")
-                noteSave.innerHTML = "Save Note"
-                noteSave.setAttribute("class", "saveNoteBTN")
-                noteSave.style.color = `${darkTheme.getItem("themeAtr")}`
-                noteSave.addEventListener("click", (e) => {
-                
-                    axios.put(`/api/user/${parseInt(localStorage.getItem("accountID"))}`, {
-                        userName: localStorage.getItem("loginInfo"),
-                        Exercise: { name: take_name, note: e.target.closest("#exercise").querySelector("textarea").value, foldername: res.data.exercisesNotes }
-                    }).then(res => {
-                        console.log("Added:", res);
-                    }).catch(err => {
-                        console.error("Put failed", err);
-                        window.location.href = "/login";
-                    });
-                })
-                contianerArea.appendChild(settings)
-                contianerArea.appendChild(noteSave)
-                contianerArea.style.width = "100%"
-                contianerArea.style.display = "flex"
-                contianerArea.style.justifyContent = "space-between"
-                create_banner.appendChild(contianerArea)
-                create_banner.style.width = "85%"
-
-                create_banner.scrollIntoView({ behavior: "smooth", block: "center" });
-                create_banner.children[0].style.width = "40%";
-                create_banner.children[1].style.display = "inline-block";
-                create_banner.children[0].style.marginRight = "4%"
-                create_banner.children[1].style.fontSize = "13px";
-                create_banner.children[1].style.width = "50%";
-                create_banner.children[1].style.height = "100px";
-                create_banner.children[1].style.textAlign = "left";
-                create_banner.style.paddingBottom = "5%"
-
-
-                if (window.innerWidth > 920) {
-                    create_banner.style.height = "80vh";
-                } else {
-                    create_banner.style.height = "30vh";
-                }
-
-                create_banner.style.width = "85%";
-                create_banner.style.margin = "2%"
-                create_banner.querySelector("h3").style.width = "100%";
-                create_banner.querySelector("h3").style.display = "block";
-                create_banner.querySelector("h3").style.textAlign = "center";
-                create_banner.children[3].style.display = "flex";
-                create_banner.children[3].style.padding = "2%";
-                create_banner.style.border = `${darkTheme.getItem("themeAtr")} solid 1px`
-                const folder = document.getElementById(currentFolderName); // works even with spaces
-
-                if (folder) {
-                    const exercises = folder.querySelector(".exercises");
-                    if (exercises) {
-                        exercises.appendChild(create_banner);
-                    } else {
-                        console.warn("No .exercises container inside folder:", currentFolderName);
-                    }
-                } else {
-                    console.warn("Folder not found:", currentFolderName);
-                    create_banner.remove();
-                }
-
-            } catch {
-                console.error("json not fetched")
-            }
+        if (window.innerWidth > 920) {
+            create_banner.style.height = "80vh";
+        } else {
+            create_banner.style.height = "30vh";
         }
+
+        // Exercise Title
+        let create_text_field = document.createElement("h3");
+        create_text_field.style.textAlign = "center";
+        create_text_field.innerText = displayThes["vezbam"];
+        create_banner.appendChild(create_text_field);
+
+        // Row container: image + h6 info
+        const rowDiv = document.createElement("div");
+        rowDiv.style.display = "flex";
+        rowDiv.style.flexDirection = "row";
+        rowDiv.style.alignItems = "flex-start";
+        rowDiv.style.justifyContent = "flex-start";
+        rowDiv.style.marginTop = "1%";
+
+        // Exercise Image
+        let create_img_banner = document.createElement("img");
+        create_img_banner.setAttribute("src", displayThes["gif"]);
+        create_img_banner.style.width = "40%";
+        create_img_banner.style.height = "100%";
+        create_img_banner.style.marginRight = "4%";
+
+        // Exercise Info
+        let create_h6 = document.createElement("h6");
+        create_h6.innerText = `Difficulty: ${displayThes["nivo_tesko"]}\nWith Weights: ${displayThes["so_teg"]}\nMuscle Group: ${displayThes["muskul"]}`;
+        create_h6.style.fontSize = "13px";
+        create_h6.style.whiteSpace = "pre-line"; // preserve line breaks
+        create_h6.style.flex = "1"; // take remaining space
+        create_h6.style.textAlign = "left";
+        create_h6.style.height = "80px"
+
+        rowDiv.appendChild(create_img_banner);
+        rowDiv.appendChild(create_h6);
+        create_banner.appendChild(rowDiv);
+
+        // Trash Button
+        const addButton = document.createElement("button");
+        addButton.setAttribute("id", "addBTNexercise");
+        addButton.style.position = "absolute";
+        addButton.style.top = "-40%";
+
+        addButton.style.right = "-15%";
+        addButton.innerHTML = `<svg stroke="currentColor" fill="red" stroke-width="0" viewBox="0 0 448 512" height="5px" width="5px" xmlns="http://www.w3.org/2000/svg"><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>`;
+        addButton.addEventListener("click", () => {
+            delteFunc(displayThes["vezbam"]);
+            create_banner.style.display = "none";
+        });
+        create_banner.appendChild(addButton);
+
+        // Notes container
+        const contianerArea = document.createElement("div");
+        contianerArea.style.width = "100%";
+        contianerArea.style.display = "flex";
+        contianerArea.style.justifyContent = "space-between";
+        contianerArea.style.marginTop = "2%";
+
+        let settings = document.createElement("textarea");
+        settings.setAttribute("class", "textareaNote");
+        settings.setAttribute("placeholder", "Note");
+        settings.style.backgroundColor = "transparent";
+        settings.style.maxHeight = "100%";
+        settings.style.color = `${darkTheme.getItem("themeAtr")}`;
+
+        const accountID = parseInt(localStorage.getItem("accountID"));
+        axios.get(`/api/user/${accountID}`)
+            .then(res => {
+                const found = res.data.exercisesNotes.find(e => e.name === displayThes["vezbam"]);
+                settings.value = (found && found.note !== "no note written") ? found.note : "";
+            }).catch(err => console.error("Put failed", err));
+
+        const noteSave = document.createElement("button");
+        noteSave.innerHTML = "Save Note";
+        noteSave.setAttribute("class", "saveNoteBTN");
+        noteSave.style.color = `${darkTheme.getItem("themeAtr")}`;
+        noteSave.addEventListener("click", e => {
+            axios.put(`/api/user/${accountID}`, {
+                userName: localStorage.getItem("loginInfo"),
+                Exercise: { name: displayThes["vezbam"], note: settings.value }
+            }).then(res => console.log("Added:", res))
+              .catch(err => console.error("Put failed", err));
+        });
+
+        contianerArea.appendChild(settings);
+        contianerArea.appendChild(noteSave);
+        create_banner.appendChild(contianerArea);
+
+        // Append to folder
+        const folderId = currentFolderName?.trim();
+        const folder = document.getElementById(currentFolderName);
+        if (folder) {
+            const exercises = folder.querySelector(".exercises");
+            if (exercises) exercises.appendChild(create_banner);
+            else console.warn("No .exercises container inside folder:", currentFolderName);
+        } else {
+            console.warn("Folder not found:", currentFolderName);
+        }
+
+    } catch (err) {
+        console.error("json not fetched", err);
+    }
+};
+
         setTimeout(async () => {
             const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`)
             document.querySelector("#exercises").innerHTML = ""
             res.data.exercisesNotes.forEach((e) => {
                 ExercisesFetch(e.name, e.folderName)
             })
+            
         }, 500)
+
         document.querySelector("#exercises").innerHTML = "loading..."
 
     } catch {
@@ -363,6 +365,7 @@ if (localStorage.getItem("loginInfo")) {
     })
     localStorage.setItem("savedOne", "0")
     DisplySaved()
+    displayFolders();
 
 } else {
     localStorage.setItem("savedOne", "10")
