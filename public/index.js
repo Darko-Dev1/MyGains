@@ -536,8 +536,9 @@ document.getElementById("exercises").addEventListener("click", (e) => {
   exerciseDiv.appendChild(container);
 });
 
+const headerSection = document.querySelector("header");
+
 if (localStorage) {
-  const headerSection = document.querySelector("header");
   headerSection
     .querySelector("img")
     .setAttribute("src", `${darkTheme.getItem("themeLogo")}`);
@@ -602,9 +603,7 @@ if (localStorage) {
       darkTheme.setItem("themeAtr", "white");
       darkTheme.setItem("themeLogo", "/Screenshot 2025-01-21 233337.png");
     }
-    headerSection
-      .querySelector("img")
-      .setAttribute("src", `${darkTheme.getItem("themeLogo")}`);
+    headerSection.querySelector("img").setAttribute("src", `${darkTheme.getItem("themeLogo")}`);
     document.querySelector("body").style.backgroundColor = `${darkTheme.getItem(
       "theme"
     )}`;
