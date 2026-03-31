@@ -371,12 +371,13 @@ li {
 }
 
 #formbox {
-    border: 1px solid black;
     padding: 2%;
     text-align: center;
+    position: relative;
 }
 
 #formbox div {
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -602,8 +603,19 @@ textarea {
     max-width: 700px;
 
 }
+#formbox div {
 
 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
 
+    width: 50%;
+}
 
 }

@@ -67,6 +67,7 @@ function getUserFolders() {
   try {
     const parsed = JSON.parse(raw);
 
+
     // Accept both shapes: [] or { folders: [] }
     const arr = Array.isArray(parsed)
       ? parsed
@@ -349,6 +350,7 @@ const DisplySaved = async () => {
                     const exercises = folder.querySelector(".exercises");
                     if (exercises) exercises.appendChild(create_banner);
                 }
+                console.log(folder)
 
             } catch (err) {
                 console.error("json not fetched", err);
@@ -360,8 +362,9 @@ const DisplySaved = async () => {
             const res = await axios.get(`api/user/${parseInt(localStorage.getItem("accountID"))}`);
             document.querySelector("#exercises").innerHTML = "";
             res.data.exercisesNotes.forEach((e) => {
-                ensureFolderExists(e.folderName); // auto-create missing folder
-                ExercisesFetch(e.name, e.folderName);
+                ensureFolderExists(e.folderName);
+                console.log(e.folderName) // auto-create missing folder
+                ExercisesFetch(e.name, e.foldername);
             });
         }, 500);
 
