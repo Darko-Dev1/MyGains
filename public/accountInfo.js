@@ -237,6 +237,7 @@ const DisplySaved = async () => {
         // Ensure folder exists in localStorage and DOM
         function ensureFolderExists(folderName) {
             if (!folderName) return;
+            console.log("Ensuring folder exists for:", folderName);
             let folders = getUserFolders();
             if (!folders.some(f => f.name === folderName)) {
                 folders.push({ name: folderName, exercises: [] });
@@ -250,6 +251,7 @@ const DisplySaved = async () => {
             try {
                 // Auto-create missing folder
                 ensureFolderExists(currentFolderName);
+                console.log("Fetching exercise data for:", currentFolderName); 
 
                 const res = await axios.get("/vezbi.json");
                 const displayThese = res.data.vezbi.filter(e => e.vezbam === currentsavedEx);
@@ -345,13 +347,12 @@ const DisplySaved = async () => {
                 create_banner.appendChild(contianerArea);
 
                 // Append to folder
+                console.log(currentFolderName)
                 const folder = document.getElementById(currentFolderName);
                 if (folder) {
                     const exercises = folder.querySelector(".exercises");
                     if (exercises) exercises.appendChild(create_banner);
                 }
-                console.log(folder)
-
             } catch (err) {
                 console.error("json not fetched", err);
             }
@@ -363,8 +364,8 @@ const DisplySaved = async () => {
             document.querySelector("#exercises").innerHTML = "";
             res.data.exercisesNotes.forEach((e) => {
                 ensureFolderExists(e.folderName);
-                console.log(e.folderName) // auto-create missing folder
-                ExercisesFetch(e.name, e.foldername);
+                console.log(e) // auto-create missing folder
+                ExercisesFetch(e.name, e.folderName);
             });
         }, 500);
 
